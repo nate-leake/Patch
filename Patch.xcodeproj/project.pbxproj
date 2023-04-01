@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF67CAFB29D8CEA90032183F /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF67CAFA29D8CEA90032183F /* CustomTabBar.swift */; };
+		AF67CAFD29D8DC0C0032183F /* TabBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF67CAFC29D8DC0C0032183F /* TabBarButton.swift */; };
 		AF85705529D86FD6006DEFBE /* PatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85705429D86FD6006DEFBE /* PatchApp.swift */; };
-		AF85705729D86FD6006DEFBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85705629D86FD6006DEFBE /* ContentView.swift */; };
+		AF85705729D86FD6006DEFBE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85705629D86FD6006DEFBE /* RootView.swift */; };
 		AF85705929D86FD8006DEFBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705829D86FD8006DEFBE /* Assets.xcassets */; };
 		AF85705D29D86FD8006DEFBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */; };
 		AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85706329D87255006DEFBE /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF67CAFA29D8CEA90032183F /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		AF67CAFC29D8DC0C0032183F /* TabBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarButton.swift; sourceTree = "<group>"; };
 		AF85705129D86FD6006DEFBE /* Patch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Patch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF85705429D86FD6006DEFBE /* PatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatchApp.swift; sourceTree = "<group>"; };
-		AF85705629D86FD6006DEFBE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AF85705629D86FD6006DEFBE /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		AF85705829D86FD8006DEFBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF85705A29D86FD8006DEFBE /* Patch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Patch.entitlements; sourceTree = "<group>"; };
 		AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -35,6 +39,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF67CAF829D8CE7D0032183F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AF85705629D86FD6006DEFBE /* RootView.swift */,
+				AF67CAF929D8CE940032183F /* Custom Tab Bar */,
+				AF85706329D87255006DEFBE /* SplashScreenView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AF67CAF929D8CE940032183F /* Custom Tab Bar */ = {
+			isa = PBXGroup;
+			children = (
+				AF67CAFA29D8CEA90032183F /* CustomTabBar.swift */,
+				AF67CAFC29D8DC0C0032183F /* TabBarButton.swift */,
+			);
+			path = "Custom Tab Bar";
+			sourceTree = "<group>";
+		};
 		AF85704829D86FD6006DEFBE = {
 			isa = PBXGroup;
 			children = (
@@ -54,9 +77,8 @@
 		AF85705329D86FD6006DEFBE /* Patch */ = {
 			isa = PBXGroup;
 			children = (
+				AF67CAF829D8CE7D0032183F /* Views */,
 				AF85705429D86FD6006DEFBE /* PatchApp.swift */,
-				AF85705629D86FD6006DEFBE /* ContentView.swift */,
-				AF85706329D87255006DEFBE /* SplashScreenView.swift */,
 				AF85705829D86FD8006DEFBE /* Assets.xcassets */,
 				AF85705A29D86FD8006DEFBE /* Patch.entitlements */,
 				AF85705B29D86FD8006DEFBE /* Preview Content */,
@@ -100,7 +122,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					AF85705029D86FD6006DEFBE = {
 						CreatedOnToolsVersion = 14.2;
@@ -142,8 +164,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF85705729D86FD6006DEFBE /* ContentView.swift in Sources */,
+				AF67CAFB29D8CEA90032183F /* CustomTabBar.swift in Sources */,
+				AF85705729D86FD6006DEFBE /* RootView.swift in Sources */,
 				AF85705529D86FD6006DEFBE /* PatchApp.swift in Sources */,
+				AF67CAFD29D8DC0C0032183F /* TabBarButton.swift in Sources */,
 				AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,6 +208,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -242,6 +267,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -268,9 +294,12 @@
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
+				DEVELOPMENT_TEAM = BK7GR7SKX2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -304,9 +333,12 @@
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
+				DEVELOPMENT_TEAM = BK7GR7SKX2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

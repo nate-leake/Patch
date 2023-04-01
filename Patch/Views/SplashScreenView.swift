@@ -10,15 +10,15 @@ import SwiftUI
 struct SplashScreenView: View {
     @State private var isActive = false
     
-    let colorPrimary = "Original_Primary"
-    let colorSecondary = "Original_Secondary"
-    let colorTertiary = "Original_Tertiary"
-    let colorAccent = "Original_Accent"
+    let colorPrimary = Color("Original_Primary")
+    let colorSecondary = Color("Original_Secondary")
+    let colorTertiary = Color("Original_Tertiary")
+    let colorAccent = Color("Original_Accent")
     
     
     var body: some View {
         if isActive == true{
-            ContentView()
+            RootView()
         } else {
             VStack{
                     Image("P")
