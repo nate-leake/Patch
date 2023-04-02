@@ -7,28 +7,35 @@
 
 import SwiftUI
 
-let colorPrimary = Color("Original_Primary")
-let colorSecondary = Color("Original_Secondary")
-let colorTertiary = Color("Original_Tertiary")
-let colorAccent = Color("Original_Accent")
-
-
 struct RootView: View {
-        
-    @State var selectedTabs: Tabs = .home
+    @EnvironmentObject var colors:ColorContent
     
-    
+    @State var selectedTabs: Tabs = .accounts
     var body: some View {
+        
         ZStack{
-            Color(.white)
+            colors.Fill
                 .ignoresSafeArea()
-            
             VStack{
-                Text("Content View")
-                    .foregroundColor(colorAccent)
-                    .font(.system(size:30))
-                
                 Spacer()
+                Text("Accent")
+                    .foregroundColor(colors.Accent)
+                    .font(.system(size:30))
+                Spacer()
+                Text("Primary")
+                    .foregroundColor(colors.Primary)
+                    .font(.system(size:30))
+                Spacer()
+                Text("Secondary")
+                    .foregroundColor(colors.Secondary)
+                    .font(.system(size:30))
+                Spacer()
+                Text("Tertiary")
+                    .foregroundColor(colors.Tertiary)
+                    .font(.system(size:30))
+                Spacer()
+                
+                
                 
                 CustomTabBar(selectedTab: $selectedTabs)
             }
@@ -40,5 +47,6 @@ struct RootView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         RootView()
+            .environmentObject(ColorContent())
     }
 }

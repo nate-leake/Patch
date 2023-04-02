@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabBarButton: View {
+    @EnvironmentObject var colors: ColorContent
     
     var buttonText: String
     var imageName: String
@@ -19,7 +20,7 @@ struct TabBarButton: View {
             
             if isActive{
                 Rectangle()
-                    .foregroundColor(colorPrimary)
+                    .foregroundColor(colors.Accent)
                     .frame(width: geo.size.width/2, height: 4)
                     .padding(.leading, geo.size.width/4)
             }
@@ -40,5 +41,6 @@ struct TabBarButton: View {
 struct TabBarButton_Previews: PreviewProvider {
     static var previews: some View {
         TabBarButton(buttonText: "home", imageName: "creditcard", isActive: true)
+            .environmentObject(ColorContent())
     }
 }

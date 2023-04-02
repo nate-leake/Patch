@@ -14,6 +14,7 @@
 		AF85705929D86FD8006DEFBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705829D86FD8006DEFBE /* Assets.xcassets */; };
 		AF85705D29D86FD8006DEFBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */; };
 		AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85706329D87255006DEFBE /* SplashScreenView.swift */; };
+		AFF569D329D8F7640018C2C3 /* ColorContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF569D229D8F7640018C2C3 /* ColorContent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		AF85705A29D86FD8006DEFBE /* Patch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Patch.entitlements; sourceTree = "<group>"; };
 		AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AF85706329D87255006DEFBE /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		AFF569D229D8F7640018C2C3 /* ColorContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorContent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 				AF85705629D86FD6006DEFBE /* RootView.swift */,
 				AF67CAF929D8CE940032183F /* Custom Tab Bar */,
 				AF85706329D87255006DEFBE /* SplashScreenView.swift */,
+				AFF569D229D8F7640018C2C3 /* ColorContent.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF67CAFB29D8CEA90032183F /* CustomTabBar.swift in Sources */,
+				AFF569D329D8F7640018C2C3 /* ColorContent.swift in Sources */,
 				AF85705729D86FD6006DEFBE /* RootView.swift in Sources */,
 				AF85705529D86FD6006DEFBE /* PatchApp.swift in Sources */,
 				AF67CAFD29D8DC0C0032183F /* TabBarButton.swift in Sources */,
