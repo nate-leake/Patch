@@ -10,37 +10,31 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject var colors:ColorContent
     
-    @State var selectedTabs: Tabs = .accounts
+    @State var selectedTabs: Tabs = .home
+    
     var body: some View {
         
         ZStack{
             colors.Fill
                 .ignoresSafeArea()
+            
             VStack{
-                Spacer()
-                Text("Accent")
-                    .foregroundColor(colors.Accent)
-                    .font(.system(size:30))
-                Spacer()
-                Text("Primary")
-                    .foregroundColor(colors.Primary)
-                    .font(.system(size:30))
-                Spacer()
-                Text("Secondary")
-                    .foregroundColor(colors.Secondary)
-                    .font(.system(size:30))
-                Spacer()
-                Text("Tertiary")
-                    .foregroundColor(colors.Tertiary)
-                    .font(.system(size:30))
-                Spacer()
                 
-                
+                switch selectedTabs {
+                case .home:
+                    HomeView()
+                case .categories:
+                    CategoryView()
+                case .accounts:
+                    AccountsView()
+                case .settings:
+                    SettingsView()
+                }
                 
                 CustomTabBar(selectedTab: $selectedTabs)
             }
-            
         }
+        
     }
 }
 
