@@ -16,24 +16,24 @@ struct TabBarButton: View {
     
     var body: some View {
         
-        GeometryReader{ geo in
-            
-            if isActive{
-                Rectangle()
-                    .foregroundColor(colors.Accent)
-                    .frame(width: geo.size.width/2, height: 4)
-                    .padding(.leading, geo.size.width/4)
+            GeometryReader{ geo in
+                
+                if isActive{
+                    Rectangle()
+                        .foregroundColor(colors.Accent)
+                        .frame(width: geo.size.width/2, height: 4)
+                        .padding(.leading, geo.size.width/4)
+                }
+                
+                VStack (alignment: .center, spacing: 4){
+                    Image(systemName: imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                    Text(buttonText)
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
             }
-            
-            VStack (alignment: .center, spacing: 4){
-                Image(systemName: imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                Text(buttonText)
-            }
-            .frame(width: geo.size.width, height: geo.size.height)
-        }
         
     }
 }
