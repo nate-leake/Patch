@@ -12,6 +12,7 @@ struct PatchApp: App {
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
+                .environmentObject(ColorContent())
         }
     }
 }
