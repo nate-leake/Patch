@@ -59,7 +59,7 @@ struct SettingsView: View {
                                 }
                                 
                             }.scrollContentBackground(.hidden)
-
+                            
                         }
                     }
                     .navigationTitle("Settings")

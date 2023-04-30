@@ -26,10 +26,10 @@ struct FiguresView: View {
             }
             .padding()
             .overlay(
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(
-                            LinearGradient(gradient: Gradient(colors: [colors.Primary, colors.Tertiary]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 4)
-                )
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(
+                        LinearGradient(gradient: Gradient(colors: [colors.Primary, colors.Tertiary]), startPoint: .bottomLeading, endPoint: .topTrailing), lineWidth: 4)
+            )
         }
     }
 }

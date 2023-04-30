@@ -18,7 +18,7 @@ struct CircularProgressView: View {
         startAngle: .degrees(0),
         endAngle: .degrees(190))
     //                .stroke(gradient, style: StrokeStyle(lineWidth: 5, lineCap: .round))
-
+    
     
     var body: some View {
         ZStack {
@@ -27,8 +27,9 @@ struct CircularProgressView: View {
                     Color.green.opacity(0.5),
                     lineWidth: 5
                 )
+                
             Circle()
-                // 2
+            // 2
                 .trim(from: 0, to: progress)
                 .stroke(
                     Color.green,

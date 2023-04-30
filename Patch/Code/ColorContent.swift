@@ -20,7 +20,6 @@ class ColorContent: ObservableObject {
     
     @AppStorage("COLOR_SCHEME") var colorScheme: ColorScheme = .unspecified{
         didSet{
-            print("Set color scheme to \(colorScheme)")
             setPreferredColorScheme()
         }
     }
@@ -42,14 +41,12 @@ class ColorContent: ObservableObject {
         }
         return window
     }
-        
+    
     init(){
         UserDefaults.resetStandardUserDefaults()
         var saved_palette: String = UserDefaults.standard.string(forKey: "COLOR_PALETTE") ?? ""
         let saved_scheme: Int = UserDefaults.standard.integer(forKey: "COLOR_SCHEME")
-        
-        print("saved_scheme is \(saved_scheme)")
-        
+                
         if saved_palette == ""{
             saved_palette = "Original"
             UserDefaults.standard.set(saved_palette, forKey: "COLOR_PALETTE")
@@ -62,9 +59,9 @@ class ColorContent: ObservableObject {
         self.Accent    = Color(saved_palette+"_Accent")
         
         switch saved_scheme{
-            case 0: self.colorScheme = .unspecified
-            case 1: self.colorScheme = .light
-            case 2: self.colorScheme = .dark
+        case 0: self.colorScheme = .unspecified
+        case 1: self.colorScheme = .light
+        case 2: self.colorScheme = .dark
         default:
             self.colorScheme = .unspecified
         }

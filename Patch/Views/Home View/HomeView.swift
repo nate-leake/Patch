@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors:ColorContent
     
     var body: some View {
@@ -26,6 +28,7 @@ struct HomeView: View {
                         Spacer()
                         
                         TransactionsView()
+                            .environmentObject(dataController)
                         Spacer()
                     }
                 }
@@ -37,6 +40,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .environmentObject(DataController(isPreviewing: true))
             .environmentObject(ColorContent())
     }
 }

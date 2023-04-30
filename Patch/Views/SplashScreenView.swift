@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SplashScreenView: View {
+    @Environment (\.managedObjectContext) var managedObjContext
+    @StateObject private var dataController = DataController()
     @EnvironmentObject var colors: ColorContent
     
     @State private var isActive = false
@@ -15,6 +17,8 @@ struct SplashScreenView: View {
     var body: some View {
         if isActive == true{
             RootView()
+                .environment(\.managedObjectContext, dataController.context)
+                .environmentObject(dataController)
                 .environmentObject(colors)
                 .onAppear{
                     colors.setPreferredColorScheme()
@@ -24,26 +28,40 @@ struct SplashScreenView: View {
             ZStack{
                 colors.Fill
                     .ignoresSafeArea()
-                VStack{
-                    Image("box")
-                        .resizable()                     // Make it resizable
+                VStack(spacing: 0){
+                    Image("SplashLogo")
+                        .resizable()
+                        .opacity(1.0)// Make it resizable
                         .aspectRatio(contentMode: .fit)  // Specifying the resizing mode so that image scaled correctly
-                        .overlay {
-                                LinearGradient(
-                                    colors: [colors.Primary, colors.Tertiary],
-                                    startPoint: .topLeading,
-                                    endPoint: .bottom
-                                )
-                                .mask {
-                                    Image("box")
-                                        .resizable()                     // Make it resizable
-                                        .aspectRatio(contentMode: .fit)  // Specifying the resizing mode so that image scaled correctly
-                                }
-                            }
+                        .padding(.horizontal, 100)
+                    
+                    Text("Patch")
+                        .font(.custom("Arial Rounded MT Bold", size: 75))
+                    
                     
                 }
+                
+                
+                .overlay {
+                    
+                    LinearGradient(
+                        colors: [colors.Primary, colors.Tertiary],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .mask {
+                        VStack(spacing: 0){
+                            Image("SplashLogo")
+                                .resizable()                     // Make it resizable
+                                .aspectRatio(contentMode: .fit)  // Specifying the resizing mode so that image scaled correctly
+                                .padding(.horizontal, 100)
+                            Text("Patch")
+                                .font(.custom("Arial Rounded MT Bold", size: 75))
+                        }
+                    }
+                }
                 .onAppear{
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
                         withAnimation{
                             self.isActive = true
                         }
@@ -51,6 +69,7 @@ struct SplashScreenView: View {
                     }
                 }
             }
+            
         }
     }
 }

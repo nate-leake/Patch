@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PaletteView: View {
-        
+    
     var paletteName: String
     
     var body: some View {
