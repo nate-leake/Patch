@@ -15,9 +15,8 @@ struct TransactionDetailsView: View {
     @Environment(\.dismiss) var dismissSheet
     @FetchRequest(sortDescriptors: [SortDescriptor(\.type)]) var categoryData: FetchedResults<Category>
     
-    
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    
+        
     @State private var dateSelected: Date = Date()
     @State private var amount: Int = 0
     @State private var description: String = ""
@@ -122,7 +121,8 @@ struct AddTransactionView_Previews: PreviewProvider {
     
     static var previews: some View {
         TransactionDetailsView()
-            .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(ColorContent())
+        
     }
 }

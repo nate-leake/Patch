@@ -12,9 +12,7 @@ struct FiguresView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors:ColorContent
-    
-    @Binding var hasUpdated: Bool
-    
+        
     let computations: Computation = Computation()
     
     @FetchRequest(sortDescriptors: [
@@ -60,10 +58,9 @@ struct FiguresView: View {
 
 struct FiguresView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
-    @State static var updateBool = false
     
     static var previews: some View {
-        FiguresView(hasUpdated: $updateBool)
+        FiguresView()
             .environmentObject(dataController)
             .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)

@@ -10,8 +10,8 @@ import SwiftUI
 struct HomeView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors:ColorContent
-    
+    @EnvironmentObject var colors: ColorContent
+        
     var body: some View {
         ZStack{
             colors.Fill
@@ -38,9 +38,12 @@ struct HomeView: View {
 }
 
 struct HomeView_Previews: PreviewProvider {
+    static var dataController = DataController(isPreviewing: true)
+    
     static var previews: some View {
         HomeView()
-            .environmentObject(DataController(isPreviewing: true))
+            .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(dataController)
             .environmentObject(ColorContent())
     }
 }
