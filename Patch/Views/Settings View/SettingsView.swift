@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var colors:ColorContent
+    
+    let buildNumber: String = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+    let versionNumber: String = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+    
     var body: some View {
         ZStack{
             VStack{
@@ -65,10 +69,18 @@ struct SettingsView: View {
                     .navigationTitle("Settings")
                     .foregroundColor(colors.Primary)
                 }
+                
+                
+                HStack{
+                    Text("Version " + versionNumber)
+                    Text("(" + buildNumber + ")")
+                }.opacity(0.8)
             }
             .foregroundColor(colors.Primary)
             .font(.system(.body))
-        }            
+            
+            
+        }
     }
 }
 

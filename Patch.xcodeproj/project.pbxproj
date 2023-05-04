@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		AF0C3A9829DF0C6C00F4FF05 /* PaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */; };
 		AF1E4FB129F49763008AA837 /* NumberFormatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */; };
-		AF1EB8B729F44DBE00777A5E /* CategoryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF1EB8B529F44DBE00777A5E /* CategoryData.xcdatamodeld */; };
 		AF1EB8BE29F4528D00777A5E /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1EB8BD29F4528D00777A5E /* CategoryDetailsView.swift */; };
 		AF2B34D229E7401F003A4D07 /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B34D129E7401F003A4D07 /* TransactionDetailsView.swift */; };
 		AF2B34D429E7474C003A4D07 /* DetailTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B34D329E7474C003A4D07 /* DetailTileView.swift */; };
+		AF319D862A019BBA00654329 /* Computation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF319D852A019BBA00654329 /* Computation.swift */; };
 		AF353C8D29F444D000DAF5C7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF353C8C29F444D000DAF5C7 /* DataController.swift */; };
 		AF63592F29DB6C7300AEEFBC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63592E29DB6C7300AEEFBC /* SettingsView.swift */; };
 		AF63593129DB6F9C00AEEFBC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63593029DB6F9C00AEEFBC /* HomeView.swift */; };
@@ -24,6 +24,7 @@
 		AF85705929D86FD8006DEFBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705829D86FD8006DEFBE /* Assets.xcassets */; };
 		AF85705D29D86FD8006DEFBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */; };
 		AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85706329D87255006DEFBE /* SplashScreenView.swift */; };
+		AFA378762A03F4A7005E8F60 /* CategoryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */; };
 		AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */; };
 		AFB9521A29DE1D61005661FF /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9521929DE1D61005661FF /* CircularProgressView.swift */; };
 		AFC0EAF329FDC53400975D9C /* SFSymbolsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0EAF229FDC53400975D9C /* SFSymbolsPicker.swift */; };
@@ -44,10 +45,10 @@
 /* Begin PBXFileReference section */
 		AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
 		AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatHandler.swift; sourceTree = "<group>"; };
-		AF1EB8B629F44DBE00777A5E /* CategoryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CategoryData.xcdatamodel; sourceTree = "<group>"; };
 		AF1EB8BD29F4528D00777A5E /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
 		AF2B34D129E7401F003A4D07 /* TransactionDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
 		AF2B34D329E7474C003A4D07 /* DetailTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTileView.swift; sourceTree = "<group>"; };
+		AF319D852A019BBA00654329 /* Computation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computation.swift; sourceTree = "<group>"; };
 		AF353C8C29F444D000DAF5C7 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AF63592E29DB6C7300AEEFBC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF63593029DB6F9C00AEEFBC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -61,6 +62,7 @@
 		AF85705A29D86FD8006DEFBE /* Patch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Patch.entitlements; sourceTree = "<group>"; };
 		AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AF85706329D87255006DEFBE /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CategoryData.xcdatamodel; sourceTree = "<group>"; };
 		AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
 		AFB9521929DE1D61005661FF /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		AFC0EAF229FDC53400975D9C /* SFSymbolsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolsPicker.swift; sourceTree = "<group>"; };
@@ -89,11 +91,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF319D832A019B9C00654329 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AFF569D229D8F7640018C2C3 /* ColorContent.swift */,
+				AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */,
+				AFEA832729F6C7C20079B285 /* ViewPasser.swift */,
+				AF8177AE29F8830400DB33F9 /* CurrencyField.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AF319D842A019BA200654329 /* Computations */ = {
+			isa = PBXGroup;
+			children = (
+				AF319D852A019BBA00654329 /* Computation.swift */,
+			);
+			path = Computations;
+			sourceTree = "<group>";
+		};
 		AF353C8B29F4413300DAF5C7 /* CategoryTransactionModel */ = {
 			isa = PBXGroup;
 			children = (
+				AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */,
 				AF353C8C29F444D000DAF5C7 /* DataController.swift */,
-				AF1EB8B529F44DBE00777A5E /* CategoryData.xcdatamodeld */,
 			);
 			path = CategoryTransactionModel;
 			sourceTree = "<group>";
@@ -110,10 +131,8 @@
 		AF63592D29DB6C5000AEEFBC /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				AFF569D229D8F7640018C2C3 /* ColorContent.swift */,
-				AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */,
-				AFEA832729F6C7C20079B285 /* ViewPasser.swift */,
-				AF8177AE29F8830400DB33F9 /* CurrencyField.swift */,
+				AF319D842A019BA200654329 /* Computations */,
+				AF319D832A019B9C00654329 /* UI */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -339,8 +358,9 @@
 				AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */,
 				AF63593129DB6F9C00AEEFBC /* HomeView.swift in Sources */,
 				AF67CAFD29D8DC0C0032183F /* TabBarButton.swift in Sources */,
-				AF1EB8B729F44DBE00777A5E /* CategoryData.xcdatamodeld in Sources */,
+				AF319D862A019BBA00654329 /* Computation.swift in Sources */,
 				AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */,
+				AFA378762A03F4A7005E8F60 /* CategoryData.xcdatamodeld in Sources */,
 				AFF6D76129DCD75D00B01B00 /* CategoryView.swift in Sources */,
 				AFB9521A29DE1D61005661FF /* CircularProgressView.swift in Sources */,
 				AF2B34D229E7401F003A4D07 /* TransactionDetailsView.swift in Sources */,
@@ -473,7 +493,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -496,7 +516,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -516,7 +536,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 8;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -539,7 +559,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -576,12 +596,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		AF1EB8B529F44DBE00777A5E /* CategoryData.xcdatamodeld */ = {
+		AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				AF1EB8B629F44DBE00777A5E /* CategoryData.xcdatamodel */,
+				AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */,
 			);
-			currentVersion = AF1EB8B629F44DBE00777A5E /* CategoryData.xcdatamodel */;
+			currentVersion = AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */;
 			path = CategoryData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
