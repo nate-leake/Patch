@@ -31,10 +31,10 @@ struct AccountsView: View {
                     Image(systemName: "plus.app")
                         .padding(.vertical, 2.0)
                         .padding(.horizontal, 12.0)
-                        .foregroundColor(colors.Accent)
+                        .foregroundColor(.gray)
                         .font(.system(.largeTitle))
                         .onTapGesture {
-                            showAddCategorySheet.toggle()
+//                            showAddCategorySheet.toggle()
                         }
                 }
                 .sheet(isPresented: $showAddCategorySheet, content: {
