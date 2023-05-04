@@ -14,7 +14,7 @@ struct CategoryProgressView: View {
     @State var image: String
     
     private let gradient = AngularGradient(
-        gradient: Gradient(colors: [Color.green.opacity(0.5), Color.green.opacity(0.7), Color.green.opacity(0.5)]),
+        gradient: Gradient(colors: [Color.green.opacity(0.5), Color.pink.opacity(0.7), Color.blue.opacity(1.0)]),
         center: .center,
         startAngle: .degrees(0),
         endAngle: .degrees(190))
@@ -32,12 +32,17 @@ struct CategoryProgressView: View {
                 )
                 .padding(5)
         }
+        .onAppear(
+            perform: {
+                print(self.percentage, self.percentage/100.0)
+            }
+        )
     }
 }
 
 struct CategoryProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryProgressView(percentage: 19.78, image: "hazardsign")
+        CategoryProgressView(percentage: 30.00, image: "hazardsign")
             .environmentObject(ColorContent())
     }
 }
