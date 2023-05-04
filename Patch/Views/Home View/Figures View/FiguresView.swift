@@ -6,21 +6,45 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct FiguresView: View {
+    @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors:ColorContent
+    
+    @Binding var hasUpdated: Bool
+    
+    let computations: Computation = Computation()
+    
+    @FetchRequest(sortDescriptors: [
+        //        SortDescriptor(\.title),
+        SortDescriptor(\.type, order: .reverse)
+    ]) var categoryData: FetchedResults<Category>
+    
+    @FetchRequest(sortDescriptors: [
+        //        SortDescriptor(\.title),
+        SortDescriptor(\.type, order: .reverse)
+    ]) var accountsData: FetchedResults<Account>
     
     var body: some View {
         ZStack{
             VStack{
                 HStack{
-                    FigureContentView(title: "Income", percentage: 56.67, image: "income")
+                    
+                    FigureContentView(title: "Income",
+                                      percentage: accountsData[0].percentIncome,
+                                      image: "income")
                         .coordinateSpace(name: "Custom")
                     Spacer()
-                    FigureContentView(title: "Expenses", percentage: 22.30, image: "expenses")
+                    FigureContentView(title: "Expenses",
+                                      percentage: accountsData[0].percentExpenses,
+                                      image: "expenses")
                         .coordinateSpace(name: "Custom")
                     Spacer()
-                    FigureContentView(title: "Savings", percentage: 10.59, image: "savings")
+                    FigureContentView(title: "Savings",
+                                      percentage: accountsData[0].percentSaving,
+                                      image: "savings")
                         .coordinateSpace(name: "Custom")
                 }
             }
@@ -35,8 +59,14 @@ struct FiguresView: View {
 }
 
 struct FiguresView_Previews: PreviewProvider {
+    static let dataController = DataController(isPreviewing: true)
+    @State static var updateBool = false
+    
     static var previews: some View {
-        FiguresView()
+        FiguresView(hasUpdated: $updateBool)
+            .environmentObject(dataController)
             .environmentObject(ColorContent())
+            .environment(\.managedObjectContext, dataController.context)
+        
     }
 }

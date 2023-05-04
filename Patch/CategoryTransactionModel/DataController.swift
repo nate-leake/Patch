@@ -11,30 +11,31 @@ import CoreData
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "CategoryData")
     let context: NSManagedObjectContext
+    let computations = Computation()
     
     var isPreviewing: Bool = false
     
     init(isPreviewing: Bool = false) {
         container.loadPersistentStores{desc, error in
             if let error = error {
-                print("Failed to load the data \(error.localizedDescription)")
+                print("Failed to load DataContoller data: \(error.localizedDescription)")
             }
         }
-        print(container.name)
+        
         self.context = self.container.viewContext
-        self.accountIntegrityChecker()
-        self.categoryIntegrityChecker()
         
         if isPreviewing {
             self.isPreviewing = true
             self.populatSampleData()
         }
+        
+        self.accountIntegrityChecker()
+        self.categoryIntegrityChecker()
     }
     
     func save(){
         do {
             try self.context.save()
-            print("Data saved!")
         } catch {
             print("Could not save data. ")
         }
@@ -45,7 +46,7 @@ class DataController: ObservableObject {
         account.id = UUID()
         account.name = name
         account.type = type
-                
+        
         if !isPreviewing{save()}
     }
     
@@ -78,22 +79,35 @@ class DataController: ObservableObject {
         newTransaction.amount = Int64(amount)
         newTransaction.memo = memo
         
+        computations.checking.addTransaction(category: category, transaction: newTransaction)
+        
         category.addToTransactions(newTransaction)
         if !isPreviewing{save()}
     }
     
     func editTransaction(transaction: Transaction, category: Category, date: Date, amount: Int, memo: String){
+        let oldAmount: Int = Int(transaction.amount)
         transaction.date = date
         transaction.amount = Int64(amount)
         transaction.memo = memo
+        
+        computations.checking.editTransaction(category: category, oldAmount: oldAmount, newAmount: Int(transaction.amount))
+        
         if !isPreviewing{save()}
     }
     
     func accountIntegrityChecker(){
         let request = Account.fetchRequest()
         let allAccounts = try? self.context.fetch(request)
+        
+        if allAccounts?.count == 0 {
+            print("No accounts found. Adding the default checking account.")
+            addAccount(name: "Checking Default", type: "Checking")
+        }
+        
         for account in allAccounts!{
-            print(account.name ?? "Unassigned account", ":", account.type ?? "Unassigned type")
+            account.calculateAllVaules()
+            print(account.id ??  "No account ID", ":", account.name ?? "Unassigned account", ":", account.type ?? "Unassigned type")
         }
         
     }
@@ -101,11 +115,61 @@ class DataController: ObservableObject {
     func categoryIntegrityChecker(){
         let request = Category.fetchRequest()
         let allCategories = try? self.context.fetch(request)
+        
+        var hasType = true
+        var hasAccount = true
+        
         for category in allCategories!{
-            print(category.title!, ":", category.type ?? "Unassigned type", ",", category.account?.name ?? "Unassigned account")
+            
+            guard category.id != nil else {
+                category.id = UUID()
+                return
+            }
+            
+            guard category.symbolName != nil else {
+                category.symbolName = "nosign"
+                if !isPreviewing{save()}
+                return
+            }
+            
+            guard category.title != nil else {
+                category.title = "Unknown Name"
+                if !isPreviewing{save()}
+                return
+            }
+            
+            guard category.type != nil else {
+                hasType = false
+                return
+            }
+            
+            
+            guard category.account != nil else {
+                hasAccount = false
+                return
+            }
+            
+            if !(hasType && hasAccount){
+                print("Warning: Category has no type or account: ",
+                    category.id ?? "No category ID",
+                    "|",
+                    category.limit,
+                    "|",
+                    category.symbolName ?? "No Symbol",
+                    "|",
+                    category.title ?? "No category title",
+                    "|",
+                    category.type ?? "Unassigned type",
+                    "|",
+                    category.used,
+                    "|",
+                    category.account?.name ?? "Unassigned account"
+                )
+            }
+            
         }
     }
-
+    
     
     
     func populatSampleData(){
@@ -121,8 +185,6 @@ class DataController: ObservableObject {
             
             allAccounts = try? self.context.fetch(accountRequest)
             
-            print(allAccounts?.count ?? "0")
-            
             self.addCategory(account: allAccounts![0], name: "Paycheck", limit: 100000, type: "Income", symbolName: "dollarsign")
             self.addCategory(account: allAccounts![0], name: "Food", limit: 12000, type: "Expense", symbolName: "fork.knife")
             
@@ -130,10 +192,7 @@ class DataController: ObservableObject {
             
             self.addTransaction(category: allCategories![0], date: Date.now, amount: 1293, memo: "Trying this out!")
             self.addTransaction(category: allCategories![1], date: Date.now, amount: 32930, memo: "Payday!")
-            
-            print(Date.now)
-            
         }
     }
-
+    
 }
