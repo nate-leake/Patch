@@ -15,6 +15,8 @@ struct CategoryDetailsView: View {
     @Environment(\.dismiss) var dismissSheet
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
     
+    var editingCategory: Category?
+    
     @State var limitAmount: Int = 0
     @State var name: String = ""
     @State var typeSelection: String = "Expense"
@@ -24,7 +26,7 @@ struct CategoryDetailsView: View {
     
     var isEditing: Bool = false
     
-    var submitText: String = "Add"
+    @State var submitText: String = "Add"
     var sheetTitle: String = "Category Details"
     
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
@@ -36,15 +38,11 @@ struct CategoryDetailsView: View {
     @State var sfCategory: SFCategory = .food
     
     
-    init(name: String = "", limitAmount: Int = 0) {
-        if (name != ""){
-            print("Editing category named: \(name)")
-            print(limitAmount)
-            self.name = name
-            self.limitAmount = limitAmount
+    init(name: String = "", limitAmount: Int = 0, category: Category? = nil) {
+        if let t = category {
+            self.editingCategory = t
             self.isEditing = true
-            self.submitText = "Save"
-            self.sheetTitle = "Editing Category \(name)"
+            return
         }
     }
     
@@ -56,7 +54,11 @@ struct CategoryDetailsView: View {
     
     func validateInputs() -> Bool{
         if (name != "" && limitAmount != 0 && typeSelection != ""){
-            dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            if isEditing {
+                dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            } else {
+                dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            }
             return true
         } else {
             return false
@@ -68,7 +70,7 @@ struct CategoryDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Category Details", submitText: "Add")
+                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Category Details", submitText: self.submitText)
                 
                 VStack{
                     LazyVGrid(columns: adaptiveColumns, spacing: 20){
@@ -78,6 +80,7 @@ struct CategoryDetailsView: View {
                                 TextField("Name this category", text: $name)
                                     .padding(.horizontal, 20)
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(colors.InputText)
                             )
                         )
                         
@@ -87,6 +90,7 @@ struct CategoryDetailsView: View {
                             content: AnyView(
                                 CurrencyField(value: $limitAmount)
                                     .padding(.horizontal, 20)
+                                    .foregroundColor(colors.InputText)
                                     .font(.system(.title2))
                             )
                         )
@@ -106,7 +110,7 @@ struct CategoryDetailsView: View {
                                         icon: {}
                                     )
                                 }
-                                    .foregroundColor(colors.Accent)
+                                    .foregroundColor(colors.InputSelect)
                                 
                             )
                             
@@ -123,11 +127,11 @@ struct CategoryDetailsView: View {
                                     }
                                 } label: {
                                     Label(
-                                        title: {Text(accountSelection?.name! ?? "Choose").frame(width: 150)},
+                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
                                         icon: {}
                                     )
                                 }
-                                    .foregroundColor(colors.Accent)
+                                    .foregroundColor(colors.InputSelect)
                             )
                         )
                         
@@ -150,7 +154,7 @@ struct CategoryDetailsView: View {
                                         )
                                     }
                                     
-                                    .foregroundColor(colors.Accent)
+                                    .foregroundColor(colors.InputSelect)
                                     
                                     
                                     SFSymbolsPicker(icon: $icon, category: sfCategory, axis: .vertical, haptic: true)
@@ -159,7 +163,21 @@ struct CategoryDetailsView: View {
                             )
                         )
                     }
-                    
+                    .onAppear(
+                    perform: {
+                        if self.isEditing{
+                            self.name = self.editingCategory?.title ?? ""
+                            self.limitAmount = Int(self.editingCategory?.limit ?? 000)
+                            self.typeSelection = self.editingCategory?.type ?? "Expense"
+                            self.accountSelection = self.editingCategory?.account
+                            self.submitText = "Save"
+                            self.icon = self.editingCategory?.symbolName ?? "nosign"
+                            
+                            print("category: "+self.name)
+                            print("\(self.limitAmount)")
+                        }
+                    }
+                    )
                     
                     Spacer()
                     

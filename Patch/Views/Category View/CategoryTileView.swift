@@ -12,7 +12,7 @@ struct CategoryTileView: View {
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
     var category: Category
     
-    var cornerRadius: CGFloat = 16
+    var cornerRadius: CGFloat = 12
     
     var body: some View {
         ZStack{
@@ -23,12 +23,12 @@ struct CategoryTileView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(
                             category.type == "Expense" ? colors.Primary : colors.Accent,
-                            lineWidth: 4
+                            lineWidth: 3
                         )
                 )
             
             HStack{
-                CategoryProgressView(percentage: Double(category.used / category.limit), image: category.symbolName ?? "nosign")
+                CategoryProgressView(percentage: Double(self.category.used) / Double(self.category.limit) * 100.0, image: self.category.symbolName ?? "nosign")
                     .frame(width: 65.0)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 10)
@@ -48,11 +48,10 @@ struct CategoryTileView: View {
                         Text("\(numberFormatHandler.formatInt(value: Int(category.limit - category.used))) Left")
                     }
                     
-                }
+                } 
                 Spacer()
                 Spacer()
-            }
-            
+            }            
         }
     }
 }

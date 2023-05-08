@@ -16,11 +16,15 @@ struct TransactionDetailsView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.type)]) var categoryData: FetchedResults<Category>
     
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    var editingTransaction: Transaction?
+    var isEditing: Bool = false
         
     @State private var dateSelected: Date = Date()
     @State private var amount: Int = 0
     @State private var description: String = ""
     @State private var categoryPicked: Category?
+    
+    @State private var submitText = "Add"
     
     var width: CGFloat = .infinity
     var height: CGFloat = 100
@@ -28,18 +32,29 @@ struct TransactionDetailsView: View {
         GridItem(.adaptive(minimum: .infinity))
     ]
     
+    init(transaction: Transaction? = nil){
+        print("Editing transaction: \(String(describing: transaction))")
+        if let t = transaction {
+            self.editingTransaction = t
+            self.isEditing = true
+            return
+        }
+    }
+    
     
     func validateInputs() -> Bool{
-        print("Transaction: ")
-        print(" Date: \(dateSelected)")
-        print(" Amount: \(amount)")
-        print(" Description: \(description)")
-        print(" Category: \(String(describing: categoryPicked))")
         guard categoryPicked != nil else {
             return false
         }
         if (amount != 0){
-            dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
+            if isEditing {
+                dataController.editTransaction(
+                    transaction: editingTransaction!, category: categoryPicked!, date: dateSelected, amount: amount, memo: description
+                )
+            } else {
+                dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
+            }
+            
             return true
         } else {
             return false
@@ -50,7 +65,7 @@ struct TransactionDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Transaction Details", submitText: "Add")
+                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Transaction Details", submitText: self.submitText)
                 LazyVGrid(columns: adaptiveColumns, spacing: 20){
                     DetailTileView(
                         title: "Date",
@@ -72,6 +87,7 @@ struct TransactionDetailsView: View {
                         content: AnyView(
                             CurrencyField(value: $amount)
                                 .padding(.horizontal, 20)
+                                .foregroundColor(colors.InputText)
                                 .font(.system(.title2))
                         )
                     )
@@ -82,6 +98,7 @@ struct TransactionDetailsView: View {
                             TextField("Describe your transaction", text: $description)
                                 .padding(.horizontal, 20)
                                 .multilineTextAlignment(.center)
+                                .foregroundColor(colors.InputText)
                         )
                     )
                     
@@ -101,12 +118,23 @@ struct TransactionDetailsView: View {
                                     icon: {}
                                 )
                             }
-                                .foregroundColor(colors.Accent)
+                                .foregroundColor(colors.InputSelect)
                             
                         )
                     )
                     
                 }
+                .onAppear(
+                perform: {
+                    if self.isEditing{
+                        self.dateSelected = self.editingTransaction?.date ?? Date()
+                        self.amount = Int(self.editingTransaction?.amount ?? 100)
+                        self.description = self.editingTransaction?.memo ?? ""
+                        self.categoryPicked = self.editingTransaction?.category
+                        self.submitText = "Save"
+                    }
+                }
+                )
                 
                 Spacer()
             }
