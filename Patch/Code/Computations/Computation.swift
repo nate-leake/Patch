@@ -58,9 +58,17 @@ extension Account {
         
         for category in categoriesArray {
             if category.type == "Expense"{
-                totalExpensesMax += Int(category.limit)
+                if category.used > category.limit{
+                    totalExpensesMax += Int(category.used)
+                } else {
+                    totalExpensesMax += Int(category.limit)
+                }
             } else if category.type == "Income"{
-                totalIncomeMax += Int(category.limit)
+                if category.used > category.limit{
+                    totalIncomeMax += Int(category.used)
+                } else {
+                    totalIncomeMax += Int(category.limit)
+                }
             }
         }
         
@@ -97,14 +105,24 @@ class Checking {
         category.account?.calculateAllVaules()
     }
     
-    func editTransaction(category: Category, oldAmount: Int, newAmount: Int){
-        if oldAmount == newAmount{
+    func editTransaction(oldCategory: Category, newCategory: Category, oldAmount: Int64, newAmount: Int64){
+        if oldCategory != newCategory{
+            oldCategory.used -= oldAmount
+            newCategory.used += newAmount
+        }
+        
+        else if oldAmount == newAmount{
             print("No changes to category used")
         } else if oldAmount > newAmount{ // the transaction amount is being lowered
-            print("Category used should be increased by \(oldAmount-newAmount)")
-        } else { // the
-            print("Category used should be decreased by \(newAmount-oldAmount)")
+            newCategory.used -= oldAmount-newAmount
+            print("Category used increased by \(oldAmount-newAmount)")
+        } else { // the transaction amount is being increased
+            newCategory.used += newAmount-oldAmount
+            print("Category used decreased by \(newAmount-oldAmount)")
         }
-        category.account?.calculateAllVaules()
+        
+        
+        
+        newCategory.account?.calculateAllVaules()
     }
 }

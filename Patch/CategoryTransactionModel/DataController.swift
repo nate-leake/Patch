@@ -61,6 +61,7 @@ class DataController: ObservableObject {
         category.symbolName = symbolName
         
         account.addToCategories(category)
+        account.calculateAllVaules()
         
         if !isPreviewing{save()}
     }
@@ -68,7 +69,11 @@ class DataController: ObservableObject {
     func editCategory(category: Category, name: String, limit: Int, type: String, symbolName: String){
         category.title = name
         category.limit = Int64(limit)
+        category.type = type
         category.symbolName = symbolName
+                
+        category.account?.calculateAllVaules()
+        
         if !isPreviewing{save()}
     }
     
@@ -86,12 +91,19 @@ class DataController: ObservableObject {
     }
     
     func editTransaction(transaction: Transaction, category: Category, date: Date, amount: Int, memo: String){
-        let oldAmount: Int = Int(transaction.amount)
+        let oldAmount: Int64 = transaction.amount
+        let oldCategory: Category = transaction.category!
+        
         transaction.date = date
         transaction.amount = Int64(amount)
         transaction.memo = memo
+                
+        if oldCategory != category {
+            oldCategory.removeFromTransactions(transaction)
+            category.addToTransactions(transaction)
+        }
         
-        computations.checking.editTransaction(category: category, oldAmount: oldAmount, newAmount: Int(transaction.amount))
+        computations.checking.editTransaction(oldCategory: oldCategory, newCategory: category, oldAmount: oldAmount, newAmount: transaction.amount)
         
         if !isPreviewing{save()}
     }
@@ -107,7 +119,7 @@ class DataController: ObservableObject {
         
         for account in allAccounts!{
             account.calculateAllVaules()
-            print(account.id ??  "No account ID", ":", account.name ?? "Unassigned account", ":", account.type ?? "Unassigned type")
+//            print(account.id ??  "No account ID", ":", account.name ?? "Unassigned account", ":", account.type ?? "Unassigned type")
         }
         
     }
