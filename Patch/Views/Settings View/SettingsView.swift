@@ -30,32 +30,42 @@ struct SettingsView: View {
                                     ZStack{
                                         colors.Fill
                                             .ignoresSafeArea()
+                                        GeometryReader { geo in
                                         List{
-                                            HStack{
-                                                Text("Original")
-                                                PaletteView(paletteName: "Original")
-                                            }
-                                            .onTapGesture {
-                                                colors.setColorPalette(name: "Original")
-                                                colors.colorScheme = .unspecified
-                                            }
                                             
-                                            HStack{
-                                                Text("Pleasant")
-                                                PaletteView(paletteName: "Pleasant")
-                                            }.onTapGesture {
-                                                colors.setColorPalette(name: "Pleasant")
-                                                colors.colorScheme = .unspecified
+                                                HStack{
+                                                    Text("Original")
+                                                    Spacer()
+                                                    PaletteView(paletteName: "Original")
+                                                        .frame(width: geo.size.width * 0.55)
+                                                }
+                                                .onTapGesture {
+                                                    colors.setColorPalette(name: "Original")
+                                                    colors.colorScheme = .unspecified
+                                                }
+                                                
+                                                HStack{
+                                                    Text("Pleasant")
+                                                    Spacer()
+                                                    PaletteView(paletteName: "Pleasant")
+                                                        .frame(width: geo.size.width * 0.55)
+                                                }.onTapGesture {
+                                                    colors.setColorPalette(name: "Pleasant")
+                                                    colors.colorScheme = .unspecified
+                                                }
+                                                
+                                                HStack{
+                                                    Text("Terminal")
+                                                    Spacer()
+                                                    PaletteView(paletteName: "Terminal")
+                                                        .frame(width: geo.size.width * 0.55)
+                                                }.onTapGesture {
+                                                    colors.setColorPalette(name: "Terminal")
+                                                    colors.colorScheme = .dark
+                                                }
                                             }
-                                            
-                                            HStack{
-                                                Text("Terminal")
-                                                PaletteView(paletteName: "Terminal")
-                                            }.onTapGesture {
-                                                colors.setColorPalette(name: "Terminal")
-                                                colors.colorScheme = .dark
-                                            }
-                                        }.scrollContentBackground(.hidden)
+                                        }
+                                            .scrollContentBackground(.hidden)
                                     }
                                 } label: {
                                     Text("Color Palette")
@@ -81,6 +91,7 @@ struct SettingsView: View {
             
             
         }
+        .transition(.move(edge: .trailing))
     }
 }
 

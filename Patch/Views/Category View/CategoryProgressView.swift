@@ -17,7 +17,8 @@ struct CategoryProgressView: View {
         gradient: Gradient(colors: [Color.green.opacity(0.5), Color.pink.opacity(0.7), Color.blue.opacity(1.0)]),
         center: .center,
         startAngle: .degrees(0),
-        endAngle: .degrees(190))
+        endAngle: .degrees(190)
+    )
     
     var body: some View {
         VStack(){
@@ -32,11 +33,6 @@ struct CategoryProgressView: View {
                 )
                 .padding(5)
         }
-        .onAppear(
-            perform: {
-                print(self.percentage, self.percentage/100.0)
-            }
-        )
     }
 }
 

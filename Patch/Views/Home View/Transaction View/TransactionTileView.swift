@@ -13,7 +13,7 @@ struct TransactionTileView: View {
     let dateFormatter = DateFormatter()
     var transaction: Transaction
     
-    var cornerRadius: CGFloat = 16
+    var cornerRadius: CGFloat = 12
     
     init(transaction: Transaction) {
         self.transaction = transaction
@@ -30,7 +30,7 @@ struct TransactionTileView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(
                             transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
-                            lineWidth: 4
+                            lineWidth: 3
                         )
                 )
             VStack{

@@ -21,8 +21,8 @@ struct HomeView: View {
                 ScrollView{
                     VStack{
                         FiguresView()
-                            .padding(10)
-                            .frame(width: metrics.size.width, height: metrics.size.height*0.25)
+                            .padding(.horizontal, 15)
+                            .frame(width: metrics.size.width, height: metrics.size.height*0.22)
                         
                         
                         Spacer()
@@ -34,6 +34,7 @@ struct HomeView: View {
                 }
             }
         }
+        .transition(.move(edge: .leading))
     }
 }
 

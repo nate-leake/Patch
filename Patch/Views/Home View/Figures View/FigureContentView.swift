@@ -15,9 +15,10 @@ struct FigureContentView: View {
     let image: String
     
     var body: some View {
-        VStack(){
+        VStack(spacing: 0){
             Text(title)
                 .foregroundColor(colors.Primary)
+                .padding(.bottom, 5)
             
             CircularProgressView(progress: percentage/100.0)
                 .overlay(
@@ -27,12 +28,14 @@ struct FigureContentView: View {
                             .font(.system(.caption2))
                         Image(image)
                             .resizable()
-                            .scaledToFit()
+                            .aspectRatio(contentMode: .fit)
                             .padding(5)
                         Spacer()
                     }
                 )
                 .padding(5)
+//            Text("$43.98")
+//                .font(.system(.footnote))
         }        
     }
 }

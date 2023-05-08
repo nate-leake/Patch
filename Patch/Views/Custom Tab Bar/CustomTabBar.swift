@@ -36,12 +36,12 @@ struct CustomTabBar: View {
                 .foregroundColor(colors.Primary)
             
             
-            TabBarButton(buttonText: "Accounts", imageName: "creditcard", isActive: selectedTab == .accounts)
-                .onTapGesture {
-                    selectedTab = .accounts
-                }
-            
-                .foregroundColor(colors.Primary)
+//            TabBarButton(buttonText: "Accounts", imageName: "creditcard", isActive: selectedTab == .accounts)
+//                .onTapGesture {
+//                    selectedTab = .accounts
+//                }
+//
+//                .foregroundColor(colors.Primary)
             
             TabBarButton(buttonText: "Settings", imageName: "gearshape", isActive: selectedTab == .settings)
                 .onTapGesture {

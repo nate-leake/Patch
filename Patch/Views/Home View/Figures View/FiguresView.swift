@@ -33,17 +33,14 @@ struct FiguresView: View {
                     FigureContentView(title: "Income",
                                       percentage: accountsData[0].percentIncome,
                                       image: "income")
-                        .coordinateSpace(name: "Custom")
                     Spacer()
                     FigureContentView(title: "Expenses",
                                       percentage: accountsData[0].percentExpenses,
                                       image: "expenses")
-                        .coordinateSpace(name: "Custom")
                     Spacer()
                     FigureContentView(title: "Savings",
                                       percentage: accountsData[0].percentSaving,
                                       image: "savings")
-                        .coordinateSpace(name: "Custom")
                 }
             }
             .padding()
