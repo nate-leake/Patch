@@ -30,6 +30,10 @@ class ColorContent: ObservableObject {
     @Published var Secondary: Color
     @Published var Tertiary: Color
     @Published var Accent: Color
+    @Published var InputText: Color
+    @Published var InputSelect: Color
+    
+    @Published var ProgressCircleFill: Color
     
     
     
@@ -52,12 +56,16 @@ class ColorContent: ObservableObject {
             UserDefaults.standard.set(saved_palette, forKey: "COLOR_PALETTE")
         }
         
-        self.Primary   = Color(saved_palette+"_Primary")
-        self.Fill      = Color(saved_palette+"_Fill")
-        self.Secondary = Color(saved_palette+"_Secondary")
-        self.Tertiary  = Color(saved_palette+"_Tertiary")
-        self.Accent    = Color(saved_palette+"_Accent")
+        self.Primary     = Color(saved_palette+"_Primary")
+        self.Fill        = Color(saved_palette+"_Fill")
+        self.Secondary   = Color(saved_palette+"_Secondary")
+        self.Tertiary    = Color(saved_palette+"_Tertiary")
+        self.Accent      = Color(saved_palette+"_Accent")
+        self.InputText   = Color(saved_palette+"_InputText")
+        self.InputSelect = Color(saved_palette+"_InputSelect")
         
+        self.ProgressCircleFill = Color(saved_palette+"_ProgressCircleFill")
+    
         switch saved_scheme{
         case 0: self.colorScheme = .unspecified
         case 1: self.colorScheme = .light
@@ -69,11 +77,15 @@ class ColorContent: ObservableObject {
     
     func setColorPalette(name:String){
         UserDefaults.standard.set(name, forKey: "COLOR_PALETTE")
-        self.Primary   = Color(name+"_Primary")
-        self.Fill      = Color(name+"_Fill")
-        self.Secondary = Color(name+"_Secondary")
-        self.Tertiary  = Color(name+"_Tertiary")
-        self.Accent    = Color(name+"_Accent")
+        self.Primary     = Color(name+"_Primary")
+        self.Fill        = Color(name+"_Fill")
+        self.Secondary   = Color(name+"_Secondary")
+        self.Tertiary    = Color(name+"_Tertiary")
+        self.Accent      = Color(name+"_Accent")
+        self.InputText   = Color(name+"_InputText")
+        self.InputSelect = Color(name+"_InputSelect")
+
+        self.ProgressCircleFill = Color(name+"_ProgressCircleFill")
     }
     
     func setPreferredColorScheme(){
