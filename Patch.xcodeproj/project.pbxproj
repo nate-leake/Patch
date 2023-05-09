@@ -24,6 +24,8 @@
 		AF85705929D86FD8006DEFBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705829D86FD8006DEFBE /* Assets.xcassets */; };
 		AF85705D29D86FD8006DEFBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */; };
 		AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85706329D87255006DEFBE /* SplashScreenView.swift */; };
+		AF8A4F9F2A09DDB600148378 /* ColorPaletteSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */; };
+		AF8A4FA12A09DE3A00148378 /* UIOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4FA02A09DE3A00148378 /* UIOptionsView.swift */; };
 		AFA378762A03F4A7005E8F60 /* CategoryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */; };
 		AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */; };
 		AFB9521A29DE1D61005661FF /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9521929DE1D61005661FF /* CircularProgressView.swift */; };
@@ -62,6 +64,8 @@
 		AF85705A29D86FD8006DEFBE /* Patch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Patch.entitlements; sourceTree = "<group>"; };
 		AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AF85706329D87255006DEFBE /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteSelectorView.swift; sourceTree = "<group>"; };
+		AF8A4FA02A09DE3A00148378 /* UIOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOptionsView.swift; sourceTree = "<group>"; };
 		AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CategoryData.xcdatamodel; sourceTree = "<group>"; };
 		AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
 		AFB9521929DE1D61005661FF /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
@@ -150,8 +154,8 @@
 		AF63593329DB782000AEEFBC /* Settings View */ = {
 			isa = PBXGroup;
 			children = (
+				AF8A4F9D2A09DD8C00148378 /* SettingsViews */,
 				AF63592E29DB6C7300AEEFBC /* SettingsView.swift */,
-				AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */,
 			);
 			path = "Settings View";
 			sourceTree = "<group>";
@@ -216,6 +220,16 @@
 				AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AF8A4F9D2A09DD8C00148378 /* SettingsViews */ = {
+			isa = PBXGroup;
+			children = (
+				AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */,
+				AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */,
+				AF8A4FA02A09DE3A00148378 /* UIOptionsView.swift */,
+			);
+			path = SettingsViews;
 			sourceTree = "<group>";
 		};
 		AFC0EAEF29FDC4E300975D9C /* SF Symbols PIcker */ = {
@@ -341,6 +355,7 @@
 				AF2B34D429E7474C003A4D07 /* DetailTileView.swift in Sources */,
 				AFC0EAF729FDF72400975D9C /* CategoryTileView.swift in Sources */,
 				AF63592F29DB6C7300AEEFBC /* SettingsView.swift in Sources */,
+				AF8A4F9F2A09DDB600148378 /* ColorPaletteSelectorView.swift in Sources */,
 				AFEA832629F6C5090079B285 /* CustomSheetHeaderView.swift in Sources */,
 				AF67CAFB29D8CEA90032183F /* CustomTabBar.swift in Sources */,
 				AFEA832829F6C7C20079B285 /* ViewPasser.swift in Sources */,
@@ -353,6 +368,7 @@
 				AF353C8D29F444D000DAF5C7 /* DataController.swift in Sources */,
 				AF85705529D86FD6006DEFBE /* PatchApp.swift in Sources */,
 				AFF6D76729DCE19C00B01B00 /* FigureContentView.swift in Sources */,
+				AF8A4FA12A09DE3A00148378 /* UIOptionsView.swift in Sources */,
 				AFC0EAF529FDC55500975D9C /* Symbols.swift in Sources */,
 				AFC0EAF329FDC53400975D9C /* SFSymbolsPicker.swift in Sources */,
 				AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */,
@@ -493,7 +509,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 29;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -536,7 +552,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 29;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;

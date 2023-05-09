@@ -26,58 +26,16 @@ struct SettingsView: View {
                                 .background(colors.Fill)
                             
                             List {
-                                NavigationLink{
-                                    ZStack{
-                                        colors.Fill
-                                            .ignoresSafeArea()
-                                        GeometryReader { geo in
-                                        List{
-                                            
-                                                HStack{
-                                                    Text("Original")
-                                                    Spacer()
-                                                    PaletteView(paletteName: "Original")
-                                                        .frame(width: geo.size.width * 0.55)
-                                                }
-                                                .onTapGesture {
-                                                    colors.setColorPalette(name: "Original")
-                                                    colors.colorScheme = .unspecified
-                                                }
-                                                
-                                                HStack{
-                                                    Text("Pleasant")
-                                                    Spacer()
-                                                    PaletteView(paletteName: "Pleasant")
-                                                        .frame(width: geo.size.width * 0.55)
-                                                }.onTapGesture {
-                                                    colors.setColorPalette(name: "Pleasant")
-                                                    colors.colorScheme = .unspecified
-                                                }
-                                                
-                                                HStack{
-                                                    Text("Terminal")
-                                                    Spacer()
-                                                    PaletteView(paletteName: "Terminal")
-                                                        .frame(width: geo.size.width * 0.55)
-                                                }.onTapGesture {
-                                                    colors.setColorPalette(name: "Terminal")
-                                                    colors.colorScheme = .dark
-                                                }
-                                            }
-                                        }
-                                            .scrollContentBackground(.hidden)
-                                    }
-                                } label: {
-                                    Text("Color Palette")
-                                    
-                                }
+                                ColorPaletteSelectorView()
+                                
+                                UIOptionsView()
                                 
                             }.scrollContentBackground(.hidden)
                             
                         }
                     }
                     .navigationTitle("Settings")
-                    .foregroundColor(colors.Primary)
+                    .foregroundColor(colors.InputText)
                 }
                 
                 
@@ -86,7 +44,7 @@ struct SettingsView: View {
                     Text("(" + buildNumber + ")")
                 }.opacity(0.8)
             }
-            .foregroundColor(colors.Primary)
+            .foregroundColor(colors.InputText)
             .font(.system(.body))
             
             

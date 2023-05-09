@@ -29,7 +29,7 @@ struct FigureContentView: View {
                         Image(image)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .padding(5)
+                            .padding(10)
                         Spacer()
                     }
                 )
