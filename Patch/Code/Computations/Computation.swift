@@ -10,6 +10,59 @@ import CoreData
 
 
 extension Account {
+    func calculateDollarIncomeGained() {
+        var totalIncomeGained: Int64 = 0
+        
+        let categoriesArray: [Category] = self.categories?.allObjects as! [Category]
+        
+        for category in categoriesArray {
+            if category.type == "Income"{
+                totalIncomeGained += category.used
+            }
+        }
+        
+        self.dollarIncome = totalIncomeGained
+    }
+    
+    func calculateDollarExpensesPaid() {
+        var totalExpensesPaid: Int64 = 0
+        
+        let categoriesArray: [Category] = self.categories?.allObjects as! [Category]
+        
+        for category in categoriesArray {
+            if category.type == "Expense"{
+                totalExpensesPaid += category.used
+            }
+        }
+        
+        self.dollarExpenses = totalExpensesPaid
+    }
+    
+    func calculateDollarSavings() {
+        var totalIncomeMax: Int64 = 0
+        var totalExpensesMax: Int64 = 0
+                
+        let categoriesArray: [Category] = self.categories?.allObjects as! [Category]
+        
+        for category in categoriesArray {
+            if category.type == "Expense"{
+                if category.used > category.limit{
+                    totalExpensesMax += category.used
+                } else {
+                    totalExpensesMax += category.limit
+                }
+            } else if category.type == "Income"{
+                if category.used > category.limit{
+                    totalIncomeMax += category.used
+                } else {
+                    totalIncomeMax += category.limit
+                }
+            }
+        }
+        
+        self.dollarSavings = totalIncomeMax - totalExpensesMax
+    }
+    
     func calculatePercentIncomeGained(){
         var totalIncomeMax: Int = 0
         var totalIncomeGained: Int = 0
@@ -80,6 +133,10 @@ extension Account {
         self.calculatePercentExpensesPaid()
         self.calculatePercentIncomeGained()
         self.calculatePercentSaving()
+        
+        self.calculateDollarIncomeGained()
+        self.calculateDollarExpensesPaid()
+        self.calculateDollarSavings()
     }
 }
 

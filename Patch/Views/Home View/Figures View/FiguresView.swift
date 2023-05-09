@@ -12,6 +12,10 @@ struct FiguresView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors:ColorContent
+    
+    let NFH = NumberFormatHandler()
+    
+    var showFiguresDollars = UserDefaults.standard.bool(forKey: "SHOW_UI_FIGURES_DOLLARS")
         
     let computations: Computation = Computation()
     
@@ -29,18 +33,39 @@ struct FiguresView: View {
         ZStack{
             VStack{
                 HStack{
+                    VStack(spacing: 4){
+                        FigureContentView(title: "Income",
+                                          percentage: accountsData[0].percentIncome,
+                                          image: "income")
+                        if showFiguresDollars {
+                            Text(NFH.formatInt(value: Int(accountsData[0].dollarIncome)))
+                                .font(.system(.footnote))
+                        }
+                    }
                     
-                    FigureContentView(title: "Income",
-                                      percentage: accountsData[0].percentIncome,
-                                      image: "income")
                     Spacer()
-                    FigureContentView(title: "Expenses",
-                                      percentage: accountsData[0].percentExpenses,
-                                      image: "expenses")
+                    
+                    VStack(spacing: 4){
+                        FigureContentView(title: "Expenses",
+                                          percentage: accountsData[0].percentExpenses,
+                                          image: "expenses")
+                        if showFiguresDollars {
+                            Text(NFH.formatInt(value: Int(accountsData[0].dollarExpenses)))
+                                .font(.system(.footnote))
+                        }
+                    }
+                    
                     Spacer()
-                    FigureContentView(title: "Savings",
-                                      percentage: accountsData[0].percentSaving,
-                                      image: "savings")
+                    
+                    VStack(spacing: 4){
+                        FigureContentView(title: "Savings",
+                                          percentage: accountsData[0].percentSaving,
+                                          image: "savings")
+                        if showFiguresDollars {
+                            Text(NFH.formatInt(value: Int(accountsData[0].dollarSavings)))
+                                .font(.system(.footnote))
+                        }
+                    }
                 }
             }
             .padding()
