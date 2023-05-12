@@ -7,22 +7,27 @@
 
 import SwiftUI
 
+enum ActiveSheet: Identifiable {
+    case creating, editing
+    
+    var id: Int {
+        hashValue
+    }
+}
+
 struct TransactionsView: View {
     @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var transactionData: FetchedResults<Transaction>
     
-    @State var showTransactionSheet: Bool = false
+    @State private var activeSheet: ActiveSheet?
+    @State var editingTansaction: Transaction?
     
+    let formatter: () = DateFormatter().dateStyle = .short
     var numberFormatHandler = NumberFormatHandler()
     
-    let formatter = DateFormatter()
-    
-    init() {
-        self.formatter.dateStyle = .short
-    }
     
     var body: some View {
         LazyVStack{
@@ -35,16 +40,9 @@ struct TransactionsView: View {
                         .foregroundColor(colors.Accent)
                         .font(.system(.largeTitle))
                         .onTapGesture {
-                            
-                            showTransactionSheet.toggle()
+                            activeSheet = .creating
                         }
-                    
                 }
-                .sheet(isPresented: $showTransactionSheet, content: {
-                    TransactionDetailsView()
-                        .environmentObject(dataController)
-                    
-                })
                 
                 HStack{
                     Spacer()
@@ -58,26 +56,64 @@ struct TransactionsView: View {
             
             VStack(spacing: 0){
                 ForEach(transactionData){ transaction in
-                    
                     TransactionTileView(transaction: transaction)
-                        .padding()
+                        .padding(.vertical, 10)
+                        .padding(.horizontal)
+                    
+                        .onTapGesture {
+                            print("Going to edit \(String(describing: transaction.memo))")
+                            self.editingTansaction = transaction
+                            print("Still going to edit \(String(describing: self.editingTansaction?.memo))")
+                            self.activeSheet = .editing
+                            print("I promise! Still going to edit \(String(describing: self.editingTansaction?.memo))")
+                        }
                 }
             }
-            
-            
             
             Spacer()
         }
         
+        .sheet(item: self.$activeSheet) { item in
+            switch item {
+            case .creating:
+                TransactionDetailsView()
+                    .environmentObject(dataController)
+            case .editing:
+                if let t = self.editingTansaction {
+                    TransactionDetailsView(transaction: t)
+                        .environmentObject(dataController)
+                } else {
+                    VStack{
+                        CustomSheetHeaderView(sheetTitle: "Known Bug", submitText: "Close", validateFeilds: {() -> Bool in return true})
+                            .padding(.horizontal, 20)
+                        Spacer()
+                        Image(systemName: "exclamationmark.triangle")
+                            .foregroundColor(.yellow)
+                            .font(.system(.title))
+                            .padding(.bottom, 20)
+                        Text("Please close and try again.")
+                            .padding(.bottom, 10)
+                        Text("You may need to select a different transaction first.")
+                            .multilineTextAlignment(.center)
+                            .opacity(0.6)
+                        Spacer()
+                    }
+                    
+                }
+            }
+        }
+        
     }
+    
 }
 
 struct TransactionsView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
+    
     static var previews: some View {
         TransactionsView()
+            .environment(\.managedObjectContext, dataController.context)
             .environmentObject(dataController)
             .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
     }
 }

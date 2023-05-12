@@ -10,14 +10,15 @@ import SwiftUI
 struct CategoryProgressView: View {
     @EnvironmentObject var colors: ColorContent
     
-    @State var percentage: Double
     @State var image: String
+    @State var percentage: Double
     
     private let gradient = AngularGradient(
-        gradient: Gradient(colors: [Color.green.opacity(0.5), Color.green.opacity(0.7), Color.green.opacity(0.5)]),
+        gradient: Gradient(colors: [Color.green.opacity(0.5), Color.pink.opacity(0.7), Color.blue.opacity(1.0)]),
         center: .center,
         startAngle: .degrees(0),
-        endAngle: .degrees(190))
+        endAngle: .degrees(190)
+    )
     
     var body: some View {
         VStack(){
@@ -37,7 +38,7 @@ struct CategoryProgressView: View {
 
 struct CategoryProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryProgressView(percentage: 19.78, image: "hazardsign")
+        CategoryProgressView(image: "hazardsign", percentage: 30.00)
             .environmentObject(ColorContent())
     }
 }

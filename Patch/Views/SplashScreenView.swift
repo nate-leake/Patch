@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SplashScreenView: View {
     @Environment (\.managedObjectContext) var managedObjContext
-    @StateObject private var dataController = DataController()
     @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
     
     @State private var isActive = false
     
@@ -75,8 +75,13 @@ struct SplashScreenView: View {
 }
 
 struct SplashScreenView_Previews: PreviewProvider {
+    static var dataController: DataController = DataController()
+    
     static var previews: some View {
         SplashScreenView()
+            .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(dataController)
             .environmentObject(ColorContent())
+        
     }
 }

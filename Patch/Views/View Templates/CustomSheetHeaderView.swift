@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct CustomSheetHeaderView: View {
-    @EnvironmentObject var colors: ColorContent
     @Environment(\.dismiss) var dismissSheet
+    @EnvironmentObject var colors: ColorContent
     
-    var validateFeilds: () -> Bool
     var sheetTitle: String
     var submitText: String
+    var validateFeilds: () -> Bool
+    
     
     var body: some View {
         VStack{
@@ -52,7 +53,7 @@ struct CustomSheetView_Previews: PreviewProvider {
         return true
     }
     static var previews: some View {
-        CustomSheetHeaderView(validateFeilds: testFunc, sheetTitle: "Custom Sheet", submitText: "Perform")
+        CustomSheetHeaderView(sheetTitle: "Custom Sheet", submitText: "Perform", validateFeilds: testFunc)
             .environmentObject(ColorContent())
         
     }

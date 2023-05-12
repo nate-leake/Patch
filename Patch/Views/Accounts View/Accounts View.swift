@@ -10,17 +10,18 @@ import SwiftUI
 struct AccountsView: View {
     @EnvironmentObject var colors:ColorContent
     @Environment (\.managedObjectContext) var managedObjContext
+    
     @FetchRequest(sortDescriptors: [
         //        SortDescriptor(\.title),
         SortDescriptor(\.type, order: .reverse)
     ]) var accountsData: FetchedResults<Account>
     
+    @State private var selectedCategory: Int? = 0
+    
     @State var showAddCategorySheet: Bool = false
     @State var showEditCategorySheet: Bool = false
     
     var numberFormatHandler = NumberFormatHandler()
-    
-    @State private var selectedCategory: Int? = 0
     
     
     var body: some View {
@@ -31,10 +32,10 @@ struct AccountsView: View {
                     Image(systemName: "plus.app")
                         .padding(.vertical, 2.0)
                         .padding(.horizontal, 12.0)
-                        .foregroundColor(colors.Accent)
+                        .foregroundColor(.gray)
                         .font(.system(.largeTitle))
                         .onTapGesture {
-                            showAddCategorySheet.toggle()
+//                            showAddCategorySheet.toggle()
                         }
                 }
                 .sheet(isPresented: $showAddCategorySheet, content: {

@@ -11,10 +11,12 @@ import Foundation
 public struct SFSymbolsPicker: View {
     
     // MARK: - View properties
+    @EnvironmentObject var colors: ColorContent
     
     @Binding public var icon: String
-    let category: SFCategory
+    
     let axis: Axis.Set
+    let category: SFCategory
     let haptic: Bool
     
     /// Show a picker to select SF Symbols
@@ -44,7 +46,7 @@ public struct SFSymbolsPicker: View {
                     
                     Image(systemName: icon)
                         .font(.system(size: 25))
-                        .foregroundColor(self.icon == icon ? Color.blue : Color.primary)
+                        .foregroundColor(self.icon == icon ? colors.InputSelect : colors.InputText)
                         .padding(.horizontal, 5)
                         .onTapGesture {
                             // Assign binding value

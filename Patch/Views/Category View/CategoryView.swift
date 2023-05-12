@@ -20,12 +20,11 @@ struct CategoryView: View {
         SortDescriptor(\.type, order: .reverse)
     ]) var categoryData: FetchedResults<Category>
     
-    @State var showAddCategorySheet: Bool = false
-    @State var showEditCategorySheet: Bool = false
+    @State private var activeSheet: ActiveSheet?
+    @State private var editingCategory: Category?
+    @State private var selectedCategory: Int? = 0
     
     var numberFormatHandler = NumberFormatHandler()
-    
-    @State private var selectedCategory: Int? = 0
     
     
     var body: some View {
@@ -39,14 +38,9 @@ struct CategoryView: View {
                         .foregroundColor(colors.Accent)
                         .font(.system(.largeTitle))
                         .onTapGesture {
-                            showAddCategorySheet.toggle()
+                            activeSheet = .creating
                         }
                 }
-                .sheet(isPresented: $showAddCategorySheet, content: {
-                    CategoryDetailsView()
-                        .environmentObject(colors)
-                    
-                })
                 
                 HStack{
                     Spacer()
@@ -58,25 +52,51 @@ struct CategoryView: View {
             ScrollView{
                 
                 VStack(spacing: 0){
-                    ForEach(categoryData){category in
-                        CategoryTileView(numberFormatHandler: numberFormatHandler, category: category)
-                        .padding()
-
-                        .onTapGesture{
-                            showEditCategorySheet.toggle()
-                        }
+                    ForEach(categoryData, id: \.id){category in
+                        CategoryTileView(category: category, numberFormatHandler: numberFormatHandler)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal)
+                        
+                            .onTapGesture{
+                                editingCategory = category
+                                activeSheet = .editing
+                            }
                     }
-                    
-                }
-                .sheet(isPresented: $showAddCategorySheet){
-                    CategoryDetailsView()
-                        .environmentObject(colors)
                     
                 }
             }
             
+            
         }
-        Spacer()
+        .sheet(item: $activeSheet) { item in
+            switch item {
+            case .creating:
+                CategoryDetailsView()
+                    .environmentObject(colors)
+            case .editing:
+                if let c = self.editingCategory {
+                    CategoryDetailsView(category: c)
+                        .environmentObject(colors)
+                } else {
+                    VStack{
+                        CustomSheetHeaderView(sheetTitle: "Known Bug", submitText: "Close", validateFeilds: {() -> Bool in return true})
+                            .padding(.horizontal, 20)
+                        Spacer()
+                        Image(systemName: "exclamationmark.triangle")
+                            .foregroundColor(.yellow)
+                            .font(.system(.title))
+                            .padding(.bottom, 20)
+                        Text("Please close and try again.")
+                            .padding(.bottom, 10)
+                        Text("You may need to select a different category first.")
+                            .multilineTextAlignment(.center)
+                            .opacity(0.6)
+                        Spacer()
+                    }
+                }
+            }
+        }
+        .transition(.move(edge: .trailing))
     }
 }
 

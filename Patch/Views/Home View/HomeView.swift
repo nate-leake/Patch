@@ -9,38 +9,38 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors:ColorContent
     
     var body: some View {
         ZStack{
             colors.Fill
                 .ignoresSafeArea()
-            GeometryReader{metrics in
-                
-                ScrollView{
-                    VStack{
-                        FiguresView()
-                            .padding(10)
-                            .frame(width: metrics.size.width, height: metrics.size.height*0.25)
-                        
-                        
-                        Spacer()
-                        
-                        TransactionsView()
-                            .environmentObject(dataController)
-                        Spacer()
-                    }
+            
+            ScrollView{
+                VStack{
+                    FiguresView()
+                        .padding(.horizontal, 15)
+                    
+                    Spacer()
+                    
+                    TransactionsView()
+                        .environmentObject(dataController)
+                    Spacer()
                 }
             }
         }
+        .transition(.move(edge: .leading))
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
+    static var dataController = DataController(isPreviewing: true)
+    
     static var previews: some View {
         HomeView()
-            .environmentObject(DataController(isPreviewing: true))
+            .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(dataController)
             .environmentObject(ColorContent())
     }
 }

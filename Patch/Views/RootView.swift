@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RootView: View {
     @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors:ColorContent
     
     @State var selectedTabs: Tabs = .home
     
@@ -41,7 +41,7 @@ struct RootView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
+    static var dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
         RootView()

@@ -8,39 +8,53 @@
 import SwiftUI
 
 struct TransactionDetailsView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors: ColorContent
-    
     @Environment(\.dismiss) var dismissSheet
+    @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.type)]) var categoryData: FetchedResults<Category>
     
+    @FocusState private var isFocused: Bool
     
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    
-    @State private var dateSelected: Date = Date()
     @State private var amount: Int = 0
-    @State private var description: String = ""
     @State private var categoryPicked: Category?
+    @State private var dateSelected: Date = Date()
+    @State private var description: String = ""
+    @State private var submitText = "Add"
     
-    var width: CGFloat = .infinity
+    private let adaptiveColumns = [ GridItem(.adaptive(minimum: .infinity)) ]
+    
+    var editingTransaction: Transaction?
+    var isEditing: Bool = false
     var height: CGFloat = 100
-    private let  adaptiveColumns = [
-        GridItem(.adaptive(minimum: .infinity))
-    ]
+    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    var width: CGFloat = .infinity
+    
+    
+    init(transaction: Transaction? = nil){
+        print("Editing transaction: \(String(describing: transaction))")
+        if let t = transaction {
+            self.editingTransaction = t
+            self.isEditing = true
+            return
+        }
+    }
     
     
     func validateInputs() -> Bool{
-        print("Transaction: ")
-        print(" Date: \(dateSelected)")
-        print(" Amount: \(amount)")
-        print(" Description: \(description)")
-        print(" Category: \(String(describing: categoryPicked))")
         guard categoryPicked != nil else {
             return false
         }
         if (amount != 0){
-            dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
+            if isEditing {
+                dataController.editTransaction(
+                    transaction: editingTransaction!, category: categoryPicked!, date: dateSelected, amount: amount, memo: description
+                )
+            } else {
+                dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
+            }
+            
             return true
         } else {
             return false
@@ -51,7 +65,7 @@ struct TransactionDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Transaction Details", submitText: "Add")
+                CustomSheetHeaderView(sheetTitle: "Transaction Details", submitText: self.submitText, validateFeilds: validateInputs)
                 LazyVGrid(columns: adaptiveColumns, spacing: 20){
                     DetailTileView(
                         title: "Date",
@@ -73,7 +87,9 @@ struct TransactionDetailsView: View {
                         content: AnyView(
                             CurrencyField(value: $amount)
                                 .padding(.horizontal, 20)
+                                .foregroundColor(colors.InputText)
                                 .font(.system(.title2))
+                                .focused($isFocused)
                         )
                     )
                     
@@ -83,6 +99,7 @@ struct TransactionDetailsView: View {
                             TextField("Describe your transaction", text: $description)
                                 .padding(.horizontal, 20)
                                 .multilineTextAlignment(.center)
+                                .foregroundColor(colors.InputText)
                         )
                     )
                     
@@ -102,16 +119,30 @@ struct TransactionDetailsView: View {
                                     icon: {}
                                 )
                             }
-                                .foregroundColor(colors.Accent)
+                                .foregroundColor(colors.InputSelect)
                             
                         )
                     )
                     
                 }
+                .onAppear(
+                    perform: {
+                        if self.isEditing{
+                            self.dateSelected = self.editingTransaction?.date ?? Date()
+                            self.amount = Int(self.editingTransaction?.amount ?? 100)
+                            self.description = self.editingTransaction?.memo ?? ""
+                            self.categoryPicked = self.editingTransaction?.category
+                            self.submitText = "Save"
+                        }
+                    }
+                )
                 
                 Spacer()
             }
             .padding(.horizontal, 20)
+        }
+        .onTapGesture {
+            isFocused = false
         }
         
     }
@@ -122,7 +153,8 @@ struct AddTransactionView_Previews: PreviewProvider {
     
     static var previews: some View {
         TransactionDetailsView()
-            .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(ColorContent())
+        
     }
 }

@@ -8,43 +8,38 @@
 import SwiftUI
 
 struct CategoryDetailsView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors: ColorContent
-    
     @Environment(\.dismiss) var dismissSheet
+    @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
     
-    @State var limitAmount: Int = 0
-    @State var name: String = ""
-    @State var typeSelection: String = "Expense"
-    let categoryTypeOptions = ["Income", "Expense"]
-    
-    @State var accountSelection : Account?
-    
-    var isEditing: Bool = false
-    
-    var submitText: String = "Add"
-    var sheetTitle: String = "Category Details"
-    
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    
-    var category: FetchedResults<Category>.Element?
-    
+    @FocusState private var isFocused: Bool
     
     @State private var icon = "l1.rectangle.roundedbottom"
+    
+    @State var accountSelection : Account?
+    @State var limitAmount: Int = 0
+    @State var name: String = ""
     @State var sfCategory: SFCategory = .food
+    @State var submitText: String = "Add"
+    @State var typeSelection: String = "Expense"
+    
+    let categoryTypeOptions = ["Income", "Expense"]
+    
+    var category: FetchedResults<Category>.Element?
+    var editingCategory: Category?
+    var isEditing: Bool = false
+    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    var sheetTitle: String = "Category Details"
     
     
-    init(name: String = "", limitAmount: Int = 0) {
-        if (name != ""){
-            print("Editing category named: \(name)")
-            print(limitAmount)
-            self.name = name
-            self.limitAmount = limitAmount
+    init(name: String = "", limitAmount: Int = 0, category: Category? = nil) {
+        if let t = category {
+            self.editingCategory = t
             self.isEditing = true
-            self.submitText = "Save"
-            self.sheetTitle = "Editing Category \(name)"
+            return
         }
     }
     
@@ -56,7 +51,11 @@ struct CategoryDetailsView: View {
     
     func validateInputs() -> Bool{
         if (name != "" && limitAmount != 0 && typeSelection != ""){
-            dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            if isEditing {
+                dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            } else {
+                dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            }
             return true
         } else {
             return false
@@ -68,7 +67,7 @@ struct CategoryDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Category Details", submitText: "Add")
+                CustomSheetHeaderView(sheetTitle: "Category Details", submitText: self.submitText, validateFeilds: validateInputs)
                 
                 VStack{
                     LazyVGrid(columns: adaptiveColumns, spacing: 20){
@@ -78,6 +77,7 @@ struct CategoryDetailsView: View {
                                 TextField("Name this category", text: $name)
                                     .padding(.horizontal, 20)
                                     .multilineTextAlignment(.center)
+                                    .foregroundColor(colors.InputText)
                             )
                         )
                         
@@ -87,7 +87,9 @@ struct CategoryDetailsView: View {
                             content: AnyView(
                                 CurrencyField(value: $limitAmount)
                                     .padding(.horizontal, 20)
+                                    .foregroundColor(colors.InputText)
                                     .font(.system(.title2))
+                                    .focused($isFocused)
                             )
                         )
                         
@@ -106,7 +108,7 @@ struct CategoryDetailsView: View {
                                         icon: {}
                                     )
                                 }
-                                    .foregroundColor(colors.Accent)
+                                    .foregroundColor(colors.InputSelect)
                                 
                             )
                             
@@ -123,11 +125,11 @@ struct CategoryDetailsView: View {
                                     }
                                 } label: {
                                     Label(
-                                        title: {Text(accountSelection?.name! ?? "Choose").frame(width: 150)},
+                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
                                         icon: {}
                                     )
                                 }
-                                    .foregroundColor(colors.Accent)
+                                    .foregroundColor(colors.InputSelect)
                             )
                         )
                         
@@ -150,7 +152,7 @@ struct CategoryDetailsView: View {
                                         )
                                     }
                                     
-                                    .foregroundColor(colors.Accent)
+                                    .foregroundColor(colors.InputSelect)
                                     
                                     
                                     SFSymbolsPicker(icon: $icon, category: sfCategory, axis: .vertical, haptic: true)
@@ -159,13 +161,30 @@ struct CategoryDetailsView: View {
                             )
                         )
                     }
-                    
+                    .onAppear(
+                        perform: {
+                            if self.isEditing{
+                                self.name = self.editingCategory?.title ?? ""
+                                self.limitAmount = Int(self.editingCategory?.limit ?? 000)
+                                self.typeSelection = self.editingCategory?.type ?? "Expense"
+                                self.accountSelection = self.editingCategory?.account
+                                self.submitText = "Save"
+                                self.icon = self.editingCategory?.symbolName ?? "nosign"
+                                
+                                print("category: "+self.name)
+                                print("\(self.limitAmount)")
+                            }
+                        }
+                    )
                     
                     Spacer()
                     
                 }.foregroundColor(colors.Primary)
                     .padding(.top, 50.0)
                 
+            }
+            .onTapGesture {
+                isFocused = false
             }
             .padding(.horizontal, 20)
         }

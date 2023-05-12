@@ -9,11 +9,13 @@ import SwiftUI
 
 struct TransactionTileView: View {
     @EnvironmentObject var colors: ColorContent
-    let numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    
     let dateFormatter = DateFormatter()
+    let numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    
+    var cornerRadius: CGFloat = 12
     var transaction: Transaction
     
-    var cornerRadius: CGFloat = 16
     
     init(transaction: Transaction) {
         self.transaction = transaction
@@ -30,7 +32,7 @@ struct TransactionTileView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(
                             transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
-                            lineWidth: 4
+                            lineWidth: 3
                         )
                 )
             VStack{

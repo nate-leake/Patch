@@ -10,14 +10,16 @@ import SwiftUI
 struct FigureContentView: View {
     @EnvironmentObject var colors:ColorContent
     
-    let title: String
-    let percentage: Double
     let image: String
+    let percentage: Double
+    let title: String
+    
     
     var body: some View {
-        VStack(){
+        VStack(spacing: 0){
             Text(title)
                 .foregroundColor(colors.Primary)
+                .padding(.bottom, 5)
             
             CircularProgressView(progress: percentage/100.0)
                 .overlay(
@@ -27,19 +29,21 @@ struct FigureContentView: View {
                             .font(.system(.caption2))
                         Image(image)
                             .resizable()
-                            .scaledToFit()
-                            .padding(5)
+                            .aspectRatio(contentMode: .fit)
+                            .padding(10)
                         Spacer()
                     }
                 )
                 .padding(5)
+            //            Text("$43.98")
+            //                .font(.system(.footnote))
         }        
     }
 }
 
 struct FigureContentView_Previews: PreviewProvider {
     static var previews: some View {
-        FigureContentView(title:"Income", percentage: 10.11, image:"expenses")
+        FigureContentView(image:"expenses", percentage: 10.11, title:"Income")
             .environmentObject(ColorContent())
     }
 }

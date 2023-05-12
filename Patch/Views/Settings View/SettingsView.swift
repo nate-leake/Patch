@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var colors:ColorContent
+    
+    let buildNumber: String = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
+    let versionNumber: String = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+    
     var body: some View {
         ZStack{
             VStack{
@@ -22,53 +26,30 @@ struct SettingsView: View {
                                 .background(colors.Fill)
                             
                             List {
-                                NavigationLink{
-                                    ZStack{
-                                        colors.Fill
-                                            .ignoresSafeArea()
-                                        List{
-                                            HStack{
-                                                Text("Original")
-                                                PaletteView(paletteName: "Original")
-                                            }
-                                            .onTapGesture {
-                                                colors.setColorPalette(name: "Original")
-                                                colors.colorScheme = .unspecified
-                                            }
-                                            
-                                            HStack{
-                                                Text("Pleasant")
-                                                PaletteView(paletteName: "Pleasant")
-                                            }.onTapGesture {
-                                                colors.setColorPalette(name: "Pleasant")
-                                                colors.colorScheme = .unspecified
-                                            }
-                                            
-                                            HStack{
-                                                Text("Terminal")
-                                                PaletteView(paletteName: "Terminal")
-                                            }.onTapGesture {
-                                                colors.setColorPalette(name: "Terminal")
-                                                colors.colorScheme = .dark
-                                            }
-                                        }.scrollContentBackground(.hidden)
-                                    }
-                                } label: {
-                                    Text("Color Palette")
-                                    
-                                }
+                                ColorPaletteSelectorView()
+                                
+                                UIOptionsView()
                                 
                             }.scrollContentBackground(.hidden)
                             
                         }
                     }
                     .navigationTitle("Settings")
-                    .foregroundColor(colors.Primary)
+                    .foregroundColor(colors.InputText)
                 }
+                
+                
+                HStack{
+                    Text("Version " + versionNumber)
+                    Text("(" + buildNumber + ")")
+                }.opacity(0.8)
             }
-            .foregroundColor(colors.Primary)
+            .foregroundColor(colors.InputText)
             .font(.system(.body))
-        }            
+            
+            
+        }
+        .transition(.move(edge: .trailing))
     }
 }
 

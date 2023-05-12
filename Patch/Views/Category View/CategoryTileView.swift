@@ -9,10 +9,12 @@ import SwiftUI
 
 struct CategoryTileView: View {
     @EnvironmentObject var colors: ColorContent
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    var category: Category
     
-    var cornerRadius: CGFloat = 16
+    @ObservedObject var category: Category
+    
+    var cornerRadius: CGFloat = 12
+    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    
     
     var body: some View {
         ZStack{
@@ -23,12 +25,12 @@ struct CategoryTileView: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(
                             category.type == "Expense" ? colors.Primary : colors.Accent,
-                            lineWidth: 4
+                            lineWidth: 3
                         )
                 )
             
             HStack{
-                CategoryProgressView(percentage: Double(category.used / category.limit), image: category.symbolName ?? "nosign")
+                CategoryProgressView(image: self.category.symbolName ?? "nosign", percentage: Double(self.category.used) / Double(self.category.limit) * 100.0)
                     .frame(width: 65.0)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 10)
@@ -40,19 +42,16 @@ struct CategoryTileView: View {
                             .opacity(0.7)
                     }
                     HStack{
-                        //                                Text("\(numberFormatHandler.formatInt(value: Int(category.limit )))")
-                        //                                Text("|")
                         Text("\(numberFormatHandler.formatInt(value: Int(category.used )))")
                         Rectangle()
                             .frame(width: 1, height: 17)
                         Text("\(numberFormatHandler.formatInt(value: Int(category.limit - category.used))) Left")
                     }
                     
-                }
+                } 
                 Spacer()
                 Spacer()
-            }
-            
+            }            
         }
     }
 }
