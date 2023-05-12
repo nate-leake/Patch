@@ -8,31 +8,29 @@
 import SwiftUI
 
 struct TransactionDetailsView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors: ColorContent
-    
     @Environment(\.dismiss) var dismissSheet
+    @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.type)]) var categoryData: FetchedResults<Category>
     
     @FocusState private var isFocused: Bool
     
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    var editingTransaction: Transaction?
-    var isEditing: Bool = false
-        
-    @State private var dateSelected: Date = Date()
     @State private var amount: Int = 0
-    @State private var description: String = ""
     @State private var categoryPicked: Category?
-    
+    @State private var dateSelected: Date = Date()
+    @State private var description: String = ""
     @State private var submitText = "Add"
     
-    var width: CGFloat = .infinity
+    private let adaptiveColumns = [ GridItem(.adaptive(minimum: .infinity)) ]
+    
+    var editingTransaction: Transaction?
+    var isEditing: Bool = false
     var height: CGFloat = 100
-    private let  adaptiveColumns = [
-        GridItem(.adaptive(minimum: .infinity))
-    ]
+    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    var width: CGFloat = .infinity
+    
     
     init(transaction: Transaction? = nil){
         print("Editing transaction: \(String(describing: transaction))")
@@ -67,7 +65,7 @@ struct TransactionDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Transaction Details", submitText: self.submitText)
+                CustomSheetHeaderView(sheetTitle: "Transaction Details", submitText: self.submitText, validateFeilds: validateInputs)
                 LazyVGrid(columns: adaptiveColumns, spacing: 20){
                     DetailTileView(
                         title: "Date",
@@ -128,15 +126,15 @@ struct TransactionDetailsView: View {
                     
                 }
                 .onAppear(
-                perform: {
-                    if self.isEditing{
-                        self.dateSelected = self.editingTransaction?.date ?? Date()
-                        self.amount = Int(self.editingTransaction?.amount ?? 100)
-                        self.description = self.editingTransaction?.memo ?? ""
-                        self.categoryPicked = self.editingTransaction?.category
-                        self.submitText = "Save"
+                    perform: {
+                        if self.isEditing{
+                            self.dateSelected = self.editingTransaction?.date ?? Date()
+                            self.amount = Int(self.editingTransaction?.amount ?? 100)
+                            self.description = self.editingTransaction?.memo ?? ""
+                            self.categoryPicked = self.editingTransaction?.category
+                            self.submitText = "Save"
+                        }
                     }
-                }
                 )
                 
                 Spacer()

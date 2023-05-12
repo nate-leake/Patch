@@ -10,33 +10,32 @@ import CoreData
 
 struct FiguresView: View {
     @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors:ColorContent
-    
-    let NFH = NumberFormatHandler()
-    
-    var showFiguresDollars = UserDefaults.standard.bool(forKey: "SHOW_UI_FIGURES_DOLLARS")
-        
-    let computations: Computation = Computation()
-    
-    @FetchRequest(sortDescriptors: [
-        //        SortDescriptor(\.title),
-        SortDescriptor(\.type, order: .reverse)
-    ]) var categoryData: FetchedResults<Category>
+    @EnvironmentObject var dataController: DataController
     
     @FetchRequest(sortDescriptors: [
         //        SortDescriptor(\.title),
         SortDescriptor(\.type, order: .reverse)
     ]) var accountsData: FetchedResults<Account>
     
+    @FetchRequest(sortDescriptors: [
+        //        SortDescriptor(\.title),
+        SortDescriptor(\.type, order: .reverse)
+    ]) var categoryData: FetchedResults<Category>
+    
+    let computations: Computation = Computation()
+    let NFH = NumberFormatHandler()
+    var showFiguresDollars = UserDefaults.standard.bool(forKey: "SHOW_UI_FIGURES_DOLLARS")
+    
+    
     var body: some View {
         ZStack{
             VStack{
                 HStack{
                     VStack(spacing: 4){
-                        FigureContentView(title: "Income",
+                        FigureContentView(image: "income",
                                           percentage: accountsData[0].percentIncome,
-                                          image: "income")
+                                          title: "Income")
                         if showFiguresDollars {
                             Text(NFH.formatInt(value: Int(accountsData[0].dollarIncome)))
                                 .font(.system(.footnote))
@@ -46,9 +45,9 @@ struct FiguresView: View {
                     Spacer()
                     
                     VStack(spacing: 4){
-                        FigureContentView(title: "Expenses",
+                        FigureContentView(image: "expenses",
                                           percentage: accountsData[0].percentExpenses,
-                                          image: "expenses")
+                                          title: "Expenses")
                         if showFiguresDollars {
                             Text(NFH.formatInt(value: Int(accountsData[0].dollarExpenses)))
                                 .font(.system(.footnote))
@@ -58,9 +57,9 @@ struct FiguresView: View {
                     Spacer()
                     
                     VStack(spacing: 4){
-                        FigureContentView(title: "Savings",
+                        FigureContentView(image: "savings",
                                           percentage: accountsData[0].percentSaving,
-                                          image: "savings")
+                                          title: "Savings")
                         if showFiguresDollars {
                             Text(NFH.formatInt(value: Int(accountsData[0].dollarSavings)))
                                 .font(.system(.footnote))

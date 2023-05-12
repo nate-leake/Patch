@@ -41,7 +41,7 @@ extension Account {
     func calculateDollarSavings() {
         var totalIncomeMax: Int64 = 0
         var totalExpensesMax: Int64 = 0
-                
+        
         let categoriesArray: [Category] = self.categories?.allObjects as! [Category]
         
         for category in categoriesArray {

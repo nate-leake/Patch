@@ -17,17 +17,17 @@ enum ActiveSheet: Identifiable {
 
 struct TransactionsView: View {
     @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var transactionData: FetchedResults<Transaction>
     
-    @State var editingTansaction: Transaction? 
     @State private var activeSheet: ActiveSheet?
-    
-    var numberFormatHandler = NumberFormatHandler()
+    @State var editingTansaction: Transaction?
     
     let formatter: () = DateFormatter().dateStyle = .short
+    var numberFormatHandler = NumberFormatHandler()
+    
     
     var body: some View {
         LazyVStack{
@@ -84,7 +84,7 @@ struct TransactionsView: View {
                         .environmentObject(dataController)
                 } else {
                     VStack{
-                        CustomSheetHeaderView(validateFeilds: {() -> Bool in return true}, sheetTitle: "Known Bug", submitText: "Close")
+                        CustomSheetHeaderView(sheetTitle: "Known Bug", submitText: "Close", validateFeilds: {() -> Bool in return true})
                             .padding(.horizontal, 20)
                         Spacer()
                         Image(systemName: "exclamationmark.triangle")

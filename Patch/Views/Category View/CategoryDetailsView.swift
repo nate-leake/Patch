@@ -8,36 +8,31 @@
 import SwiftUI
 
 struct CategoryDetailsView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
-    @EnvironmentObject var colors: ColorContent
-    
     @Environment(\.dismiss) var dismissSheet
+    @Environment (\.managedObjectContext) var managedObjContext
+    @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
-    
-    var editingCategory: Category?
-    
-    @State var limitAmount: Int = 0
-    @State var name: String = ""
-    @State var typeSelection: String = "Expense"
-    let categoryTypeOptions = ["Income", "Expense"]
-    
-    @State var accountSelection : Account?
     
     @FocusState private var isFocused: Bool
     
-    var isEditing: Bool = false
+    @State private var icon = "l1.rectangle.roundedbottom"
     
+    @State var accountSelection : Account?
+    @State var limitAmount: Int = 0
+    @State var name: String = ""
+    @State var sfCategory: SFCategory = .food
     @State var submitText: String = "Add"
-    var sheetTitle: String = "Category Details"
+    @State var typeSelection: String = "Expense"
     
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    let categoryTypeOptions = ["Income", "Expense"]
     
     var category: FetchedResults<Category>.Element?
-    
-    
-    @State private var icon = "l1.rectangle.roundedbottom"
-    @State var sfCategory: SFCategory = .food
+    var editingCategory: Category?
+    var isEditing: Bool = false
+    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    var sheetTitle: String = "Category Details"
     
     
     init(name: String = "", limitAmount: Int = 0, category: Category? = nil) {
@@ -72,7 +67,7 @@ struct CategoryDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: "Category Details", submitText: self.submitText)
+                CustomSheetHeaderView(sheetTitle: "Category Details", submitText: self.submitText, validateFeilds: validateInputs)
                 
                 VStack{
                     LazyVGrid(columns: adaptiveColumns, spacing: 20){
@@ -167,19 +162,19 @@ struct CategoryDetailsView: View {
                         )
                     }
                     .onAppear(
-                    perform: {
-                        if self.isEditing{
-                            self.name = self.editingCategory?.title ?? ""
-                            self.limitAmount = Int(self.editingCategory?.limit ?? 000)
-                            self.typeSelection = self.editingCategory?.type ?? "Expense"
-                            self.accountSelection = self.editingCategory?.account
-                            self.submitText = "Save"
-                            self.icon = self.editingCategory?.symbolName ?? "nosign"
-                            
-                            print("category: "+self.name)
-                            print("\(self.limitAmount)")
+                        perform: {
+                            if self.isEditing{
+                                self.name = self.editingCategory?.title ?? ""
+                                self.limitAmount = Int(self.editingCategory?.limit ?? 000)
+                                self.typeSelection = self.editingCategory?.type ?? "Expense"
+                                self.accountSelection = self.editingCategory?.account
+                                self.submitText = "Save"
+                                self.icon = self.editingCategory?.symbolName ?? "nosign"
+                                
+                                print("category: "+self.name)
+                                print("\(self.limitAmount)")
+                            }
                         }
-                    }
                     )
                     
                     Spacer()

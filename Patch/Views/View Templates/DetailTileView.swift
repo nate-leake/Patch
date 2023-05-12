@@ -9,16 +9,17 @@ import SwiftUI
 
 struct DetailTileView: View, Identifiable {
     @EnvironmentObject var colors: ColorContent
-    var id: UUID = UUID()
-    var title: String
     
     @ViewBuilder
     var content: AnyView
-    var borderColor = Color(.gray)
-    
-    var cornerRadius: CGFloat = 16
     
     @State private var dateSelected: Date = Date()
+    
+    var borderColor = Color(.gray)
+    var cornerRadius: CGFloat = 16
+    var id: UUID = UUID()
+    var title: String
+    
     
     init(title: String, content: AnyView, borderColor: Color = Color(.gray)) {
         self.title = title

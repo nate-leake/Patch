@@ -9,7 +9,7 @@ import SwiftUI
 
 struct UIOptionsView: View {
     @EnvironmentObject var colors : ColorContent
-        
+    
     @AppStorage("SHOW_UI_FIGURES_DOLLARS") var saved_Setting = false
     
     var body: some View {

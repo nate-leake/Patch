@@ -10,9 +10,10 @@ import SwiftUI
 struct FigureContentView: View {
     @EnvironmentObject var colors:ColorContent
     
-    let title: String
-    let percentage: Double
     let image: String
+    let percentage: Double
+    let title: String
+    
     
     var body: some View {
         VStack(spacing: 0){
@@ -34,15 +35,15 @@ struct FigureContentView: View {
                     }
                 )
                 .padding(5)
-//            Text("$43.98")
-//                .font(.system(.footnote))
+            //            Text("$43.98")
+            //                .font(.system(.footnote))
         }        
     }
 }
 
 struct FigureContentView_Previews: PreviewProvider {
     static var previews: some View {
-        FigureContentView(title:"Income", percentage: 10.11, image:"expenses")
+        FigureContentView(image:"expenses", percentage: 10.11, title:"Income")
             .environmentObject(ColorContent())
     }
 }

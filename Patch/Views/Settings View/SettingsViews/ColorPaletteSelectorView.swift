@@ -57,8 +57,6 @@ struct ColorPaletteSelectorView: View {
         } label: {
             Text("Color Palette")
         }
-            
-        
     }
 }
 

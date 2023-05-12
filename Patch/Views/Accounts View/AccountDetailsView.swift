@@ -17,16 +17,15 @@ struct AccountDetailsView: View {
     
     @State var name: String = ""
     @State var typeSelection = "Checking"
+    
     let categoryTypeOptions = ["Checking"]
     
-    var isEditing: Bool = false
-    
-    var submitText: String = "Add"
-    var sheetTitle: String = "Account Details"
-    
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    
     var category: FetchedResults<Category>.Element?
+    var isEditing: Bool = false
+    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    var sheetTitle: String = "Account Details"
+    var submitText: String = "Add"
+    
     
     init(name: String = "", limitAmount: Int = 0) {
         if (name != ""){
@@ -59,7 +58,7 @@ struct AccountDetailsView: View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(validateFeilds: validateInputs, sheetTitle: sheetTitle, submitText: submitText)
+                CustomSheetHeaderView(sheetTitle: sheetTitle, submitText: submitText, validateFeilds: validateInputs)
                 
                 VStack{
                     LazyVGrid(columns: adaptiveColumns, spacing: 20){

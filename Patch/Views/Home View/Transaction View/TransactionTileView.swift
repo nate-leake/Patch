@@ -9,11 +9,13 @@ import SwiftUI
 
 struct TransactionTileView: View {
     @EnvironmentObject var colors: ColorContent
-    let numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
+    
     let dateFormatter = DateFormatter()
-    var transaction: Transaction
+    let numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
     
     var cornerRadius: CGFloat = 12
+    var transaction: Transaction
+    
     
     init(transaction: Transaction) {
         self.transaction = transaction

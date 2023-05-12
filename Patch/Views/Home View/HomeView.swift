@@ -9,8 +9,8 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
     
     var body: some View {
         ZStack{

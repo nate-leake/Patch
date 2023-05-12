@@ -9,8 +9,8 @@ import SwiftUI
 
 struct RootView: View {
     @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var dataController: DataController
     
     @State var selectedTabs: Tabs = .home
     

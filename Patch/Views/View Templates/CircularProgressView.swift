@@ -10,13 +10,6 @@ import SwiftUI
 struct CircularProgressView: View {
     @EnvironmentObject var colors: ColorContent
     
-    let progress: Double
-    
-    @State var leadingOpacity: Double = 1.0
-    @State var trailingOpacity: Double = 1.0
-        
-    @State var gradient: Gradient = Gradient(colors: [Color.green.opacity(1.0), Color.green.opacity(1.0)])
-    
     @State var angularGradient: AngularGradient = AngularGradient(
         gradient: Gradient(colors: [Color.green.opacity(0.6), Color.green.opacity(1.0)]),
         center: .center,
@@ -24,6 +17,11 @@ struct CircularProgressView: View {
         endAngle: .degrees(359)
     )
     //                .stroke(gradient, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+    @State var gradient: Gradient = Gradient(colors: [Color.green.opacity(1.0), Color.green.opacity(1.0)])
+    @State var leadingOpacity: Double = 1.0
+    @State var trailingOpacity: Double = 1.0
+    
+    let progress: Double
     
     
     var body: some View {
@@ -37,7 +35,7 @@ struct CircularProgressView: View {
                     )
                 )
                 .rotationEffect(.degrees(-90))
-                
+            
             Circle()
             // 2
                 .trim(from: 0, to: progress)
@@ -55,7 +53,7 @@ struct CircularProgressView: View {
             perform: {
                 self.gradient = Gradient(colors: [colors.ProgressCircleFill.opacity(self.leadingOpacity), colors.ProgressCircleFill.opacity(self.trailingOpacity)])
                 
-                 
+                
                 self.angularGradient = AngularGradient(
                     gradient: self.gradient,
                     center: .center,

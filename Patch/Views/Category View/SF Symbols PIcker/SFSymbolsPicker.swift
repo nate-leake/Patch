@@ -12,9 +12,11 @@ public struct SFSymbolsPicker: View {
     
     // MARK: - View properties
     @EnvironmentObject var colors: ColorContent
+    
     @Binding public var icon: String
-    let category: SFCategory
+    
     let axis: Axis.Set
+    let category: SFCategory
     let haptic: Bool
     
     /// Show a picker to select SF Symbols
