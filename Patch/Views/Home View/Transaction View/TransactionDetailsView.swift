@@ -15,6 +15,8 @@ struct TransactionDetailsView: View {
     @Environment(\.dismiss) var dismissSheet
     @FetchRequest(sortDescriptors: [SortDescriptor(\.type)]) var categoryData: FetchedResults<Category>
     
+    @FocusState private var isFocused: Bool
+    
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
     var editingTransaction: Transaction?
     var isEditing: Bool = false
@@ -89,6 +91,7 @@ struct TransactionDetailsView: View {
                                 .padding(.horizontal, 20)
                                 .foregroundColor(colors.InputText)
                                 .font(.system(.title2))
+                                .focused($isFocused)
                         )
                     )
                     
@@ -139,6 +142,9 @@ struct TransactionDetailsView: View {
                 Spacer()
             }
             .padding(.horizontal, 20)
+        }
+        .onTapGesture {
+            isFocused = false
         }
         
     }

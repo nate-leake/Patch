@@ -24,6 +24,8 @@ struct CategoryDetailsView: View {
     
     @State var accountSelection : Account?
     
+    @FocusState private var isFocused: Bool
+    
     var isEditing: Bool = false
     
     @State var submitText: String = "Add"
@@ -92,6 +94,7 @@ struct CategoryDetailsView: View {
                                     .padding(.horizontal, 20)
                                     .foregroundColor(colors.InputText)
                                     .font(.system(.title2))
+                                    .focused($isFocused)
                             )
                         )
                         
@@ -184,6 +187,9 @@ struct CategoryDetailsView: View {
                 }.foregroundColor(colors.Primary)
                     .padding(.top, 50.0)
                 
+            }
+            .onTapGesture {
+                isFocused = false
             }
             .padding(.horizontal, 20)
         }
