@@ -54,7 +54,7 @@ struct TransactionsView: View {
             
             Spacer()
             
-            VStack(spacing: 90){
+            VStack(spacing: 20){
                 ForEach(transactionData){ transaction in
                     TransactionTileView(transaction: transaction)
                         .padding(.horizontal)

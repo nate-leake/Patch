@@ -10,6 +10,11 @@ import SwiftUI
 struct TransactionTileView: View {
     @EnvironmentObject var colors: ColorContent
     
+    let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     let monthDateFormatter = DateFormatter()
     let dayDateFormatter = DateFormatter()
     let numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
@@ -26,58 +31,57 @@ struct TransactionTileView: View {
     }
     
     var body: some View {
-        GeometryReader {geo in
-            ZStack{
-                Rectangle()
-                    .foregroundColor(Color.gray.opacity(0.05))
-                    .cornerRadius(cornerRadius)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(
-                                transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
-                                lineWidth: 3
-                            )
-                    )
-                
-                
-                
-                HStack{
-                    HStack{
-                        VStack{
-                            Text("\(monthDateFormatter.string(from: transaction.date!))")
-                                .font(.system(.callout))
-                                .opacity(0.7)
-                            Spacer()
-                            Text("\(dayDateFormatter.string(from: transaction.date!))")
-                        }
-                        .frame(width: geo.size.width * 0.2)
-                    }
-                    
-                    Spacer()
-                    
-                    VStack{
-                        Text("\(transaction.memo ?? "N/A")")
-                            .opacity(transaction.memo == nil ? 0.5 : 1.0)
-                        Spacer()
-                        Text("\(numberFormatHandler.formatInt(value: Int(transaction.amount)))")
-                            .opacity(0.7)
-                            .font(.system(.footnote))
-                    }
-                    
-                    Spacer()
-                    
-                    VStack{
-                        Text(transaction.category?.title ?? "Unkown Category" )
-                            .font(.system(.footnote))
-                        Spacer()
-                        Image(systemName: transaction.category?.symbolName ?? "nosign")
-                    }
-                    .frame(width: geo.size.width * 0.2)
-                    .padding(.trailing, 15)
+        ZStack{
+            Rectangle()
+                .foregroundColor(Color.gray.opacity(0.05))
+                .cornerRadius(cornerRadius)
+                .overlay(
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(
+                            transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
+                            lineWidth: 3
+                        )
+                )
+            
+            
+            
+            LazyVGrid(columns: columns, spacing: 20){
+                VStack{
+                    Text("\(monthDateFormatter.string(from: transaction.date!))")
+                        .font(.system(.footnote))
+                        .opacity(0.7)
+                        .padding(.bottom, 1)
+                    Text("\(dayDateFormatter.string(from: transaction.date!))")
                 }
-                .padding(.vertical, 15)
+                
+                
+                
+                VStack{
+                    Text("\(transaction.memo ?? "N/A")")
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.center)
+                        .opacity(transaction.memo == nil ? 0.5 : 1.0)
+                        .padding(.bottom, 1)
+                    Text("\(numberFormatHandler.formatInt(value: Int(transaction.amount)))")
+                        .opacity(0.7)
+                        .font(.system(.footnote))
+                }
+                
+                
+                VStack{
+                    Text(transaction.category?.title ?? "Unkown Category" )
+                        .font(.system(.footnote))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.leading)
+                        .padding(.bottom, 2)
+                    Image(systemName: transaction.category?.symbolName ?? "nosign")
+                        .font(.system(.body))
+                }
                 
             }
+            .padding(.vertical, 15)
+            
+            
         }
     }
 }
