@@ -22,6 +22,7 @@ struct UIOptionsView: View {
                 List{
                     Toggle("Show Figure Dollars", isOn: $saved_Setting)
                 }
+                .scrollContentBackground(.hidden)
                 
             }
         } label: {
