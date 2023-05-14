@@ -54,10 +54,9 @@ struct TransactionsView: View {
             
             Spacer()
             
-            VStack(spacing: 0){
+            VStack(spacing: 90){
                 ForEach(transactionData){ transaction in
                     TransactionTileView(transaction: transaction)
-                        .padding(.vertical, 10)
                         .padding(.horizontal)
                     
                         .onTapGesture {

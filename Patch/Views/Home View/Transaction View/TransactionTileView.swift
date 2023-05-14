@@ -10,7 +10,8 @@ import SwiftUI
 struct TransactionTileView: View {
     @EnvironmentObject var colors: ColorContent
     
-    let dateFormatter = DateFormatter()
+    let monthDateFormatter = DateFormatter()
+    let dayDateFormatter = DateFormatter()
     let numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
     
     var cornerRadius: CGFloat = 12
@@ -19,38 +20,64 @@ struct TransactionTileView: View {
     
     init(transaction: Transaction) {
         self.transaction = transaction
-        self.dateFormatter.dateFormat = "MM/dd/YYYY"
-        self.dateFormatter.locale = Locale.current
+        self.monthDateFormatter.dateFormat = "MMM"
+        self.dayDateFormatter.dateFormat = "d"
+        self.monthDateFormatter.locale = Locale.current
     }
     
     var body: some View {
-        ZStack{
-            Rectangle()
-                .foregroundColor(colors.Fill)
-                .cornerRadius(cornerRadius)
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(
-                            transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
-                            lineWidth: 3
-                        )
-                )
-            VStack{
+        GeometryReader {geo in
+            ZStack{
+                Rectangle()
+                    .foregroundColor(Color.gray.opacity(0.05))
+                    .cornerRadius(cornerRadius)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .stroke(
+                                transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
+                                lineWidth: 3
+                            )
+                    )
+                
+                
+                
                 HStack{
-                    Text("\(transaction.memo ?? "N/A")")
-                        .opacity(transaction.memo == nil ? 0.5 : 1.0)
-                    Text("\(numberFormatHandler.formatInt(value: Int(transaction.amount)))")
-                        .opacity(0.7)
-                }
-                HStack{
-                    Text("\(dateFormatter.string(from: transaction.date!))")
-                    Rectangle()
-                        .frame(width: 1, height: 17)
-                    Text(transaction.category?.title ?? "Unkown Category")
+                    HStack{
+                        VStack{
+                            Text("\(monthDateFormatter.string(from: transaction.date!))")
+                                .font(.system(.callout))
+                                .opacity(0.7)
+                            Spacer()
+                            Text("\(dayDateFormatter.string(from: transaction.date!))")
+                        }
+                        .frame(width: geo.size.width * 0.2)
+                    }
                     
+                    Spacer()
+                    
+                    VStack{
+                        Text("\(transaction.memo ?? "N/A")")
+                            .opacity(transaction.memo == nil ? 0.5 : 1.0)
+                        Spacer()
+                        Text("\(numberFormatHandler.formatInt(value: Int(transaction.amount)))")
+                            .opacity(0.7)
+                            .font(.system(.footnote))
+                    }
+                    
+                    Spacer()
+                    
+                    VStack{
+                        Text(transaction.category?.title ?? "Unkown Category" )
+                            .font(.system(.footnote))
+                        Spacer()
+                        Image(systemName: transaction.category?.symbolName ?? "nosign")
+                    }
+                    .frame(width: geo.size.width * 0.2)
+                    .padding(.trailing, 15)
                 }
+                .padding(.vertical, 15)
+                
             }
-            .padding(.vertical, 20)
         }
     }
 }
