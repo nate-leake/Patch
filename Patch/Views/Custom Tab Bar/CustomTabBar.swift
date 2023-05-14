@@ -52,7 +52,7 @@ struct CustomTabBar: View {
             
             
         }
-        .frame(height: 82)
+        .frame(height: 70)
         
     }
 }
