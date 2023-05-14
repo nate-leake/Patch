@@ -15,12 +15,12 @@ struct HomeView: View {
     var body: some View {
         ZStack{
             colors.Fill
-                .ignoresSafeArea()
             
             ScrollView{
                 VStack{
                     FiguresView()
                         .padding(.horizontal, 15)
+                        .padding(.top, 5)
                     
                     Spacer()
                     
