@@ -18,7 +18,7 @@ struct RootView: View {
         ZStack(alignment: .top) {
             colors.Fill
                 .ignoresSafeArea()
-            VStack{
+            VStack(spacing:0){
                 switch selectedTabs {
                 case .home:
                     HomeView()
