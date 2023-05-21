@@ -20,7 +20,10 @@ struct TransactionsView: View {
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var transactionData: FetchedResults<Transaction>
+    @FetchRequest(
+        sortDescriptors: [SortDescriptor(\.date, order: .reverse)],
+        predicate: NSPredicate(format: "date <= %@ AND date >= %@", Date().endOfMonth() as CVarArg, Date().startOfMonth() as CVarArg)
+    ) var transactionData: FetchedResults<Transaction>
     
     @State private var activeSheet: ActiveSheet?
     @State var editingTansaction: Transaction?
