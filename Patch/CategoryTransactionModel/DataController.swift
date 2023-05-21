@@ -161,6 +161,11 @@ class DataController: ObservableObject {
                 return
             }
             
+            guard category.date != nil else {
+                category.date = Date().startOfMonth()
+                return
+            }
+            
             if !(hasType && hasAccount){
                 print("Warning: Category has no type or account: ",
                     category.id ?? "No category ID",
@@ -204,6 +209,11 @@ class DataController: ObservableObject {
             
             self.addTransaction(category: allCategories![0], date: Date.now, amount: 1293, memo: "Trying this out!")
             self.addTransaction(category: allCategories![1], date: Date.now, amount: 32930, memo: "Payday!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 2985, memo: "Trying this out!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 0039, memo: "Trying this out!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 3925, memo: "Trying this out!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 0198, memo: "Trying this out!")
+            
         }
     }
     
