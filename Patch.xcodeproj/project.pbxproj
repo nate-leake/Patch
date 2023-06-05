@@ -14,6 +14,8 @@
 		AF2B34D429E7474C003A4D07 /* DetailTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B34D329E7474C003A4D07 /* DetailTileView.swift */; };
 		AF319D862A019BBA00654329 /* Computation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF319D852A019BBA00654329 /* Computation.swift */; };
 		AF353C8D29F444D000DAF5C7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF353C8C29F444D000DAF5C7 /* DataController.swift */; };
+		AF3BA9FF2A26BC860074ECC1 /* MonthSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3BA9FE2A26BC860074ECC1 /* MonthSelectorView.swift */; };
+		AF50C5EE2A2C0C0C009626FD /* CurrentlyViewedMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF50C5ED2A2C0C0C009626FD /* CurrentlyViewedMonth.swift */; };
 		AF63592F29DB6C7300AEEFBC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63592E29DB6C7300AEEFBC /* SettingsView.swift */; };
 		AF63593129DB6F9C00AEEFBC /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF63593029DB6F9C00AEEFBC /* HomeView.swift */; };
 		AF67CAFB29D8CEA90032183F /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF67CAFA29D8CEA90032183F /* CustomTabBar.swift */; };
@@ -33,6 +35,7 @@
 		AFC0EAF529FDC55500975D9C /* Symbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0EAF429FDC55500975D9C /* Symbols.swift */; };
 		AFC0EAF729FDF72400975D9C /* CategoryTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0EAF629FDF72400975D9C /* CategoryTileView.swift */; };
 		AFC0EAF929FE03F700975D9C /* TransactionTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0EAF829FE03F700975D9C /* TransactionTileView.swift */; };
+		AFC76A7D2A1AAFCD00FAFCCC /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC76A7C2A1AAFCD00FAFCCC /* DateExtension.swift */; };
 		AFE26C9A29FD5D0B000C88C1 /* CategoryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE26C9929FD5D0B000C88C1 /* CategoryProgressView.swift */; };
 		AFEA832629F6C5090079B285 /* CustomSheetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEA832529F6C5090079B285 /* CustomSheetHeaderView.swift */; };
 		AFEA832829F6C7C20079B285 /* ViewPasser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFEA832729F6C7C20079B285 /* ViewPasser.swift */; };
@@ -52,6 +55,8 @@
 		AF2B34D329E7474C003A4D07 /* DetailTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTileView.swift; sourceTree = "<group>"; };
 		AF319D852A019BBA00654329 /* Computation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computation.swift; sourceTree = "<group>"; };
 		AF353C8C29F444D000DAF5C7 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		AF3BA9FE2A26BC860074ECC1 /* MonthSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSelectorView.swift; sourceTree = "<group>"; };
+		AF50C5ED2A2C0C0C009626FD /* CurrentlyViewedMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentlyViewedMonth.swift; sourceTree = "<group>"; };
 		AF63592E29DB6C7300AEEFBC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		AF63593029DB6F9C00AEEFBC /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AF67CAFA29D8CEA90032183F /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -73,6 +78,7 @@
 		AFC0EAF429FDC55500975D9C /* Symbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbols.swift; sourceTree = "<group>"; };
 		AFC0EAF629FDF72400975D9C /* CategoryTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTileView.swift; sourceTree = "<group>"; };
 		AFC0EAF829FE03F700975D9C /* TransactionTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTileView.swift; sourceTree = "<group>"; };
+		AFC76A7C2A1AAFCD00FAFCCC /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		AFE26C9929FD5D0B000C88C1 /* CategoryProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProgressView.swift; sourceTree = "<group>"; };
 		AFEA832529F6C5090079B285 /* CustomSheetHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetHeaderView.swift; sourceTree = "<group>"; };
 		AFEA832729F6C7C20079B285 /* ViewPasser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPasser.swift; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 		AF319D842A019BA200654329 /* Computations */ = {
 			isa = PBXGroup;
 			children = (
+				AF50C5ED2A2C0C0C009626FD /* CurrentlyViewedMonth.swift */,
 				AF319D852A019BBA00654329 /* Computation.swift */,
 			);
 			path = Computations;
@@ -135,6 +142,7 @@
 		AF63592D29DB6C5000AEEFBC /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				AFC76A7B2A1AAF1300FAFCCC /* Extensions */,
 				AF319D842A019BA200654329 /* Computations */,
 				AF319D832A019B9C00654329 /* UI */,
 			);
@@ -165,6 +173,7 @@
 			children = (
 				AF85706329D87255006DEFBE /* SplashScreenView.swift */,
 				AF85705629D86FD6006DEFBE /* RootView.swift */,
+				AF3BA9FE2A26BC860074ECC1 /* MonthSelectorView.swift */,
 				AF63593229DB780100AEEFBC /* Home View */,
 				AFF6D75E29DCD6FE00B01B00 /* Category View */,
 				AFF6D75F29DCD70D00B01B00 /* Accounts View */,
@@ -203,10 +212,10 @@
 		AF85705329D86FD6006DEFBE /* Patch */ = {
 			isa = PBXGroup;
 			children = (
+				AF85705429D86FD6006DEFBE /* PatchApp.swift */,
 				AF353C8B29F4413300DAF5C7 /* CategoryTransactionModel */,
 				AF63592D29DB6C5000AEEFBC /* Code */,
 				AF67CAF829D8CE7D0032183F /* Views */,
-				AF85705429D86FD6006DEFBE /* PatchApp.swift */,
 				AF85705829D86FD8006DEFBE /* Assets.xcassets */,
 				AF85705A29D86FD8006DEFBE /* Patch.entitlements */,
 				AF85705B29D86FD8006DEFBE /* Preview Content */,
@@ -239,6 +248,14 @@
 				AFC0EAF429FDC55500975D9C /* Symbols.swift */,
 			);
 			path = "SF Symbols PIcker";
+			sourceTree = "<group>";
+		};
+		AFC76A7B2A1AAF1300FAFCCC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AFC76A7C2A1AAFCD00FAFCCC /* DateExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		AFEA832429F6C4650079B285 /* View Templates */ = {
@@ -353,7 +370,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF2B34D429E7474C003A4D07 /* DetailTileView.swift in Sources */,
+				AFC76A7D2A1AAFCD00FAFCCC /* DateExtension.swift in Sources */,
 				AFC0EAF729FDF72400975D9C /* CategoryTileView.swift in Sources */,
+				AF50C5EE2A2C0C0C009626FD /* CurrentlyViewedMonth.swift in Sources */,
 				AF63592F29DB6C7300AEEFBC /* SettingsView.swift in Sources */,
 				AF8A4F9F2A09DDB600148378 /* ColorPaletteSelectorView.swift in Sources */,
 				AFEA832629F6C5090079B285 /* CustomSheetHeaderView.swift in Sources */,
@@ -371,6 +390,7 @@
 				AF8A4FA12A09DE3A00148378 /* UIOptionsView.swift in Sources */,
 				AFC0EAF529FDC55500975D9C /* Symbols.swift in Sources */,
 				AFC0EAF329FDC53400975D9C /* SFSymbolsPicker.swift in Sources */,
+				AF3BA9FF2A26BC860074ECC1 /* MonthSelectorView.swift in Sources */,
 				AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */,
 				AF63593129DB6F9C00AEEFBC /* HomeView.swift in Sources */,
 				AF67CAFD29D8DC0C0032183F /* TabBarButton.swift in Sources */,
@@ -510,7 +530,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -533,7 +553,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -553,7 +573,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -576,7 +596,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 0.2;
+				MARKETING_VERSION = 0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
