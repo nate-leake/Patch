@@ -18,6 +18,18 @@ struct ColorPaletteSelectorView: View {
                 
                 GeometryReader { geo in
                     List{
+                        HStack{
+                            Text("Grounded")
+                            Spacer()
+                            PaletteView(paletteName: "Grounded")
+                                .frame(width: geo.size.width * 0.55)
+                        }
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0)) {
+                                colors.setColorPalette(name: "Grounded")
+                                colors.colorScheme = .unspecified
+                            }
+                        }
                         
                         HStack{
                             Text("Original")
@@ -26,8 +38,10 @@ struct ColorPaletteSelectorView: View {
                                 .frame(width: geo.size.width * 0.55)
                         }
                         .onTapGesture {
-                            colors.setColorPalette(name: "Original")
-                            colors.colorScheme = .unspecified
+                            withAnimation(.easeInOut(duration: 0)) {
+                                colors.setColorPalette(name: "Original")
+                                colors.colorScheme = .unspecified
+                            }
                         }
                         
                         HStack{
@@ -36,8 +50,11 @@ struct ColorPaletteSelectorView: View {
                             PaletteView(paletteName: "Pleasant")
                                 .frame(width: geo.size.width * 0.55)
                         }.onTapGesture {
-                            colors.setColorPalette(name: "Pleasant")
-                            colors.colorScheme = .unspecified
+                            withAnimation(.easeInOut(duration: 0)) {
+                                colors.setColorPalette(name: "Pleasant")
+                                colors.colorScheme = .unspecified
+                            }
+                            
                         }
                         
                         HStack{
@@ -46,8 +63,10 @@ struct ColorPaletteSelectorView: View {
                             PaletteView(paletteName: "Terminal")
                                 .frame(width: geo.size.width * 0.55)
                         }.onTapGesture {
-                            colors.setColorPalette(name: "Terminal")
-                            colors.colorScheme = .dark
+                            withAnimation(.easeInOut(duration: 0)) {
+                                colors.setColorPalette(name: "Terminal")
+                                colors.colorScheme = .dark
+                            }
                         }
                     }
                 }
