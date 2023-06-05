@@ -9,14 +9,16 @@ import SwiftUI
 
 @main
 struct PatchApp: App {
-    @State var dataController: DataController = DataController()
+    @StateObject var colors: ColorContent = ColorContent()
+    @StateObject var dataController: DataController = DataController()
     
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
                 .environment(\.managedObjectContext, dataController.context)
+                .environmentObject(colors)
                 .environmentObject(dataController)
-                .environmentObject(ColorContent())
+                .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
         }
     }
 }

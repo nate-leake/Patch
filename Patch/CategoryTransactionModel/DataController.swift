@@ -11,7 +11,8 @@ import CoreData
 class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "CategoryData")
     let context: NSManagedObjectContext
-    let computations = Computation()
+    let computations: Computation
+    let monthViewing: CurrentlyViewedMonth
     
     var isPreviewing: Bool = false
     
@@ -23,6 +24,8 @@ class DataController: ObservableObject {
         }
         
         self.context = self.container.viewContext
+        self.computations = Computation(context: self.context)
+        self.monthViewing = CurrentlyViewedMonth(MOC: self.context)
         
         if isPreviewing {
             self.isPreviewing = true
@@ -36,6 +39,7 @@ class DataController: ObservableObject {
     func save(){
         do {
             try self.context.save()
+            monthViewing.performFetchRequest()
         } catch {
             print("Could not save data. ")
         }
@@ -59,11 +63,12 @@ class DataController: ObservableObject {
         category.type = type
         category.used = 0
         category.symbolName = symbolName
+        category.date = Date().startOfMonth()
         
         account.addToCategories(category)
-        account.calculateAllVaules()
         
         if !isPreviewing{save()}
+        
     }
     
     func editCategory(category: Category, name: String, limit: Int, type: String, symbolName: String){
@@ -72,8 +77,6 @@ class DataController: ObservableObject {
         category.type = type
         category.symbolName = symbolName
                 
-        category.account?.calculateAllVaules()
-        
         if !isPreviewing{save()}
     }
     
@@ -104,7 +107,15 @@ class DataController: ObservableObject {
         }
         
         computations.checking.editTransaction(oldCategory: oldCategory, newCategory: category, oldAmount: oldAmount, newAmount: transaction.amount)
+        if !isPreviewing{save()}
+    }
+    
+    func deleteTransaction(category: Category, transaction: Transaction){
+        print("Delete transaction: \(String(describing: transaction.memo))")
         
+        computations.checking.deleteTransaction(category: category, transaction: transaction)
+
+        self.context.delete(transaction)
         if !isPreviewing{save()}
     }
     
@@ -116,10 +127,9 @@ class DataController: ObservableObject {
             print("No accounts found. Adding the default checking account.")
             addAccount(name: "Checking Default", type: "Checking")
         }
-        
+    
         for account in allAccounts!{
-            account.calculateAllVaules()
-//            print(account.id ??  "No account ID", ":", account.name ?? "Unassigned account", ":", account.type ?? "Unassigned type")
+            print(account.name ?? "No Account name")
         }
         
     }
@@ -161,6 +171,12 @@ class DataController: ObservableObject {
                 return
             }
             
+            guard category.date != nil else {
+                category.date = Date().startOfMonth()
+                save()
+                return
+            }
+            
             if !(hasType && hasAccount){
                 print("Warning: Category has no type or account: ",
                     category.id ?? "No category ID",
@@ -178,6 +194,7 @@ class DataController: ObservableObject {
                     category.account?.name ?? "Unassigned account"
                 )
             }
+            
             
         }
     }
@@ -204,6 +221,11 @@ class DataController: ObservableObject {
             
             self.addTransaction(category: allCategories![0], date: Date.now, amount: 1293, memo: "Trying this out!")
             self.addTransaction(category: allCategories![1], date: Date.now, amount: 32930, memo: "Payday!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 2985, memo: "Trying this out!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 0039, memo: "Trying this out!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 3925, memo: "Trying this out!")
+            self.addTransaction(category: allCategories![0], date: Date.now, amount: 0198, memo: "Trying this out!")
+            
         }
     }
     

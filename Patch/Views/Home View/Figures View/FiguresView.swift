@@ -12,21 +12,20 @@ struct FiguresView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors:ColorContent
     @EnvironmentObject var dataController: DataController
+    @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     
     @FetchRequest(sortDescriptors: [
         //        SortDescriptor(\.title),
         SortDescriptor(\.type, order: .reverse)
     ]) var accountsData: FetchedResults<Account>
-    
-    @FetchRequest(sortDescriptors: [
-        //        SortDescriptor(\.title),
-        SortDescriptor(\.type, order: .reverse)
-    ]) var categoryData: FetchedResults<Category>
-    
-    let computations: Computation = Computation()
+        
+    @ObservedObject var calculations: Calculations
     let NFH = NumberFormatHandler()
     var showFiguresDollars = UserDefaults.standard.bool(forKey: "SHOW_UI_FIGURES_DOLLARS")
     
+    init(calculations: Calculations){
+        self.calculations = calculations
+    }
     
     var body: some View {
         ZStack{
@@ -34,10 +33,10 @@ struct FiguresView: View {
                 HStack{
                     VStack(spacing: 4){
                         FigureContentView(image: "income",
-                                          percentage: accountsData[0].percentIncome,
+                                          percentage: calculations.percentIncomeGained,
                                           title: "Income")
                         if showFiguresDollars {
-                            Text(NFH.formatInt(value: Int(accountsData[0].dollarIncome)))
+                            Text(NFH.formatInt(value: Int(calculations.dollarIncomeGained)))
                                 .font(.system(.footnote))
                         }
                     }
@@ -46,10 +45,10 @@ struct FiguresView: View {
                     
                     VStack(spacing: 4){
                         FigureContentView(image: "expenses",
-                                          percentage: accountsData[0].percentExpenses,
+                                          percentage: calculations.percentExpensesPaid,
                                           title: "Expenses")
                         if showFiguresDollars {
-                            Text(NFH.formatInt(value: Int(accountsData[0].dollarExpenses)))
+                            Text(NFH.formatInt(value: Int(calculations.dollarExpensesPaid)))
                                 .font(.system(.footnote))
                         }
                     }
@@ -58,10 +57,10 @@ struct FiguresView: View {
                     
                     VStack(spacing: 4){
                         FigureContentView(image: "savings",
-                                          percentage: accountsData[0].percentSaving,
+                                          percentage: calculations.percentSavings,
                                           title: "Savings")
                         if showFiguresDollars {
-                            Text(NFH.formatInt(value: Int(accountsData[0].dollarSavings)))
+                            Text(NFH.formatInt(value: Int(calculations.dollarSavings)))
                                 .font(.system(.footnote))
                         }
                     }
@@ -79,12 +78,14 @@ struct FiguresView: View {
 
 struct FiguresView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
+    static let cvm = CurrentlyViewedMonth(MOC: dataController.context)
     
     static var previews: some View {
-        FiguresView()
+        FiguresView(calculations: cvm.calculations)
             .environmentObject(dataController)
             .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(cvm)
         
     }
 }

@@ -13,7 +13,7 @@ struct TransactionDetailsView: View {
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.type)]) var categoryData: FetchedResults<Category>
+    @ObservedObject var monthViewing: CurrentlyViewedMonth
     
     @FocusState private var isFocused: Bool
     
@@ -32,7 +32,8 @@ struct TransactionDetailsView: View {
     var width: CGFloat = .infinity
     
     
-    init(transaction: Transaction? = nil){
+    init(monthViewing: CurrentlyViewedMonth, transaction: Transaction? = nil){
+        self.monthViewing = monthViewing
         print("Editing transaction: \(String(describing: transaction))")
         if let t = transaction {
             self.editingTransaction = t
@@ -108,7 +109,7 @@ struct TransactionDetailsView: View {
                         title: "Category",
                         content: AnyView(
                             Menu{
-                                ForEach(categoryData){category in
+                                ForEach(monthViewing.currentCategories ?? []){category in
                                     Button(category.title!){
                                         categoryPicked = category
                                     }
@@ -137,6 +138,17 @@ struct TransactionDetailsView: View {
                     }
                 )
                 
+                if isEditing {
+                    Spacer()
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
+                        .font(.system(.title))
+                        .onTapGesture {
+                            dataController.deleteTransaction(category: categoryPicked!, transaction: editingTransaction!)
+                            dismissSheet()
+                            monthViewing.performFetchRequest()
+                        }
+                }
                 Spacer()
             }
             .padding(.horizontal, 20)
@@ -152,7 +164,7 @@ struct AddTransactionView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        TransactionDetailsView()
+        TransactionDetailsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
             .environment(\.managedObjectContext, dataController.context)
             .environmentObject(ColorContent())
         

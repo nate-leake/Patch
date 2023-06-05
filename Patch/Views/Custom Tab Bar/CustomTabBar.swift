@@ -49,8 +49,6 @@ struct CustomTabBar: View {
                 }
             
                 .foregroundColor(colors.Primary)
-            
-            
         }
         .frame(height: 70)
         

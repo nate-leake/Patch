@@ -38,7 +38,7 @@ struct TransactionTileView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(
-                            transaction.category!.type == "Expense" ? colors.Primary : colors.Accent,
+                            transaction.category?.type == "Expense" ? colors.Primary : colors.Accent,
                             lineWidth: 3
                         )
                 )
@@ -72,7 +72,7 @@ struct TransactionTileView: View {
                     Text(transaction.category?.title ?? "Unkown Category" )
                         .font(.system(.footnote))
                         .fixedSize(horizontal: false, vertical: true)
-                        .multilineTextAlignment(.leading)
+                        .multilineTextAlignment(.center)
                         .padding(.bottom, 2)
                     Image(systemName: transaction.category?.symbolName ?? "nosign")
                         .font(.system(.body))
