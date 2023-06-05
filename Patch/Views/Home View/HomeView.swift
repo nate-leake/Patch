@@ -11,6 +11,9 @@ struct HomeView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
+    @EnvironmentObject var monthViewing: CurrentlyViewedMonth
+    
+    
     
     var body: some View {
         ZStack{
@@ -18,14 +21,15 @@ struct HomeView: View {
             
             ScrollView{
                 VStack{
-                    FiguresView()
+                    FiguresView(calculations: monthViewing.calculations)
                         .padding(.horizontal, 15)
                         .padding(.top, 5)
                     
                     Spacer()
-                    
-                    TransactionsView()
-                        .environmentObject(dataController)
+                                        
+                    TransactionsView(monthViewing: self.monthViewing)
+                        .environmentObject(self.dataController)
+                        .environmentObject(self.monthViewing)
                     Spacer()
                 }
             }
@@ -42,5 +46,6 @@ struct HomeView_Previews: PreviewProvider {
             .environment(\.managedObjectContext, dataController.context)
             .environmentObject(dataController)
             .environmentObject(ColorContent())
+            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
     }
 }

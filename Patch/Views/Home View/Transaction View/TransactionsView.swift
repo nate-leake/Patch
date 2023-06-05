@@ -20,17 +20,17 @@ struct TransactionsView: View {
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
-    @FetchRequest(
-        sortDescriptors: [SortDescriptor(\.date, order: .reverse)],
-        predicate: NSPredicate(format: "date <= %@ AND date >= %@", Date().endOfMonth() as CVarArg, Date().startOfMonth() as CVarArg)
-    ) var transactionData: FetchedResults<Transaction>
-    
+    @ObservedObject var monthViewing: CurrentlyViewedMonth
+        
     @State private var activeSheet: ActiveSheet?
     @State var editingTansaction: Transaction?
     
     let formatter: () = DateFormatter().dateStyle = .short
     var numberFormatHandler = NumberFormatHandler()
     
+    init(monthViewing: CurrentlyViewedMonth){
+        self.monthViewing = monthViewing
+    }
     
     var body: some View {
         LazyVStack{
@@ -54,11 +54,11 @@ struct TransactionsView: View {
                     Spacer()
                 }
             }
-            
+            MonthSelectorView()
             Spacer()
             
             VStack(spacing: 20){
-                ForEach(transactionData){ transaction in
+                ForEach(Array(monthViewing.currentTransactions), id:\.id) { transaction in
                     TransactionTileView(transaction: transaction)
                         .padding(.horizontal)
                     
@@ -70,6 +70,7 @@ struct TransactionsView: View {
                             print("I promise! Still going to edit \(String(describing: self.editingTansaction?.memo))")
                         }
                 }
+                
             }
             
             Spacer()
@@ -78,11 +79,11 @@ struct TransactionsView: View {
         .sheet(item: self.$activeSheet) { item in
             switch item {
             case .creating:
-                TransactionDetailsView()
+                TransactionDetailsView(monthViewing: self.monthViewing)
                     .environmentObject(dataController)
             case .editing:
                 if let t = self.editingTansaction {
-                    TransactionDetailsView(transaction: t)
+                    TransactionDetailsView(monthViewing: monthViewing, transaction: t)
                         .environmentObject(dataController)
                 } else {
                     VStack{
@@ -113,7 +114,7 @@ struct TransactionsView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        TransactionsView()
+        TransactionsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
             .environment(\.managedObjectContext, dataController.context)
             .environmentObject(dataController)
             .environmentObject(ColorContent())

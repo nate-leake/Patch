@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomSheetHeaderView: View {
     @Environment(\.dismiss) var dismissSheet
     @EnvironmentObject var colors: ColorContent
+    @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     
     var sheetTitle: String
     var submitText: String
@@ -31,6 +32,7 @@ struct CustomSheetHeaderView: View {
                 Button{
                     if validateFeilds() {
                         dismissSheet()
+                        monthViewing.performFetchRequest()
                     }
                 } label: {
                     Text(submitText)
@@ -55,6 +57,7 @@ struct CustomSheetView_Previews: PreviewProvider {
     static var previews: some View {
         CustomSheetHeaderView(sheetTitle: "Custom Sheet", submitText: "Perform", validateFeilds: testFunc)
             .environmentObject(ColorContent())
+            .environmentObject(CurrentlyViewedMonth(MOC: DataController(isPreviewing: true).context))
         
     }
 }

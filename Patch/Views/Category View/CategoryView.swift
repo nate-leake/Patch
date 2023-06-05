@@ -13,18 +13,23 @@ extension Int: Identifiable {
 }
 
 struct CategoryView: View {
-    @EnvironmentObject var colors:ColorContent
     @Environment (\.managedObjectContext) var managedObjContext
-    @FetchRequest(sortDescriptors: [
-        //        SortDescriptor(\.title),
-        SortDescriptor(\.type, order: .reverse)
-    ]) var categoryData: FetchedResults<Category>
+    @EnvironmentObject var colors:ColorContent
     
+    @State var dataController: DataController
+    
+    @ObservedObject var monthViewing: CurrentlyViewedMonth
+        
     @State private var activeSheet: ActiveSheet?
     @State private var editingCategory: Category?
     @State private var selectedCategory: Int? = 0
     
     var numberFormatHandler = NumberFormatHandler()
+    
+    init(dataController: DataController,monthViewing: CurrentlyViewedMonth){
+        self.dataController = dataController
+        self.monthViewing = monthViewing
+    }
     
     
     var body: some View {
@@ -47,20 +52,25 @@ struct CategoryView: View {
                     Text("Categories")
                         .font(.system(.title))
                     Spacer()
+                    
                 }
             }
+            MonthSelectorView()
+            
             ScrollView{
                 
                 VStack(spacing: 0){
-                    ForEach(categoryData, id: \.id){category in
-                        CategoryTileView(category: category, numberFormatHandler: numberFormatHandler)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal)
-                        
-                            .onTapGesture{
-                                editingCategory = category
-                                activeSheet = .editing
-                            }
+                    if let catData = monthViewing.currentCategories {
+                        ForEach(catData, id: \.id){category in
+                            CategoryTileView(category: category, numberFormatHandler: numberFormatHandler)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal)
+                            
+                                .onTapGesture{
+                                    editingCategory = category
+                                    activeSheet = .editing
+                                }
+                        }
                     }
                     
                 }
@@ -104,8 +114,8 @@ struct CategoryView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        CategoryView()
-            .environmentObject(ColorContent())
+        CategoryView(dataController: dataController, monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
             .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(ColorContent())
     }
 }

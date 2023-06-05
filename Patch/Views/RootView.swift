@@ -11,6 +11,7 @@ struct RootView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
+    @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     
     @State var selectedTabs: Tabs = .home
     
@@ -23,7 +24,7 @@ struct RootView: View {
                 case .home:
                     HomeView()
                 case .categories:
-                    CategoryView()
+                    CategoryView(dataController: self.dataController, monthViewing: self.monthViewing)
                 case .accounts:
                     AccountsView()
                 case .settings:
@@ -60,5 +61,6 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(dataController)
             .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)
+            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
     }
 }

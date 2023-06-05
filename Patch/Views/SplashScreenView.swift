@@ -11,6 +11,7 @@ struct SplashScreenView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
+    @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     
     @State private var isActive = false
     
@@ -18,8 +19,9 @@ struct SplashScreenView: View {
         if isActive == true{
             RootView()
                 .environment(\.managedObjectContext, dataController.context)
-                .environmentObject(dataController)
                 .environmentObject(colors)
+                .environmentObject(dataController)
+                .environmentObject(monthViewing)
                 .onAppear{
                     colors.setPreferredColorScheme()
                 }
@@ -69,6 +71,9 @@ struct SplashScreenView: View {
                     }
                 }
             }
+            .onAppear(
+                perform: {dataController.computations.checking.monthViewing = self.monthViewing}
+            )
             
         }
     }
