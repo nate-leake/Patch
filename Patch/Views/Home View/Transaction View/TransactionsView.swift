@@ -7,22 +7,15 @@
 
 import SwiftUI
 
-enum ActiveSheet: Identifiable {
-    case creating, editing
-    
-    var id: Int {
-        hashValue
-    }
-}
-
 struct TransactionsView: View {
+    @Environment(\.dismiss) var dismissSheet
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
     @ObservedObject var monthViewing: CurrentlyViewedMonth
-        
-    @State private var activeSheet: ActiveSheet?
+
+    @State var isPresented = false
     @State var editingTansaction: Transaction?
     
     let formatter: () = DateFormatter().dateStyle = .short
@@ -31,7 +24,7 @@ struct TransactionsView: View {
     init(monthViewing: CurrentlyViewedMonth){
         self.monthViewing = monthViewing
     }
-    
+
     var body: some View {
         LazyVStack{
             ZStack{
@@ -43,7 +36,7 @@ struct TransactionsView: View {
                         .foregroundColor(colors.Accent)
                         .font(.system(.largeTitle))
                         .onTapGesture {
-                            activeSheet = .creating
+                            self.isPresented = true
                         }
                 }
                 
@@ -61,13 +54,8 @@ struct TransactionsView: View {
                 ForEach(Array(monthViewing.currentTransactions), id:\.id) { transaction in
                     TransactionTileView(transaction: transaction)
                         .padding(.horizontal)
-                    
                         .onTapGesture {
-                            print("Going to edit \(String(describing: transaction.memo))")
                             self.editingTansaction = transaction
-                            print("Still going to edit \(String(describing: self.editingTansaction?.memo))")
-                            self.activeSheet = .editing
-                            print("I promise! Still going to edit \(String(describing: self.editingTansaction?.memo))")
                         }
                 }
                 
@@ -76,34 +64,14 @@ struct TransactionsView: View {
             Spacer()
         }
         
-        .sheet(item: self.$activeSheet) { item in
-            switch item {
-            case .creating:
-                TransactionDetailsView(monthViewing: self.monthViewing)
-                    .environmentObject(dataController)
-            case .editing:
-                if let t = self.editingTansaction {
-                    TransactionDetailsView(monthViewing: monthViewing, transaction: t)
-                        .environmentObject(dataController)
-                } else {
-                    VStack{
-                        CustomSheetHeaderView(sheetTitle: "Known Bug", submitText: "Close", validateFeilds: {() -> Bool in return true})
-                            .padding(.horizontal, 20)
-                        Spacer()
-                        Image(systemName: "exclamationmark.triangle")
-                            .foregroundColor(.yellow)
-                            .font(.system(.title))
-                            .padding(.bottom, 20)
-                        Text("Please close and try again.")
-                            .padding(.bottom, 10)
-                        Text("You may need to select a different transaction first.")
-                            .multilineTextAlignment(.center)
-                            .opacity(0.6)
-                        Spacer()
-                    }
-                    
-                }
-            }
+        .sheet(item: self.$editingTansaction) { editTransaction in
+            TransactionDetailsView(monthViewing: monthViewing, transaction: editTransaction)
+                .environmentObject(dataController)
+        }
+        
+        .sheet(isPresented: self.$isPresented, onDismiss: {self.isPresented = false}){
+            TransactionDetailsView(monthViewing: self.monthViewing)
+                .environmentObject(dataController)
         }
         
     }

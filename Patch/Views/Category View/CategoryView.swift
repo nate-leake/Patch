@@ -20,7 +20,7 @@ struct CategoryView: View {
     
     @ObservedObject var monthViewing: CurrentlyViewedMonth
         
-    @State private var activeSheet: ActiveSheet?
+    @State var isPresented = false
     @State private var editingCategory: Category?
     @State private var selectedCategory: Int? = 0
     
@@ -43,7 +43,7 @@ struct CategoryView: View {
                         .foregroundColor(colors.Accent)
                         .font(.system(.largeTitle))
                         .onTapGesture {
-                            activeSheet = .creating
+                            self.isPresented = true
                         }
                 }
                 
@@ -68,7 +68,6 @@ struct CategoryView: View {
                             
                                 .onTapGesture{
                                     editingCategory = category
-                                    activeSheet = .editing
                                 }
                         }
                     }
@@ -78,34 +77,18 @@ struct CategoryView: View {
             
             
         }
-        .sheet(item: $activeSheet) { item in
-            switch item {
-            case .creating:
-                CategoryDetailsView()
-                    .environmentObject(colors)
-            case .editing:
-                if let c = self.editingCategory {
-                    CategoryDetailsView(category: c)
-                        .environmentObject(colors)
-                } else {
-                    VStack{
-                        CustomSheetHeaderView(sheetTitle: "Known Bug", submitText: "Close", validateFeilds: {() -> Bool in return true})
-                            .padding(.horizontal, 20)
-                        Spacer()
-                        Image(systemName: "exclamationmark.triangle")
-                            .foregroundColor(.yellow)
-                            .font(.system(.title))
-                            .padding(.bottom, 20)
-                        Text("Please close and try again.")
-                            .padding(.bottom, 10)
-                        Text("You may need to select a different category first.")
-                            .multilineTextAlignment(.center)
-                            .opacity(0.6)
-                        Spacer()
-                    }
-                }
-            }
+        
+        .sheet(item: self.$editingCategory) { editCategory in
+            CategoryDetailsView(category: editCategory)
+                .environmentObject(colors)
         }
+        
+        .sheet(isPresented: self.$isPresented, onDismiss: {self.isPresented = false}){
+            CategoryDetailsView()
+                .environmentObject(colors)
+        }
+        
+        
         .transition(.move(edge: .trailing))
     }
 }
