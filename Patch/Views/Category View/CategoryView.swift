@@ -79,12 +79,12 @@ struct CategoryView: View {
         }
         
         .sheet(item: self.$editingCategory) { editCategory in
-            CategoryDetailsView(category: editCategory)
+            CategoryDetailsView(monthViewing: monthViewing, category: editCategory)
                 .environmentObject(colors)
         }
         
         .sheet(isPresented: self.$isPresented, onDismiss: {self.isPresented = false}){
-            CategoryDetailsView()
+            CategoryDetailsView(monthViewing: monthViewing)
                 .environmentObject(colors)
         }
         
