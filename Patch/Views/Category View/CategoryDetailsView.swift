@@ -19,7 +19,7 @@ struct CategoryDetailsView: View {
     
     @FocusState private var isFocused: Bool
     
-    @State private var icon = "l1.rectangle.roundedbottom"
+    @State private var icon = "questionmark"
     
     @State var accountSelection : Account?
     @State var limitAmount: Int = 0
