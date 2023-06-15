@@ -31,6 +31,9 @@ struct TransactionDetailsView: View {
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
     var width: CGFloat = .infinity
     
+    @State var isShowingAmountValidation: Bool = false
+    @State var isShowingCategoryValidation: Bool = false
+    
     
     init(monthViewing: CurrentlyViewedMonth, transaction: Transaction? = nil){
         self.monthViewing = monthViewing
@@ -42,24 +45,39 @@ struct TransactionDetailsView: View {
         }
     }
     
+    func addTransaction(){
+        if isEditing {
+            dataController.editTransaction(
+                transaction: editingTransaction!, category: categoryPicked!, date: dateSelected, amount: amount, memo: description
+            )
+        } else {
+            dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
+        }
+    }
+    
     
     func validateInputs() -> Bool{
-        guard categoryPicked != nil else {
-            return false
+        var returnState = true
+        
+        self.isShowingAmountValidation = false
+        self.isShowingCategoryValidation = false
+        
+        
+        if categoryPicked == nil {
+                self.isShowingCategoryValidation = true
+            returnState = false
         }
-        if (amount != 0){
-            if isEditing {
-                dataController.editTransaction(
-                    transaction: editingTransaction!, category: categoryPicked!, date: dateSelected, amount: amount, memo: description
-                )
-            } else {
-                dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
-            }
-            
-            return true
-        } else {
-            return false
+        
+        if (amount == 0){
+            self.isShowingAmountValidation = true
+            returnState = false
         }
+        
+        if returnState == true{
+            self.addTransaction()
+        }
+        
+        return returnState
     }
     
     var body: some View {
@@ -83,6 +101,11 @@ struct TransactionDetailsView: View {
                         )
                     )
                     
+                    if isShowingAmountValidation{
+                        Text("Amount cannot be zero")
+                            .foregroundColor(.red)
+                    }
+                    
                     DetailTileView(
                         title: "Amount",
                         content: AnyView(
@@ -105,6 +128,10 @@ struct TransactionDetailsView: View {
                     )
                     
                     
+                    if isShowingCategoryValidation {
+                        Text("Select a category")
+                            .foregroundColor(.red)
+                    }
                     DetailTileView(
                         title: "Category",
                         content: AnyView(

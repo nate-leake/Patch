@@ -13,6 +13,8 @@ struct CategoryDetailsView: View {
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
+    @ObservedObject var monthViewing: CurrentlyViewedMonth
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
     
     @FocusState private var isFocused: Bool
@@ -26,6 +28,12 @@ struct CategoryDetailsView: View {
     @State var submitText: String = "Add"
     @State var typeSelection: String = "Expense"
     
+    @State var isShowingNameValidation = false
+    @State var isShowingLimitValidation = false
+    @State var isShowingTypeValidation = false
+    
+    @State var isShowingDeletionAlert = false
+    
     let categoryTypeOptions = ["Income", "Expense"]
     
     var category: FetchedResults<Category>.Element?
@@ -35,7 +43,8 @@ struct CategoryDetailsView: View {
     var sheetTitle: String = "Category Details"
     
     
-    init(name: String = "", limitAmount: Int = 0, category: Category? = nil) {
+    init(monthViewing: CurrentlyViewedMonth, name: String = "", limitAmount: Int = 0, category: Category? = nil) {
+        self.monthViewing = monthViewing
         if let t = category {
             self.editingCategory = t
             self.isEditing = true
@@ -49,17 +58,41 @@ struct CategoryDetailsView: View {
         GridItem(.adaptive(minimum: .infinity))
     ]
     
-    func validateInputs() -> Bool{
-        if (name != "" && limitAmount != 0 && typeSelection != ""){
-            if isEditing {
-                dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
-            } else {
-                dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
-            }
-            return true
+    func addCategory(){
+        if isEditing {
+            dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
         } else {
-            return false
+            dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
         }
+    }
+    
+    func validateInputs() -> Bool{
+        var returnState = true
+        
+        isShowingNameValidation = false
+        isShowingLimitValidation = false
+        isShowingTypeValidation = false
+        
+        if name == "" {
+            isShowingNameValidation = true
+            returnState = false
+        }
+        
+        if limitAmount == 0 {
+            isShowingLimitValidation = true
+            returnState = false
+        }
+        
+        if typeSelection == "" {
+            isShowingTypeValidation = true
+            returnState = false
+        }
+        
+        if returnState == true {
+            self.addCategory()
+        }
+        
+        return returnState
     }
     
     
@@ -70,6 +103,11 @@ struct CategoryDetailsView: View {
                 CustomSheetHeaderView(sheetTitle: "Category Details", submitText: self.submitText, validateFeilds: validateInputs)
                 
                 VStack{
+                    
+                    if isShowingNameValidation{
+                        Text("A name is required")
+                            .foregroundColor(.red)
+                    }
                     LazyVGrid(columns: adaptiveColumns, spacing: 20){
                         DetailTileView(
                             title: "Name",
@@ -81,7 +119,10 @@ struct CategoryDetailsView: View {
                             )
                         )
                         
-                        
+                        if isShowingLimitValidation{
+                            Text("Limit cannot be zero")
+                                .foregroundColor(.red)
+                        }
                         DetailTileView(
                             title: "Limit",
                             content: AnyView(
@@ -93,6 +134,10 @@ struct CategoryDetailsView: View {
                             )
                         )
                         
+                        if isShowingTypeValidation{
+                            Text("Please select a type")
+                                .foregroundColor(.red)
+                        }
                         DetailTileView(
                             title: "Type",
                             content: AnyView(
@@ -176,6 +221,20 @@ struct CategoryDetailsView: View {
                             }
                         }
                     )
+                    if isEditing && editingCategory?.transactions?.count == 0{
+                        Spacer()
+                        Image(systemName: "trash")
+                            .foregroundColor(.red)
+                            .font(.system(.title))
+                            .onTapGesture {
+                                    dataController.deleteCategory(category: editingCategory!)
+                                    dismissSheet()
+                                    monthViewing.performFetchRequest()
+                            }
+                            .alert("Unable to delete", isPresented: self.$isShowingDeletionAlert){
+                                Button("OK", role: .cancel){}
+                            }
+                    }
                     
                     Spacer()
                     
@@ -197,7 +256,7 @@ struct AddCategoryView_Previews: PreviewProvider {
     static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        CategoryDetailsView()
+        CategoryDetailsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
             .environmentObject(DataController(isPreviewing: true))
             .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)
