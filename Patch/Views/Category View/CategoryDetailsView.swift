@@ -124,7 +124,7 @@ struct CategoryDetailsView: View {
                                 .foregroundColor(.red)
                         }
                         DetailTileView(
-                            title: "Limit",
+                            title: "Amount",
                             content: AnyView(
                                 CurrencyField(value: $limitAmount)
                                     .padding(.horizontal, 20)
@@ -159,24 +159,24 @@ struct CategoryDetailsView: View {
                             
                         )
                         
-                        DetailTileView(
-                            title: "Account",
-                            content: AnyView(
-                                Menu{
-                                    ForEach(accountData){account in
-                                        Button(account.name!){
-                                            accountSelection = account
-                                        }
-                                    }
-                                } label: {
-                                    Label(
-                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
-                                        icon: {}
-                                    )
-                                }
-                                    .foregroundColor(colors.InputSelect)
-                            )
-                        )
+//                        DetailTileView(
+//                            title: "Account",
+//                            content: AnyView(
+//                                Menu{
+//                                    ForEach(accountData){account in
+//                                        Button(account.name!){
+//                                            accountSelection = account
+//                                        }
+//                                    }
+//                                } label: {
+//                                    Label(
+//                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
+//                                        icon: {}
+//                                    )
+//                                }
+//                                    .foregroundColor(colors.InputSelect)
+//                            )
+//                        )
                         
                         DetailTileView(
                             title: "Icon",
