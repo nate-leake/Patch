@@ -80,6 +80,11 @@ class DataController: ObservableObject {
         if !isPreviewing{save()}
     }
     
+    func deleteCategory(category: Category){
+        self.context.delete(category)
+        save()
+    }
+    
     func addTransaction(category: Category, date: Date, amount: Int, memo: String){
         let newTransaction = Transaction(context: self.context)
         newTransaction.id = UUID()

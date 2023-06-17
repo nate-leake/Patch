@@ -37,7 +37,7 @@ struct CategoryTileView: View {
                 Spacer()
                 VStack(spacing: 10){
                     HStack{
-                        Text(category.title!)
+                        Text(category.title ?? "No title")
                         Text("Limit: \(numberFormatHandler.formatInt(value: Int(category.limit)))")
                             .opacity(0.7)
                     }
