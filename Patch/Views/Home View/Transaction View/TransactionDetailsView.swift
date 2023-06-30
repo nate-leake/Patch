@@ -94,6 +94,7 @@ struct TransactionDetailsView: View {
                                            selection: $dateSelected,
                                            displayedComponents: [.date, .hourAndMinute]
                                 )
+                                .tint(colors.Accent)
                                 .labelsHidden()
                                 .datePickerStyle(.automatic)
                                 
