@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject var colors:ColorContent
+    @EnvironmentObject var startingBalancesStore: StartingBalanceStore
+
     
     let buildNumber: String = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
     let versionNumber: String = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
@@ -29,6 +31,8 @@ struct SettingsView: View {
                                 ColorPaletteSelectorView()
                                 
                                 UIOptionsView()
+                                
+                                BalancesView()
                                 
                             }.scrollContentBackground(.hidden)
                             
@@ -57,5 +61,6 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
             .environmentObject(ColorContent())
+            .environmentObject(StartingBalanceStore())
     }
 }
