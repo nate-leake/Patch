@@ -55,7 +55,7 @@ class DataController: ObservableObject {
     }
     
     
-    func addCategory(account: Account, name: String, limit: Int, type: String, symbolName: String){
+    func addCategory(account: Account, date: Date, name: String, limit: Int, type: String, symbolName: String){
         let category = Category(context: self.context)
         category.id = UUID()
         category.limit = Int64(limit)
@@ -63,7 +63,7 @@ class DataController: ObservableObject {
         category.type = type
         category.used = 0
         category.symbolName = symbolName
-        category.date = Date().startOfMonth()
+        category.date = date
         
         account.addToCategories(category)
         
@@ -219,8 +219,8 @@ class DataController: ObservableObject {
             
             allAccounts = try? self.context.fetch(accountRequest)
             
-            self.addCategory(account: allAccounts![0], name: "Paycheck", limit: 100000, type: "Income", symbolName: "dollarsign")
-            self.addCategory(account: allAccounts![0], name: "Food", limit: 12000, type: "Expense", symbolName: "fork.knife")
+            self.addCategory(account: allAccounts![0], date: Date().startOfMonth(), name: "Paycheck", limit: 100000, type: "Income", symbolName: "dollarsign")
+            self.addCategory(account: allAccounts![0], date: Date().startOfMonth(), name: "Food", limit: 12000, type: "Expense", symbolName: "fork.knife")
             
             let allCategories = try? self.context.fetch(categoryRequest)
             
