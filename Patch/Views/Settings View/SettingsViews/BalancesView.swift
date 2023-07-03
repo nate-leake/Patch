@@ -25,7 +25,7 @@ struct BalancesView: View {
                     .ignoresSafeArea()
                 NavigationStack{
                     
-                    List (startingBalancesStore.balances, id:\.self) { balance in
+                    List (startingBalancesStore.balances.reversed(), id:\.self) { balance in
                         HStack{
                             Text("\(dateFormatter.string(from: balance.month))")
                             Spacer()
