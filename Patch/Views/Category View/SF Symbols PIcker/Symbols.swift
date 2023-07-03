@@ -21,15 +21,15 @@ public enum SFCategory: String, CaseIterable, Identifiable {
 
 let symbols : [String: [String]] = [
     "Finance": [
-        "creditcard", "giftcard", "dollarsign", "banknote"
+        "creditcard","giftcard","dollarsign","banknote","chart.xyaxis.line"
     ],
     
     "Food": [
-        "frying.pan","popcorn","stove","cooktop","refrigerator","takeoutbag.and.cup.and.straw","wineglass","fork.knife","carrot","cup.and.saucer"
+        "frying.pan","popcorn","stove","cart.fill","refrigerator","takeoutbag.and.cup.and.straw","wineglass","fork.knife","carrot","cup.and.saucer"
     ],
     
     "Housing": [
-        "house", "house.lodge","chandelier","door.left.hand.closed"
+        "house","chandelier","door.left.hand.closed","flame.fill","bolt.fill","drop.fill","antenna.radiowaves.left.and.right","wrench.and.screwdriver.fill"
     ],
     
     "Personal": [
