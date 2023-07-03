@@ -62,7 +62,7 @@ struct CategoryDetailsView: View {
         if isEditing {
             dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
         } else {
-            dataController.addCategory(account: accountData[0],name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            dataController.addCategory(account: accountData[0], date: monthViewing.monthStart, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
         }
     }
     

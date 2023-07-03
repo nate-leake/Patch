@@ -12,8 +12,35 @@ struct RootView: View {
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
+    @EnvironmentObject var startingBalancesStore: StartingBalanceStore
     
     @State var selectedTabs: Tabs = .home
+    @State var showingMonthBalance: Bool = false
+    
+    func loadBalances() async {
+        let m = Task{
+            do {
+                try await startingBalancesStore.load()
+                loadList()
+                return true
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        }
+        print(await m.value)
+    }
+    
+    func loadList(){
+        print(startingBalancesStore.balances)
+        if startingBalancesStore.balances.isEmpty {
+            print("balances empty")
+            showingMonthBalance = true
+        }
+        else if startingBalancesStore.balances[startingBalancesStore.balances.endIndex-1].month < monthViewing.monthStart{
+            print("no balance this month")
+            showingMonthBalance = true
+        }
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -29,11 +56,25 @@ struct RootView: View {
                     AccountsView()
                 case .settings:
                     SettingsView()
+                        .environmentObject(startingBalancesStore)
                 }
                 
                 CustomTabBar(selectedTab: $selectedTabs)
             }
-            
+            .sheet(isPresented: $showingMonthBalance){
+                StartingBalanceSheetView()
+                {
+                    Task {
+                        do {
+                            try await startingBalancesStore.save(balances: startingBalancesStore.balances)
+                        }
+                        catch {
+                            fatalError(error.localizedDescription)
+                        }
+                    }
+                }
+                .environmentObject(startingBalancesStore)
+            }
             
             GeometryReader { reader in
                 LinearGradient(
@@ -47,6 +88,10 @@ struct RootView: View {
                 )
                 .frame(height: reader.safeAreaInsets.top, alignment: .top)
                 .ignoresSafeArea()
+            }
+        } .onAppear{
+            Task {
+                await loadBalances()
             }
         }
         
@@ -62,5 +107,6 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(ColorContent())
             .environment(\.managedObjectContext, dataController.context)
             .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+            .environmentObject(StartingBalanceStore())
     }
 }

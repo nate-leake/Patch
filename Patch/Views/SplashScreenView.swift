@@ -12,6 +12,7 @@ struct SplashScreenView: View {
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
+    @EnvironmentObject var startingBalancesStore: StartingBalanceStore
     
     @State private var isActive = false
     
@@ -22,6 +23,7 @@ struct SplashScreenView: View {
                 .environmentObject(colors)
                 .environmentObject(dataController)
                 .environmentObject(monthViewing)
+                .environmentObject(startingBalancesStore)
                 .onAppear{
                     colors.setPreferredColorScheme()
                 }
@@ -87,6 +89,7 @@ struct SplashScreenView_Previews: PreviewProvider {
             .environment(\.managedObjectContext, dataController.context)
             .environmentObject(dataController)
             .environmentObject(ColorContent())
+            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
         
     }
 }

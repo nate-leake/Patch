@@ -13,18 +13,18 @@ struct UIOptionsView: View {
     @AppStorage("SHOW_UI_FIGURES_DOLLARS") var saved_Setting = false
     
     var body: some View {
-        
         NavigationLink{
             ZStack{
                 colors.Fill
                     .ignoresSafeArea()
                 
                 List{
+                    ColorPaletteSelectorView()
                     Toggle("Show Figure Dollars", isOn: $saved_Setting)
                 }
                 .scrollContentBackground(.hidden)
-                
             }
+            .navigationTitle("UI Options")
         } label: {
             Text("UI Options")
         }
