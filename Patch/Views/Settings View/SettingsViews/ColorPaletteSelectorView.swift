@@ -71,8 +71,8 @@ struct ColorPaletteSelectorView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
-                
             }
+            .navigationTitle("Color Palette")
         } label: {
             Text("Color Palette")
         }
