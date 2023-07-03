@@ -27,9 +27,7 @@ struct SettingsView: View {
                                 .frame(height: 0)
                                 .background(colors.Fill)
                             
-                            List {
-                                ColorPaletteSelectorView()
-                                
+                            List {                                
                                 UIOptionsView()
                                 
                                 BalancesView()
@@ -41,6 +39,7 @@ struct SettingsView: View {
                     .navigationTitle("Settings")
                     .foregroundColor(colors.InputText)
                 }
+                .tint(colors.Primary)
                 
                 
                 HStack{
