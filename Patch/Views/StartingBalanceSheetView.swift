@@ -52,9 +52,9 @@ struct StartingBalanceSheetView: View {
                     .font(.system(.title2))
                     .focused($isFocused)
                 
-                Text("You can change this amount later in settings")
-                    .font(.system(.footnote))
-                    .opacity(0.5)
+//                Text("You can change this amount later in settings")
+//                    .font(.system(.footnote))
+//                    .opacity(0.5)
                 
                 Spacer()
             }
