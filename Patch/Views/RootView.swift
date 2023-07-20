@@ -13,6 +13,9 @@ struct RootView: View {
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     @EnvironmentObject var startingBalancesStore: StartingBalanceStore
+    @EnvironmentObject var templatesStore: TemplatesStore
+    
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
     
     @State var selectedTabs: Tabs = .home
     @State var showingMonthBalance: Bool = false
@@ -21,7 +24,7 @@ struct RootView: View {
         let m = Task{
             do {
                 try await startingBalancesStore.load()
-                loadList()
+                checkPresentBalanceSheet()
                 return true
             } catch {
                 fatalError(error.localizedDescription)
@@ -30,15 +33,33 @@ struct RootView: View {
         print(await m.value)
     }
     
-    func loadList(){
-        print(startingBalancesStore.balances)
+    func loadCategoryTempaltes() async {
+        let t = Task {
+            do {
+                try await templatesStore.load()
+                checkAutoApplyCategoryTemplate()
+                return true
+            } catch {
+                fatalError(error.localizedDescription)
+            }
+        }
+        print(await t.value)
+    }
+    
+    func checkPresentBalanceSheet(){
         if startingBalancesStore.balances.isEmpty {
-            print("balances empty")
             showingMonthBalance = true
         }
         else if startingBalancesStore.balances[startingBalancesStore.balances.endIndex-1].month < monthViewing.monthStart{
-            print("no balance this month")
             showingMonthBalance = true
+        }
+    }
+    
+    func checkAutoApplyCategoryTemplate(){
+        if monthViewing.currentCategories == [] {
+            for cat in templatesStore.templates[0].categories{
+                dataController.addCategory(account: accountData[0], date: monthViewing.monthStart, name: cat.name, limit: cat.limit, type: cat.type, symbolName: cat.symbol)
+            }
         }
     }
     
@@ -57,6 +78,7 @@ struct RootView: View {
                 case .settings:
                     SettingsView()
                         .environmentObject(startingBalancesStore)
+                        .environmentObject(templatesStore)
                 }
                 
                 CustomTabBar(selectedTab: $selectedTabs)
@@ -92,6 +114,7 @@ struct RootView: View {
         } .onAppear{
             Task {
                 await loadBalances()
+                await loadCategoryTempaltes()
             }
         }
         
