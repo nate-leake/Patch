@@ -113,6 +113,7 @@ struct CategoryDetailsView: View {
                             title: "Name",
                             content: AnyView(
                                 TextField("Name this category", text: $name)
+                                    .tint(colors.Primary)
                                     .padding(.horizontal, 20)
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(colors.InputText)
