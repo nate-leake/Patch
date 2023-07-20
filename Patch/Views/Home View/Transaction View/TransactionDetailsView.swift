@@ -154,6 +154,7 @@ struct TransactionDetailsView: View {
                     )
                     
                 }
+                .padding(.top, 50.0)
                 .onAppear(
                     perform: {
                         if self.isEditing{
