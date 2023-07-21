@@ -122,6 +122,7 @@ struct TransactionDetailsView: View {
                         title: "Description",
                         content: AnyView(
                             TextField("Describe your transaction", text: $description)
+                                .tint(colors.Primary)
                                 .padding(.horizontal, 20)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(colors.InputText)
@@ -154,6 +155,7 @@ struct TransactionDetailsView: View {
                     )
                     
                 }
+                .padding(.top, 50.0)
                 .onAppear(
                     perform: {
                         if self.isEditing{

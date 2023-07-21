@@ -12,6 +12,7 @@ struct PatchApp: App {
     @StateObject var colors: ColorContent = ColorContent()
     @StateObject var dataController: DataController = DataController()
     @StateObject var startingBalancesStore: StartingBalanceStore = StartingBalanceStore()
+    @StateObject var templatesStore: TemplatesStore = TemplatesStore()
     
     var body: some Scene {
         WindowGroup {
@@ -21,6 +22,7 @@ struct PatchApp: App {
                 .environmentObject(dataController)
                 .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
                 .environmentObject(startingBalancesStore)
+                .environmentObject(templatesStore)
         }
     }
 }

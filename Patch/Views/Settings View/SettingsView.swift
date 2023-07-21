@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var colors:ColorContent
     @EnvironmentObject var startingBalancesStore: StartingBalanceStore
-
+    @EnvironmentObject var templatesStore: TemplatesStore
     
     let buildNumber: String = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
     let versionNumber: String = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
@@ -31,6 +31,8 @@ struct SettingsView: View {
                                 UIOptionsView()
                                 
                                 BalancesView()
+                                
+                                CategoryTemplatesView()
                                 
                             }.scrollContentBackground(.hidden)
                             

@@ -1,32 +1,27 @@
 //
-//  AddCategoryView.swift
+//  TemplateCategoryDetailView.swift
 //  Patch
 //
-//  Created by Nate Leake on 4/22/23.
+//  Created by Nate Leake on 7/18/23.
 //
 
 import SwiftUI
 
-struct CategoryDetailsView: View {
+struct TemplateCategoryDetailView: View {
     @Environment(\.dismiss) var dismissSheet
-    @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
-    
-    @ObservedObject var monthViewing: CurrentlyViewedMonth
-    
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
+    @EnvironmentObject var colors : ColorContent
+    @EnvironmentObject var templatesStore: TemplatesStore
     
     @FocusState private var isFocused: Bool
     
-    @State private var icon = "questionmark"
-    
-    @State var accountSelection : Account?
-    @State var limitAmount: Int = 0
-    @State var name: String = ""
-    @State var sfCategory: SFCategory = .food
     @State var submitText: String = "Add"
+    
+    
+    @State var name: String = ""
+    @State var limitAmount: Int = 0
     @State var typeSelection: String = "Expense"
+    @State var sfCategory: SFCategory = .food
+    @State private var icon = "questionmark"
     
     @State var isShowingNameValidation = false
     @State var isShowingLimitValidation = false
@@ -36,17 +31,15 @@ struct CategoryDetailsView: View {
     
     let categoryTypeOptions = ["Income", "Expense"]
     
-    var category: FetchedResults<Category>.Element?
-    var editingCategory: Category?
-    var isEditing: Bool = false
-    var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
-    var sheetTitle: String = "Category Details"
+    var editingCategory: TemplateCategory?
+    var isEditing = false
     
+    let saveAction: ()->Void
     
-    init(monthViewing: CurrentlyViewedMonth, name: String = "", limitAmount: Int = 0, category: Category? = nil) {
-        self.monthViewing = monthViewing
-        if let t = category {
-            self.editingCategory = t
+    init(saveAction: @escaping ()->Void, category: TemplateCategory? = nil){
+        self.saveAction = saveAction
+        if let tc = category {
+            self.editingCategory = tc
             self.isEditing = true
             return
         }
@@ -59,12 +52,21 @@ struct CategoryDetailsView: View {
     ]
     
     func addCategory(){
-        if isEditing {
-            dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+        if !isEditing {
+            let toAdd = TemplateCategory(name: name, type: typeSelection, limit: limitAmount, symbol: icon)
+            templatesStore.templates[0].categories.append(toAdd)
         } else {
-            dataController.addCategory(account: accountData[0], date: monthViewing.monthStart, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            let index = templatesStore.templates[0].categories.firstIndex(of: editingCategory!)
+            if let i = index {
+                templatesStore.templates[0].categories[i].name = name
+                templatesStore.templates[0].categories[i].type = typeSelection
+                templatesStore.templates[0].categories[i].limit = limitAmount
+                templatesStore.templates[0].categories[i].symbol = icon
+            }
         }
     }
+    
+    
     
     func validateInputs() -> Bool{
         var returnState = true
@@ -90,30 +92,29 @@ struct CategoryDetailsView: View {
         
         if returnState == true {
             self.addCategory()
+            saveAction()
         }
         
         return returnState
     }
     
-    
     var body: some View {
         ZStack{
             colors.Fill.ignoresSafeArea()
             VStack{
-                CustomSheetHeaderView(sheetTitle: "Category Details", submitText: self.submitText, validateFeilds: validateInputs)
+                CustomSheetHeaderView(sheetTitle: "Template Category Details", submitText: self.submitText, validateFeilds: validateInputs)
                 
                 VStack{
                     
-                    if isShowingNameValidation{
-                        Text("A name is required")
-                            .foregroundColor(.red)
-                    }
                     LazyVGrid(columns: adaptiveColumns, spacing: 20){
+                        if isShowingNameValidation{
+                            Text("A name is required")
+                                .foregroundColor(.red)
+                        }
                         DetailTileView(
                             title: "Name",
                             content: AnyView(
                                 TextField("Name this category", text: $name)
-                                    .tint(colors.Primary)
                                     .padding(.horizontal, 20)
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(colors.InputText)
@@ -121,7 +122,7 @@ struct CategoryDetailsView: View {
                         )
                         
                         if isShowingLimitValidation{
-                            Text("Limit cannot be zero")
+                            Text("Amount cannot be zero")
                                 .foregroundColor(.red)
                         }
                         DetailTileView(
@@ -160,25 +161,6 @@ struct CategoryDetailsView: View {
                             
                         )
                         
-//                        DetailTileView(
-//                            title: "Account",
-//                            content: AnyView(
-//                                Menu{
-//                                    ForEach(accountData){account in
-//                                        Button(account.name!){
-//                                            accountSelection = account
-//                                        }
-//                                    }
-//                                } label: {
-//                                    Label(
-//                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
-//                                        icon: {}
-//                                    )
-//                                }
-//                                    .foregroundColor(colors.InputSelect)
-//                            )
-//                        )
-                        
                         DetailTileView(
                             title: "Icon",
                             content: AnyView(
@@ -206,60 +188,68 @@ struct CategoryDetailsView: View {
                                 }
                             )
                         )
+                        
                     }
                     .onAppear(
                         perform: {
                             if self.isEditing{
-                                self.name = self.editingCategory?.title ?? ""
+                                self.name = self.editingCategory?.name ?? ""
                                 self.limitAmount = Int(self.editingCategory?.limit ?? 000)
                                 self.typeSelection = self.editingCategory?.type ?? "Expense"
-                                self.accountSelection = self.editingCategory?.account
                                 self.submitText = "Save"
-                                self.icon = self.editingCategory?.symbolName ?? "nosign"
+                                self.icon = self.editingCategory?.symbol ?? "nosign"
                                 
                                 print("category: "+self.name)
                                 print("\(self.limitAmount)")
                             }
                         }
                     )
-                    if isEditing && editingCategory?.transactions?.count == 0{
+                    if isEditing {
                         Spacer()
                         Image(systemName: "trash")
                             .foregroundColor(.red)
                             .font(.system(.title))
                             .onTapGesture {
-                                    dataController.deleteCategory(category: editingCategory!)
+                                let index = templatesStore.templates[0].categories.firstIndex(of: self.editingCategory!)
+                                if let i = index {
+                                    templatesStore.templates[0].categories.remove(at: i)
+                                    saveAction()
                                     dismissSheet()
-                                    monthViewing.performFetchRequest()
+                                } else {
+                                    isShowingDeletionAlert = true
+                                }
+                                
                             }
                             .alert("Unable to delete", isPresented: self.$isShowingDeletionAlert){
                                 Button("OK", role: .cancel){}
                             }
                     }
-                    
                     Spacer()
-                    
-                }.foregroundColor(colors.Primary)
-                    .padding(.top, 50.0)
-                
+                }
+                .padding(.top, 50.0)
             }
             .onTapGesture {
                 isFocused = false
             }
             .padding(.horizontal, 20)
         }
-        
-        
     }
 }
 
-struct AddCategoryView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
+struct TemplateCategoryDetailView_Previews: PreviewProvider {
+    static var startingBalancesStore = StartingBalanceStore()
     
     static var previews: some View {
-        CategoryDetailsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
-            .environmentObject(DataController(isPreviewing: true))
-            .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
+        TemplateCategoryDetailView()
+        {
+            Task {
+                do {
+                    try await startingBalancesStore.save(balances: startingBalancesStore.balances)
+                }
+                catch {
+                    fatalError(error.localizedDescription)
+                }
+            }
+        }
     }
 }

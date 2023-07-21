@@ -13,6 +13,7 @@ struct SplashScreenView: View {
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     @EnvironmentObject var startingBalancesStore: StartingBalanceStore
+    @EnvironmentObject var templatesStore: TemplatesStore
     
     @State private var isActive = false
     
@@ -24,6 +25,7 @@ struct SplashScreenView: View {
                 .environmentObject(dataController)
                 .environmentObject(monthViewing)
                 .environmentObject(startingBalancesStore)
+                .environmentObject(templatesStore)
                 .onAppear{
                     colors.setPreferredColorScheme()
                 }
