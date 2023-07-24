@@ -98,19 +98,19 @@ struct RootView: View {
                 .environmentObject(startingBalancesStore)
             }
             
-            GeometryReader { reader in
-                LinearGradient(
-                    gradient: Gradient(
-                        stops:[
-                            .init(color: colors.Fill.opacity(1.0), location: 0.9),
-                            .init(color: Color.clear, location: 1.0)
-                        ]
-                    ),
-                    startPoint: .top, endPoint: .bottom
-                )
-                .frame(height: reader.safeAreaInsets.top, alignment: .top)
-                .ignoresSafeArea()
-            }
+//            GeometryReader { reader in
+//                LinearGradient(
+//                    gradient: Gradient(
+//                        stops:[
+//                            .init(color: colors.Fill.opacity(1.0), location: 0.9),
+//                            .init(color: Color.clear, location: 1.0)
+//                        ]
+//                    ),
+//                    startPoint: .top, endPoint: .bottom
+//                )
+//                .frame(height: reader.safeAreaInsets.top, alignment: .top)
+//                .ignoresSafeArea()
+//            }
         } .onAppear{
             Task {
                 await loadBalances()
