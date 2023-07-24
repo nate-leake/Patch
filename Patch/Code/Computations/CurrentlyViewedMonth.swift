@@ -31,7 +31,7 @@ class CurrentlyViewedMonth: ObservableObject {
     }
     
     func performFetchRequest(){
-        print("Fetching the request")
+        print("Fetching the request \(Date())")
         self.currentTransactions = []
         self.categoryRequest.predicate = NSPredicate(format:  "date == %@", monthStart as CVarArg)
         self.categoryRequest.sortDescriptors = [typeSort, alphSort]
