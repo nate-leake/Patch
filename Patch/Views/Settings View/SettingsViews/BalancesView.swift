@@ -31,6 +31,7 @@ struct BalancesView: View {
                             Spacer()
                             Text("\(numberFormatHandler.formatInt(value: Int(balance.startingBalance)))")
                         }
+                        .customListElementSyle()
                     }
                     .scrollContentBackground(.hidden)
                 }

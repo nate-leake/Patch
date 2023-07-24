@@ -52,7 +52,9 @@ struct TemplateCategoryView: View {
     }
 }
 
-#Preview {
-    TemplateCategoryView(category: TemplateCategory(name: "Food", type: "Expense", limit: 10000, symbol: "nosign"))
-        .environmentObject(ColorContent())
+struct TemplateCategoryView_Previews: PreviewProvider {
+    static var previews: some View {
+        TemplateCategoryView(category: TemplateCategory(name: "Food", type: "Expense", limit: 10000, symbol: "nosign"))
+            .environmentObject(ColorContent())
+    }
 }
