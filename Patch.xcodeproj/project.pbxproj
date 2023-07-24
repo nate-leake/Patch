@@ -11,6 +11,7 @@
 		AF0C3A9829DF0C6C00F4FF05 /* PaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */; };
 		AF1E4FB129F49763008AA837 /* NumberFormatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */; };
 		AF1EB8BE29F4528D00777A5E /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1EB8BD29F4528D00777A5E /* CategoryDetailsView.swift */; };
+		AF20860C2A6CAFC20016ADE2 /* ListViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF20860B2A6CAFC20016ADE2 /* ListViewModifier.swift */; };
 		AF2B34D229E7401F003A4D07 /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B34D129E7401F003A4D07 /* TransactionDetailsView.swift */; };
 		AF2B34D429E7474C003A4D07 /* DetailTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2B34D329E7474C003A4D07 /* DetailTileView.swift */; };
 		AF30D4B92A426D19005B8C32 /* MonthlyStartingBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30D4B82A426D19005B8C32 /* MonthlyStartingBalance.swift */; };
@@ -34,7 +35,7 @@
 		AF85705D29D86FD8006DEFBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */; };
 		AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85706329D87255006DEFBE /* SplashScreenView.swift */; };
 		AF8A4F9F2A09DDB600148378 /* ColorPaletteSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */; };
-		AF8A4FA12A09DE3A00148378 /* UIOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4FA02A09DE3A00148378 /* UIOptionsView.swift */; };
+		AF8A4FA12A09DE3A00148378 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4FA02A09DE3A00148378 /* AppearanceView.swift */; };
 		AFA378762A03F4A7005E8F60 /* CategoryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */; };
 		AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */; };
 		AFB9521A29DE1D61005661FF /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9521929DE1D61005661FF /* CircularProgressView.swift */; };
@@ -59,6 +60,7 @@
 		AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
 		AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatHandler.swift; sourceTree = "<group>"; };
 		AF1EB8BD29F4528D00777A5E /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
+		AF20860B2A6CAFC20016ADE2 /* ListViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModifier.swift; sourceTree = "<group>"; };
 		AF2B34D129E7401F003A4D07 /* TransactionDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
 		AF2B34D329E7474C003A4D07 /* DetailTileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTileView.swift; sourceTree = "<group>"; };
 		AF30D4B82A426D19005B8C32 /* MonthlyStartingBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStartingBalance.swift; sourceTree = "<group>"; };
@@ -84,7 +86,7 @@
 		AF85705C29D86FD8006DEFBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AF85706329D87255006DEFBE /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteSelectorView.swift; sourceTree = "<group>"; };
-		AF8A4FA02A09DE3A00148378 /* UIOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOptionsView.swift; sourceTree = "<group>"; };
+		AF8A4FA02A09DE3A00148378 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CategoryData.xcdatamodel; sourceTree = "<group>"; };
 		AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
 		AFB9521929DE1D61005661FF /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AF20860A2A6CAFA10016ADE2 /* View Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				AF20860B2A6CAFC20016ADE2 /* ListViewModifier.swift */,
+			);
+			path = "View Modifiers";
+			sourceTree = "<group>";
+		};
 		AF319D832A019B9C00654329 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +252,7 @@
 			children = (
 				AFDFE9EF2A68BF6C00222ACC /* Info.plist */,
 				AF85705429D86FD6006DEFBE /* PatchApp.swift */,
+				AF20860A2A6CAFA10016ADE2 /* View Modifiers */,
 				AF353C8B29F4413300DAF5C7 /* CategoryTransactionModel */,
 				AF63592D29DB6C5000AEEFBC /* Code */,
 				AF67CAF829D8CE7D0032183F /* Views */,
@@ -266,7 +277,7 @@
 				AF57190E2A675A6E0030E6FD /* Category Tempaltes View */,
 				AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */,
 				AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */,
-				AF8A4FA02A09DE3A00148378 /* UIOptionsView.swift */,
+				AF8A4FA02A09DE3A00148378 /* AppearanceView.swift */,
 				AF0A82892A4F915500A1BF03 /* BalancesView.swift */,
 			);
 			path = SettingsViews;
@@ -424,9 +435,10 @@
 				AF353C8D29F444D000DAF5C7 /* DataController.swift in Sources */,
 				AF85705529D86FD6006DEFBE /* PatchApp.swift in Sources */,
 				AFF6D76729DCE19C00B01B00 /* FigureContentView.swift in Sources */,
-				AF8A4FA12A09DE3A00148378 /* UIOptionsView.swift in Sources */,
+				AF8A4FA12A09DE3A00148378 /* AppearanceView.swift in Sources */,
 				AFC0EAF529FDC55500975D9C /* Symbols.swift in Sources */,
 				AF33F3232A657C4700D45DCC /* CategoryTemplates.swift in Sources */,
+				AF20860C2A6CAFC20016ADE2 /* ListViewModifier.swift in Sources */,
 				AFC0EAF329FDC53400975D9C /* SFSymbolsPicker.swift in Sources */,
 				AF3BA9FF2A26BC860074ECC1 /* MonthSelectorView.swift in Sources */,
 				AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */,
@@ -568,7 +580,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -592,7 +604,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 0.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -612,7 +624,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 62;
+				CURRENT_PROJECT_VERSION = 64;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -636,7 +648,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 0.3.2;
+				MARKETING_VERSION = 0.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
