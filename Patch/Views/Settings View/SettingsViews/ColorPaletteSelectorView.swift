@@ -14,6 +14,7 @@ struct ColorPaletteSelectorView: View {
         NavigationLink{
             ZStack{
                 colors.Fill
+                    .animation(.easeInOut(duration: colors.duration), value: colors.Fill)
                     .ignoresSafeArea()
                 
                 GeometryReader { geo in
@@ -25,11 +26,9 @@ struct ColorPaletteSelectorView: View {
                                 .frame(width: geo.size.width * 0.55)
                         }
                         .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0)) {
-                                colors.setColorPalette(name: "Grounded")
-                                colors.colorScheme = .unspecified
-                            }
+                            colors.setColorPalette(name: "Grounded")
                         }
+                        .customListElementSyle()
                         
                         HStack{
                             Text("Original")
@@ -38,11 +37,9 @@ struct ColorPaletteSelectorView: View {
                                 .frame(width: geo.size.width * 0.55)
                         }
                         .onTapGesture {
-                            withAnimation(.easeInOut(duration: 0)) {
-                                colors.setColorPalette(name: "Original")
-                                colors.colorScheme = .unspecified
-                            }
+                            colors.setColorPalette(name: "Original")
                         }
+                        .customListElementSyle()
                         
                         HStack{
                             Text("Pleasant")
@@ -50,12 +47,9 @@ struct ColorPaletteSelectorView: View {
                             PaletteView(paletteName: "Pleasant")
                                 .frame(width: geo.size.width * 0.55)
                         }.onTapGesture {
-                            withAnimation(.easeInOut(duration: 0)) {
-                                colors.setColorPalette(name: "Pleasant")
-                                colors.colorScheme = .unspecified
-                            }
-                            
+                            colors.setColorPalette(name: "Pleasant")
                         }
+                        .customListElementSyle()
                         
                         HStack{
                             Text("Terminal")
@@ -63,11 +57,9 @@ struct ColorPaletteSelectorView: View {
                             PaletteView(paletteName: "Terminal")
                                 .frame(width: geo.size.width * 0.55)
                         }.onTapGesture {
-                            withAnimation(.easeInOut(duration: 0)) {
-                                colors.setColorPalette(name: "Terminal")
-                                colors.colorScheme = .dark
-                            }
+                            colors.setColorPalette(name: "Terminal")
                         }
+                        .customListElementSyle()
                     }
                 }
                 .scrollContentBackground(.hidden)

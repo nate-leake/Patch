@@ -14,23 +14,26 @@ enum ColorScheme: Int {
 
 
 class ColorContent: ObservableObject {
-    @Environment(\.colorScheme) var systemColorScheme
-    
     @AppStorage("COLOR_SCHEME") var colorScheme: ColorScheme = .unspecified{
         didSet{
             setPreferredColorScheme()
         }
     }
     
+    @Published private(set) var duration: Double = 0.4
+    
     @Published var Accent: Color
     @Published var Fill: Color
     @Published var InputSelect: Color
     @Published var InputText: Color
+    @Published var ListViewElementBackground: Color
     @Published var Palette = "Original"
     @Published var Primary: Color
     @Published var ProgressCircleFill: Color
     @Published var Secondary: Color
     @Published var Tertiary: Color
+    
+    private let togglesDarkMode: [String] = ["Terminal"]
     
     var keyWindow: UIWindow? {
         guard let scene = UIApplication.shared.connectedScenes.first,
@@ -60,6 +63,7 @@ class ColorContent: ObservableObject {
         self.InputText   = Color(saved_palette+"_InputText")
         self.InputSelect = Color(saved_palette+"_InputSelect")
         
+        self.ListViewElementBackground = Color(saved_palette+"_ListViewElementBackground")
         self.ProgressCircleFill = Color(saved_palette+"_ProgressCircleFill")
         
         switch saved_scheme{
@@ -69,19 +73,32 @@ class ColorContent: ObservableObject {
         default:
             self.colorScheme = .unspecified
         }
+        
+        if togglesDarkMode.contains(saved_palette) || UIScreen.main.traitCollection.userInterfaceStyle == .dark {
+            self.ListViewElementBackground = Color.white.opacity(0.1)
+        }
     }
     
     func setColorPalette(name:String){
         UserDefaults.standard.set(name, forKey: "COLOR_PALETTE")
-        self.Primary     = Color(name+"_Primary")
-        self.Fill        = Color(name+"_Fill")
-        self.Secondary   = Color(name+"_Secondary")
-        self.Tertiary    = Color(name+"_Tertiary")
-        self.Accent      = Color(name+"_Accent")
-        self.InputText   = Color(name+"_InputText")
-        self.InputSelect = Color(name+"_InputSelect")
-        
-        self.ProgressCircleFill = Color(name+"_ProgressCircleFill")
+        withAnimation(.easeInOut(duration: self.duration)){
+            if togglesDarkMode.contains(name) {
+                self.colorScheme = .dark
+            } else {
+                self.colorScheme = .unspecified
+            }
+            
+            self.Primary     = Color(name+"_Primary")
+            self.Fill        = Color(name+"_Fill")
+            self.Secondary   = Color(name+"_Secondary")
+            self.Tertiary    = Color(name+"_Tertiary")
+            self.Accent      = Color(name+"_Accent")
+            self.InputText   = Color(name+"_InputText")
+            self.InputSelect = Color(name+"_InputSelect")
+            
+            self.ListViewElementBackground = Color(name+"_ListViewElementBackground")
+            self.ProgressCircleFill = Color(name+"_ProgressCircleFill")
+        }
     }
     
     func setPreferredColorScheme(){

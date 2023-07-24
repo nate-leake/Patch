@@ -22,19 +22,19 @@ struct SettingsView: View {
                     ZStack{
                         colors.Fill
                             .ignoresSafeArea()
-                        VStack{
-                            Rectangle()
-                                .frame(height: 0)
-                                .background(colors.Fill)
-                            
+                        VStack{                            
                             List {                                
-                                UIOptionsView()
+                                AppearanceView()
+                                    .customListElementSyle()
                                 
                                 BalancesView()
+                                    .customListElementSyle()
                                 
                                 CategoryTemplatesView()
+                                    .customListElementSyle()
                                 
-                            }.scrollContentBackground(.hidden)
+                            }
+                            .scrollContentBackground(.hidden)
                             
                         }
                     }
