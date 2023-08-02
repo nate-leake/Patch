@@ -35,10 +35,9 @@ struct MonthSelectorView: View {
 }
 
 struct MonthSelectorView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     static var previews: some View {
         MonthSelectorView()
             .environmentObject(ColorContent())
-            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+            .environmentObject(CurrentlyViewedMonth())
     }
 }

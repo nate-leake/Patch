@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RootView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.modelContext) var context
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     @EnvironmentObject var startingBalancesStore: StartingBalanceStore
     @EnvironmentObject var templatesStore: TemplatesStore
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
+    @Query private var accountData: [Account]
+    @Query private var categoryData: [Category]
     
     @State var selectedTabs: Tabs = .home
     @State var showingMonthBalance: Bool = false
@@ -56,11 +57,13 @@ struct RootView: View {
     }
     
     func checkAutoApplyCategoryTemplate(){
-        if monthViewing.currentCategories == [] {
+        if categoryData.isEmpty {
             for cat in templatesStore.templates[0].categories{
-                dataController.addCategory(account: accountData[0], date: monthViewing.monthStart, name: cat.name, limit: cat.limit, type: cat.type, symbolName: cat.symbol)
+                let item = Category(date: monthViewing.monthStart, limit: cat.limit, symbolName: cat.symbol, title: cat.name, type: cat.type, account: accountData[0])
+                context.insert(item)
             }
         }
+        print(accountData)
     }
     
     var body: some View {
@@ -72,7 +75,7 @@ struct RootView: View {
                 case .home:
                     HomeView()
                 case .categories:
-                    CategoryView(dataController: self.dataController, monthViewing: self.monthViewing)
+                    CategoryView(monthViewing: self.monthViewing)
                 case .accounts:
                     AccountsView()
                 case .settings:
@@ -111,6 +114,7 @@ struct RootView: View {
 //                .frame(height: reader.safeAreaInsets.top, alignment: .top)
 //                .ignoresSafeArea()
 //            }
+            
         } .onAppear{
             Task {
                 await loadBalances()
@@ -122,14 +126,11 @@ struct RootView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static var dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
         RootView()
-            .environmentObject(dataController)
             .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
-            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+            .environmentObject(CurrentlyViewedMonth())
             .environmentObject(StartingBalanceStore())
     }
 }

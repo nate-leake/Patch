@@ -62,7 +62,7 @@ struct TransactionTileView: View {
                         .multilineTextAlignment(.center)
                         .opacity(transaction.memo == nil ? 0.5 : 1.0)
                         .padding(.bottom, 1)
-                    Text("\(numberFormatHandler.formatInt(value: Int(transaction.amount)))")
+                    Text("\(numberFormatHandler.formatInt(value: Int(transaction.amount )))")
                         .opacity(0.7)
                         .font(.system(.footnote))
                 }
@@ -87,12 +87,13 @@ struct TransactionTileView: View {
 }
 
 struct TransactionTileView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
-    
     static func getSampleTransaction()-> Transaction{
-        let request = Transaction.fetchRequest()
-        let allTransactions = try? dataController.context.fetch(request)
-        return (allTransactions?.first)!
+        let item = Transaction(amount: 1295, date: Date(), memo: "hungry",
+                               category: Category(date: Date().startOfMonth(), limit: 10000, symbolName: "popcorn", title: "Food", type: "Expense",
+                                                  account: Account(name: "Testing Account", type: "Checking")
+                                                 )
+        )
+        return item
     }
     
     static var previews: some View {

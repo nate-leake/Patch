@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoryTileView: View {
     @EnvironmentObject var colors: ColorContent
     
-    @ObservedObject var category: Category
+    var category: Category
     
     var cornerRadius: CGFloat = 12
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
@@ -30,7 +30,7 @@ struct CategoryTileView: View {
                 )
             
             HStack{
-                CategoryProgressView(image: self.category.symbolName ?? "nosign", percentage: Double(self.category.used) / Double(self.category.limit) * 100.0)
+                CategoryProgressView(image: self.category.symbolName ?? "nosign", percentage: Double(self.category.used ) / Double(self.category.limit ) * 100.0)
                     .frame(width: 65.0)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 10)
@@ -38,14 +38,14 @@ struct CategoryTileView: View {
                 VStack(spacing: 10){
                     HStack{
                         Text(category.title ?? "No title")
-                        Text("Limit: \(numberFormatHandler.formatInt(value: Int(category.limit)))")
+                        Text("Limit: \(numberFormatHandler.formatInt(value: Int(category.limit )))")
                             .opacity(0.7)
                     }
                     HStack{
                         Text("\(numberFormatHandler.formatInt(value: Int(category.used )))")
                         Rectangle()
                             .frame(width: 1, height: 17)
-                        Text("\(numberFormatHandler.formatInt(value: Int(category.limit - category.used))) Left")
+                        Text("\(numberFormatHandler.formatInt(value: Int(category.limit ))) Left")
                     }
                     
                 } 
@@ -57,12 +57,11 @@ struct CategoryTileView: View {
 }
 
 struct CategoryTileView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static func getSampleCategory()-> Category{
-        let request = Category.fetchRequest()
-        let allCategories = try? dataController.context.fetch(request)
-        return (allCategories?.first)!
+        let item = Category(date: Date().startOfMonth(), limit: 10000, symbolName: "note", title: "Payment", type: "Expense",
+                            account: Account(name: "Test Account", type: "Checking"))
+        return item
     }
     
     static var previews: some View {

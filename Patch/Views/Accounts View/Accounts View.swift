@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AccountsView: View {
+    @Environment(\.modelContext) var context
     @EnvironmentObject var colors:ColorContent
-    @Environment (\.managedObjectContext) var managedObjContext
     
-    @FetchRequest(sortDescriptors: [
-        //        SortDescriptor(\.title),
-        SortDescriptor(\.type, order: .reverse)
-    ]) var accountsData: FetchedResults<Account>
+//    @FetchRequest(sortDescriptors: [
+//        //        SortDescriptor(\.title),
+//        SortDescriptor(\.type, order: .reverse)
+//    ]) var accountsData: FetchedResults<Account>
+    @Query private var accountsData: [Account]
     
     @State private var selectedCategory: Int? = 0
     
@@ -82,11 +84,9 @@ struct AccountsView: View {
 }
 
 struct Accounts_View_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
         AccountsView()
             .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
     }
 }

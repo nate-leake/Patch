@@ -6,18 +6,18 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 struct FiguresView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors:ColorContent
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     
-    @FetchRequest(sortDescriptors: [
-        //        SortDescriptor(\.title),
-        SortDescriptor(\.type, order: .reverse)
-    ]) var accountsData: FetchedResults<Account>
+//    @FetchRequest(sortDescriptors: [
+//        //        SortDescriptor(\.title),
+//        SortDescriptor(\.type, order: .reverse)
+//    ]) var accountsData: FetchedResults<Account>
+    @Query private var accountsData: [Account]
         
     @ObservedObject var calculations: Calculations
     let NFH = NumberFormatHandler()
@@ -77,15 +77,11 @@ struct FiguresView: View {
 }
 
 struct FiguresView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
-    static let cvm = CurrentlyViewedMonth(MOC: dataController.context)
+    static let cvm = CurrentlyViewedMonth()
     
     static var previews: some View {
         FiguresView(calculations: cvm.calculations)
-            .environmentObject(dataController)
             .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
             .environmentObject(cvm)
-        
     }
 }

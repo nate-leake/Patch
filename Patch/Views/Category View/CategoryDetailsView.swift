@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CategoryDetailsView: View {
+    @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismissSheet
-    @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     
     @ObservedObject var monthViewing: CurrentlyViewedMonth
     
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
+    //    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
+    @Query private var accountData: [Account]
     
     @FocusState private var isFocused: Bool
     
@@ -36,7 +37,6 @@ struct CategoryDetailsView: View {
     
     let categoryTypeOptions = ["Income", "Expense"]
     
-    var category: FetchedResults<Category>.Element?
     var editingCategory: Category?
     var isEditing: Bool = false
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
@@ -60,9 +60,13 @@ struct CategoryDetailsView: View {
     
     func addCategory(){
         if isEditing {
-            dataController.editCategory(category: editingCategory!, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            editingCategory?.edit(date: monthViewing.monthStart, limit: limitAmount, symbolName: icon, title: name, type: typeSelection, account: accountData[0])
+            try? context.save()
         } else {
-            dataController.addCategory(account: accountData[0], date: monthViewing.monthStart, name: name, limit: limitAmount, type: typeSelection, symbolName: icon)
+            // create the item
+            let item = Category(date: monthViewing.monthStart, limit: limitAmount, symbolName: icon, title: name, type: typeSelection, account: accountData[0])
+            // add the item to the data context
+            context.insert(item)
         }
     }
     
@@ -160,24 +164,24 @@ struct CategoryDetailsView: View {
                             
                         )
                         
-//                        DetailTileView(
-//                            title: "Account",
-//                            content: AnyView(
-//                                Menu{
-//                                    ForEach(accountData){account in
-//                                        Button(account.name!){
-//                                            accountSelection = account
-//                                        }
-//                                    }
-//                                } label: {
-//                                    Label(
-//                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
-//                                        icon: {}
-//                                    )
-//                                }
-//                                    .foregroundColor(colors.InputSelect)
-//                            )
-//                        )
+                        //                        DetailTileView(
+                        //                            title: "Account",
+                        //                            content: AnyView(
+                        //                                Menu{
+                        //                                    ForEach(accountData){account in
+                        //                                        Button(account.name!){
+                        //                                            accountSelection = account
+                        //                                        }
+                        //                                    }
+                        //                                } label: {
+                        //                                    Label(
+                        //                                        title: {Text((accountSelection?.name! ?? accountData[0].name) ?? "Choose").frame(width: 150)},
+                        //                                        icon: {}
+                        //                                    )
+                        //                                }
+                        //                                    .foregroundColor(colors.InputSelect)
+                        //                            )
+                        //                        )
                         
                         DetailTileView(
                             title: "Icon",
@@ -228,9 +232,8 @@ struct CategoryDetailsView: View {
                             .foregroundColor(.red)
                             .font(.system(.title))
                             .onTapGesture {
-                                    dataController.deleteCategory(category: editingCategory!)
-                                    dismissSheet()
-                                    monthViewing.performFetchRequest()
+                                context.delete(editingCategory!)
+                                dismissSheet()
                             }
                             .alert("Unable to delete", isPresented: self.$isShowingDeletionAlert){
                                 Button("OK", role: .cancel){}
@@ -254,12 +257,9 @@ struct CategoryDetailsView: View {
 }
 
 struct AddCategoryView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        CategoryDetailsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
-            .environmentObject(DataController(isPreviewing: true))
+        CategoryDetailsView(monthViewing: CurrentlyViewedMonth())
             .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
     }
 }

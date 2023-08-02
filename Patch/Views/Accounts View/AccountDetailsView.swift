@@ -6,21 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AccountDetailsView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
-    @EnvironmentObject var dataController: DataController
+    @Environment(\.modelContext) var context
     @EnvironmentObject var colors: ColorContent
     
     @Environment(\.dismiss) var dismissSheet
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name)]) var accountData: FetchedResults<Account>
+    @Query private var accountData: [Account]
     
     @State var name: String = ""
     @State var typeSelection = "Checking"
     
     let categoryTypeOptions = ["Checking"]
     
-    var category: FetchedResults<Category>.Element?
     var isEditing: Bool = false
     var numberFormatHandler: NumberFormatHandler = NumberFormatHandler()
     var sheetTitle: String = "Account Details"
@@ -46,7 +45,8 @@ struct AccountDetailsView: View {
     
     func validateInputs() -> Bool{
         if (name != "" && typeSelection != ""){
-            dataController.addAccount(name: name, type: typeSelection)
+            let item = Account(name: name, type: typeSelection)
+            context.insert(item)
             return true
         } else {
             return false
@@ -117,11 +117,9 @@ struct AccountDetailsView: View {
 }
 
 struct AccountDetailsView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
         AccountDetailsView()
             .environmentObject(ColorContent())
-            .environment(\.managedObjectContext, dataController.context)
     }
 }

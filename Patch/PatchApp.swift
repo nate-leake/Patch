@@ -6,23 +6,23 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct PatchApp: App {
     @StateObject var colors: ColorContent = ColorContent()
-    @StateObject var dataController: DataController = DataController()
     @StateObject var startingBalancesStore: StartingBalanceStore = StartingBalanceStore()
     @StateObject var templatesStore: TemplatesStore = TemplatesStore()
     
     var body: some Scene {
         WindowGroup {
             SplashScreenView()
-                .environment(\.managedObjectContext, dataController.context)
                 .environmentObject(colors)
-                .environmentObject(dataController)
-                .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+                .environmentObject(CurrentlyViewedMonth())
                 .environmentObject(startingBalancesStore)
                 .environmentObject(templatesStore)
         }
+        .modelContainer(for: [Account.self, Category.self, Transaction.self])
+        #warning("Model Container fails to load data that was stored with CoreData")
     }
 }

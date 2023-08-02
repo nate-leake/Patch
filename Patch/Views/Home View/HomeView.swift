@@ -10,7 +10,6 @@ import SwiftUI
 struct HomeView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     
     
@@ -28,7 +27,6 @@ struct HomeView: View {
                     Spacer()
                                         
                     TransactionsView(monthViewing: self.monthViewing)
-                        .environmentObject(self.dataController)
                         .environmentObject(self.monthViewing)
                     Spacer()
                 }
@@ -39,13 +37,10 @@ struct HomeView: View {
 }
 
 struct HomeView_Previews: PreviewProvider {
-    static var dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
         HomeView()
-            .environment(\.managedObjectContext, dataController.context)
-            .environmentObject(dataController)
             .environmentObject(ColorContent())
-            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+            .environmentObject(CurrentlyViewedMonth())
     }
 }

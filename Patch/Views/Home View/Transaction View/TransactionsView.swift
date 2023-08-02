@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TransactionsView: View {
     @Environment(\.dismiss) var dismissSheet
-    @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     
     @ObservedObject var monthViewing: CurrentlyViewedMonth
+    @Query private var transactions: [Transaction]
 
     @State var isPresented = false
     @State var editingTansaction: Transaction?
@@ -51,7 +51,7 @@ struct TransactionsView: View {
             Spacer()
             
             VStack(spacing: 20){
-                ForEach(Array(monthViewing.currentTransactions), id:\.id) { transaction in
+                ForEach(transactions, id:\.id) { transaction in
                     TransactionTileView(transaction: transaction)
                         .padding(.horizontal)
                         .onTapGesture {
@@ -66,12 +66,10 @@ struct TransactionsView: View {
         
         .sheet(item: self.$editingTansaction) { editTransaction in
             TransactionDetailsView(monthViewing: monthViewing, transaction: editTransaction)
-                .environmentObject(dataController)
         }
         
         .sheet(isPresented: self.$isPresented, onDismiss: {self.isPresented = false}){
             TransactionDetailsView(monthViewing: self.monthViewing)
-                .environmentObject(dataController)
         }
         
     }
@@ -79,12 +77,9 @@ struct TransactionsView: View {
 }
 
 struct TransactionsView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        TransactionsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
-            .environment(\.managedObjectContext, dataController.context)
-            .environmentObject(dataController)
+        TransactionsView(monthViewing: CurrentlyViewedMonth())
             .environmentObject(ColorContent())
     }
 }

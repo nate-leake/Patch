@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import CoreData
+import SwiftData
 
 extension Int: Identifiable {
     public var id: Int { self }
@@ -15,19 +15,17 @@ extension Int: Identifiable {
 struct CategoryView: View {
     @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors:ColorContent
-    
-    @State var dataController: DataController
-    
-    @ObservedObject var monthViewing: CurrentlyViewedMonth
         
+    @ObservedObject var monthViewing: CurrentlyViewedMonth
+    @Query private var categories: [Category]
+    
     @State var isPresented = false
     @State private var editingCategory: Category?
     @State private var selectedCategory: Int? = 0
     
     var numberFormatHandler = NumberFormatHandler()
     
-    init(dataController: DataController,monthViewing: CurrentlyViewedMonth){
-        self.dataController = dataController
+    init(monthViewing: CurrentlyViewedMonth){
         self.monthViewing = monthViewing
     }
     
@@ -60,17 +58,16 @@ struct CategoryView: View {
             ScrollView{
                 
                 VStack(spacing: 0){
-                    if let catData = monthViewing.currentCategories {
-                        ForEach(catData, id: \.id){category in
-                            CategoryTileView(category: category, numberFormatHandler: numberFormatHandler)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal)
-                            
-                                .onTapGesture{
-                                    editingCategory = category
-                                }
-                        }
+                    ForEach(categories, id: \.id){category in
+                        CategoryTileView(category: category, numberFormatHandler: numberFormatHandler)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal)
+                        
+                            .onTapGesture{
+                                editingCategory = category
+                            }
                     }
+                    
                     
                 }
             }
@@ -94,11 +91,9 @@ struct CategoryView: View {
 }
 
 struct CategoryView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        CategoryView(dataController: dataController, monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
-            .environment(\.managedObjectContext, dataController.context)
+        CategoryView(monthViewing: CurrentlyViewedMonth())
             .environmentObject(ColorContent())
     }
 }

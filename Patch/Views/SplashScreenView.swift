@@ -6,23 +6,30 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SplashScreenView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.modelContext) var context
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     @EnvironmentObject var startingBalancesStore: StartingBalanceStore
     @EnvironmentObject var templatesStore: TemplatesStore
     
+    @Query private var accountData: [Account]
+    
     @State private var isActive = false
+    
+    func validateContext(){
+        if accountData.isEmpty {
+            context.insert(Account(name: "Default Checking", type: "Checking"))
+            print("No accounts existed. Added \"Default Checking\"")
+        }
+    }
     
     var body: some View {
         if isActive == true{
             RootView()
-                .environment(\.managedObjectContext, dataController.context)
                 .environmentObject(colors)
-                .environmentObject(dataController)
                 .environmentObject(monthViewing)
                 .environmentObject(startingBalancesStore)
                 .environmentObject(templatesStore)
@@ -73,25 +80,20 @@ struct SplashScreenView: View {
                         }
                         
                     }
+                    validateContext()
                 }
             }
-            .onAppear(
-                perform: {dataController.computations.checking.monthViewing = self.monthViewing}
-            )
             
         }
     }
 }
 
 struct SplashScreenView_Previews: PreviewProvider {
-    static var dataController: DataController = DataController()
     
     static var previews: some View {
         SplashScreenView()
-            .environment(\.managedObjectContext, dataController.context)
-            .environmentObject(dataController)
             .environmentObject(ColorContent())
-            .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+            .environmentObject(CurrentlyViewedMonth())
         
     }
 }

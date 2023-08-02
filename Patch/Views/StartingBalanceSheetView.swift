@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct StartingBalanceSheetView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth
     @EnvironmentObject var startingBalancesStore: StartingBalanceStore
     
@@ -63,7 +61,6 @@ struct StartingBalanceSheetView: View {
 }
 
 struct StaringBalanceSheetView_Previews: PreviewProvider {
-    static var dataController: DataController = DataController()
     static var startingBalancesStore = StartingBalanceStore()
     
     static var previews: some View {
@@ -85,9 +82,7 @@ struct StaringBalanceSheetView_Previews: PreviewProvider {
                 fatalError(error.localizedDescription)
             }
         }
-        .environment(\.managedObjectContext, dataController.context)
-        .environmentObject(dataController)
         .environmentObject(ColorContent())
-        .environmentObject(CurrentlyViewedMonth(MOC: dataController.context))
+        .environmentObject(CurrentlyViewedMonth())
     }
 }

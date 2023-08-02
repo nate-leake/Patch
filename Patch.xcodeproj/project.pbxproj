@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AF0A828A2A4F915500A1BF03 /* BalancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0A82892A4F915500A1BF03 /* BalancesView.swift */; };
 		AF0C3A9829DF0C6C00F4FF05 /* PaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */; };
+		AF17A23F2A71EE620048A7A7 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17A23C2A71EE620048A7A7 /* Account.swift */; };
+		AF17A2402A71EE620048A7A7 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17A23D2A71EE620048A7A7 /* Category.swift */; };
+		AF17A2412A71EE620048A7A7 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF17A23E2A71EE620048A7A7 /* Transaction.swift */; };
 		AF1E4FB129F49763008AA837 /* NumberFormatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */; };
 		AF1EB8BE29F4528D00777A5E /* CategoryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1EB8BD29F4528D00777A5E /* CategoryDetailsView.swift */; };
 		AF20860C2A6CAFC20016ADE2 /* ListViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF20860B2A6CAFC20016ADE2 /* ListViewModifier.swift */; };
@@ -17,7 +20,6 @@
 		AF30D4B92A426D19005B8C32 /* MonthlyStartingBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF30D4B82A426D19005B8C32 /* MonthlyStartingBalance.swift */; };
 		AF319D862A019BBA00654329 /* Computation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF319D852A019BBA00654329 /* Computation.swift */; };
 		AF33F3232A657C4700D45DCC /* CategoryTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF33F3222A657C4700D45DCC /* CategoryTemplates.swift */; };
-		AF353C8D29F444D000DAF5C7 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF353C8C29F444D000DAF5C7 /* DataController.swift */; };
 		AF3BA9FF2A26BC860074ECC1 /* MonthSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3BA9FE2A26BC860074ECC1 /* MonthSelectorView.swift */; };
 		AF50C5EE2A2C0C0C009626FD /* CurrentlyViewedMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF50C5ED2A2C0C0C009626FD /* CurrentlyViewedMonth.swift */; };
 		AF514E6E2A4F4B9600DD09EE /* StartingBalanceSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF514E6D2A4F4B9600DD09EE /* StartingBalanceSheetView.swift */; };
@@ -36,7 +38,6 @@
 		AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85706329D87255006DEFBE /* SplashScreenView.swift */; };
 		AF8A4F9F2A09DDB600148378 /* ColorPaletteSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */; };
 		AF8A4FA12A09DE3A00148378 /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8A4FA02A09DE3A00148378 /* AppearanceView.swift */; };
-		AFA378762A03F4A7005E8F60 /* CategoryData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */; };
 		AFABAED029FCA30E0046CBC4 /* AccountDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */; };
 		AFB9521A29DE1D61005661FF /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB9521929DE1D61005661FF /* CircularProgressView.swift */; };
 		AFC0EAF329FDC53400975D9C /* SFSymbolsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC0EAF229FDC53400975D9C /* SFSymbolsPicker.swift */; };
@@ -58,6 +59,9 @@
 /* Begin PBXFileReference section */
 		AF0A82892A4F915500A1BF03 /* BalancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalancesView.swift; sourceTree = "<group>"; };
 		AF0C3A9729DF0C6C00F4FF05 /* PaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
+		AF17A23C2A71EE620048A7A7 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		AF17A23D2A71EE620048A7A7 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		AF17A23E2A71EE620048A7A7 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		AF1E4FB029F49763008AA837 /* NumberFormatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatHandler.swift; sourceTree = "<group>"; };
 		AF1EB8BD29F4528D00777A5E /* CategoryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailsView.swift; sourceTree = "<group>"; };
 		AF20860B2A6CAFC20016ADE2 /* ListViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModifier.swift; sourceTree = "<group>"; };
@@ -66,7 +70,6 @@
 		AF30D4B82A426D19005B8C32 /* MonthlyStartingBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStartingBalance.swift; sourceTree = "<group>"; };
 		AF319D852A019BBA00654329 /* Computation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Computation.swift; sourceTree = "<group>"; };
 		AF33F3222A657C4700D45DCC /* CategoryTemplates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTemplates.swift; sourceTree = "<group>"; };
-		AF353C8C29F444D000DAF5C7 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		AF3BA9FE2A26BC860074ECC1 /* MonthSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSelectorView.swift; sourceTree = "<group>"; };
 		AF50C5ED2A2C0C0C009626FD /* CurrentlyViewedMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentlyViewedMonth.swift; sourceTree = "<group>"; };
 		AF514E6D2A4F4B9600DD09EE /* StartingBalanceSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartingBalanceSheetView.swift; sourceTree = "<group>"; };
@@ -87,7 +90,6 @@
 		AF85706329D87255006DEFBE /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		AF8A4F9E2A09DDB600148378 /* ColorPaletteSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPaletteSelectorView.swift; sourceTree = "<group>"; };
 		AF8A4FA02A09DE3A00148378 /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
-		AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CategoryData.xcdatamodel; sourceTree = "<group>"; };
 		AFABAECF29FCA30E0046CBC4 /* AccountDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsView.swift; sourceTree = "<group>"; };
 		AFB9521929DE1D61005661FF /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		AFC0EAF229FDC53400975D9C /* SFSymbolsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSymbolsPicker.swift; sourceTree = "<group>"; };
@@ -148,13 +150,14 @@
 			path = Computations;
 			sourceTree = "<group>";
 		};
-		AF353C8B29F4413300DAF5C7 /* CategoryTransactionModel */ = {
+		AF353C8B29F4413300DAF5C7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */,
-				AF353C8C29F444D000DAF5C7 /* DataController.swift */,
+				AF17A23C2A71EE620048A7A7 /* Account.swift */,
+				AF17A23D2A71EE620048A7A7 /* Category.swift */,
+				AF17A23E2A71EE620048A7A7 /* Transaction.swift */,
 			);
-			path = CategoryTransactionModel;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		AF57190E2A675A6E0030E6FD /* Category Tempaltes View */ = {
@@ -253,7 +256,7 @@
 				AFDFE9EF2A68BF6C00222ACC /* Info.plist */,
 				AF85705429D86FD6006DEFBE /* PatchApp.swift */,
 				AF20860A2A6CAFA10016ADE2 /* View Modifiers */,
-				AF353C8B29F4413300DAF5C7 /* CategoryTransactionModel */,
+				AF353C8B29F4413300DAF5C7 /* Models */,
 				AF63592D29DB6C5000AEEFBC /* Code */,
 				AF67CAF829D8CE7D0032183F /* Views */,
 				AF85705829D86FD8006DEFBE /* Assets.xcassets */,
@@ -411,11 +414,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF17A2412A71EE620048A7A7 /* Transaction.swift in Sources */,
 				AF5719102A675AA80030E6FD /* TemplateCategoryView.swift in Sources */,
 				AF2B34D429E7474C003A4D07 /* DetailTileView.swift in Sources */,
 				AFC76A7D2A1AAFCD00FAFCCC /* DateExtension.swift in Sources */,
 				AFC0EAF729FDF72400975D9C /* CategoryTileView.swift in Sources */,
 				AF50C5EE2A2C0C0C009626FD /* CurrentlyViewedMonth.swift in Sources */,
+				AF17A23F2A71EE620048A7A7 /* Account.swift in Sources */,
 				AF30D4B92A426D19005B8C32 /* MonthlyStartingBalance.swift in Sources */,
 				AF63592F29DB6C7300AEEFBC /* SettingsView.swift in Sources */,
 				AF8A4F9F2A09DDB600148378 /* ColorPaletteSelectorView.swift in Sources */,
@@ -432,7 +437,6 @@
 				AFF92C7729E4DE9600EE7085 /* TransactionsView.swift in Sources */,
 				AFC0EAF929FE03F700975D9C /* TransactionTileView.swift in Sources */,
 				AF514E6E2A4F4B9600DD09EE /* StartingBalanceSheetView.swift in Sources */,
-				AF353C8D29F444D000DAF5C7 /* DataController.swift in Sources */,
 				AF85705529D86FD6006DEFBE /* PatchApp.swift in Sources */,
 				AFF6D76729DCE19C00B01B00 /* FigureContentView.swift in Sources */,
 				AF8A4FA12A09DE3A00148378 /* AppearanceView.swift in Sources */,
@@ -446,7 +450,7 @@
 				AF67CAFD29D8DC0C0032183F /* TabBarButton.swift in Sources */,
 				AF319D862A019BBA00654329 /* Computation.swift in Sources */,
 				AF85706429D87255006DEFBE /* SplashScreenView.swift in Sources */,
-				AFA378762A03F4A7005E8F60 /* CategoryData.xcdatamodeld in Sources */,
+				AF17A2402A71EE620048A7A7 /* Category.swift in Sources */,
 				AFF6D76129DCD75D00B01B00 /* CategoryView.swift in Sources */,
 				AFB9521A29DE1D61005661FF /* CircularProgressView.swift in Sources */,
 				AF2B34D229E7401F003A4D07 /* TransactionDetailsView.swift in Sources */,
@@ -580,7 +584,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -600,11 +604,11 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 0.3.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -624,7 +628,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Patch/Patch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Patch/Preview Content\"";
 				DEVELOPMENT_TEAM = BK7GR7SKX2;
@@ -644,11 +648,11 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.1;
-				MARKETING_VERSION = 0.3.3;
+				MARKETING_VERSION = 0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nateleake.Patch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -683,19 +687,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		AFA378742A03F4A7005E8F60 /* CategoryData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */,
-			);
-			currentVersion = AFA378752A03F4A7005E8F60 /* CategoryData.xcdatamodel */;
-			path = CategoryData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = AF85704929D86FD6006DEFBE /* Project object */;
 }

@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TransactionDetailsView: View {
+    @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismissSheet
-    @Environment (\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
-    @EnvironmentObject var dataController: DataController
     
     @ObservedObject var monthViewing: CurrentlyViewedMonth
     
     @FocusState private var isFocused: Bool
+    
+    @Query private var accountData: [Account]
+    @Query private var categoryData: [Category]
     
     @State private var amount: Int = 0
     @State private var categoryPicked: Category?
@@ -47,11 +50,13 @@ struct TransactionDetailsView: View {
     
     func addTransaction(){
         if isEditing {
-            dataController.editTransaction(
-                transaction: editingTransaction!, category: categoryPicked!, date: dateSelected, amount: amount, memo: description
-            )
+            editingTransaction?.edit(amount: amount, date: dateSelected, memo: description, category: categoryPicked!)
+            try? context.save()
         } else {
-            dataController.addTransaction(category: categoryPicked!, date: dateSelected, amount: amount, memo: description)
+            // create item
+            let item = Transaction(amount: amount, date: dateSelected, memo: description, category: categoryPicked)
+            // add item to data context
+            context.insert(item)
         }
     }
     
@@ -64,7 +69,7 @@ struct TransactionDetailsView: View {
         
         
         if categoryPicked == nil {
-                self.isShowingCategoryValidation = true
+            self.isShowingCategoryValidation = true
             returnState = false
         }
         
@@ -138,7 +143,7 @@ struct TransactionDetailsView: View {
                         title: "Category",
                         content: AnyView(
                             Menu{
-                                ForEach(monthViewing.currentCategories ?? []){category in
+                                ForEach(categoryData ){category in
                                     Button(category.title!){
                                         categoryPicked = category
                                     }
@@ -174,9 +179,8 @@ struct TransactionDetailsView: View {
                         .foregroundColor(.red)
                         .font(.system(.title))
                         .onTapGesture {
-                            dataController.deleteTransaction(category: categoryPicked!, transaction: editingTransaction!)
+                            context.delete(editingTransaction!)
                             dismissSheet()
-                            monthViewing.performFetchRequest()
                         }
                 }
                 Spacer()
@@ -191,11 +195,9 @@ struct TransactionDetailsView: View {
 }
 
 struct AddTransactionView_Previews: PreviewProvider {
-    static let dataController = DataController(isPreviewing: true)
     
     static var previews: some View {
-        TransactionDetailsView(monthViewing: CurrentlyViewedMonth(MOC: dataController.context))
-            .environment(\.managedObjectContext, dataController.context)
+        TransactionDetailsView(monthViewing: CurrentlyViewedMonth())
             .environmentObject(ColorContent())
         
     }
