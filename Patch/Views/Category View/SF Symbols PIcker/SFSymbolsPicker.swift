@@ -80,5 +80,6 @@ public struct SFSymbolsPicker: View {
 struct SFSymbolsPicker_Previews: PreviewProvider {
     static var previews: some View {
         SFSymbolsPicker(icon: .constant(""), category: .food, axis: .horizontal)
+            .environmentObject(ColorContent())
     }
 }
