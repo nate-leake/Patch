@@ -22,7 +22,7 @@ public enum SFCategory: String, CaseIterable, Identifiable {
 
 let symbols : [String: [String]] = [
     "Finance": [
-        "creditcard","giftcard","dollarsign","banknote","chart.xyaxis.line"
+        "creditcard","doc.text","chart.pie","dollarsign","arrow.right.square","percent","banknote","chart.xyaxis.line","giftcard"
     ],
     
     "Food": [
@@ -34,7 +34,7 @@ let symbols : [String: [String]] = [
     ],
     
     "Housing": [
-        "house","chandelier","door.left.hand.closed","flame.fill","bolt.fill","drop.fill","antenna.radiowaves.left.and.right","wrench.and.screwdriver.fill"
+        "drop","powerplug","flame","antenna.radiowaves.left.and.right","chair.lounge","lamp.table","web.camera","house","door.left.hand.closed","wrench.and.screwdriver.fill"
     ],
     
     "Personal": [
@@ -42,7 +42,7 @@ let symbols : [String: [String]] = [
     ],
     
     "Tech": [
-        "airtag","display","server.rack","iphone","computermouse","dot.radiowaves.up.forward","externaldrive","gamecontroller","cpu"
+        "display","iphone","computermouse","airtag","gamecontroller","mic","dot.radiowaves.up.forward","externaldrive","server.rack","cpu"
     ],
     
     "Transportation": [
