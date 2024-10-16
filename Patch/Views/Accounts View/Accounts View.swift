@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountsView: View {
     @EnvironmentObject var colors:ColorContent
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.managedObjectContext) var managedObjContext
     
     @FetchRequest(sortDescriptors: [
         //        SortDescriptor(\.title),

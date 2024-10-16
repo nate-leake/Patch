@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountDetailsView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.managedObjectContext) var managedObjContext
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var colors: ColorContent
     

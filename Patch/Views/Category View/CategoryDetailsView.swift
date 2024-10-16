@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryDetailsView: View {
     @Environment(\.dismiss) var dismissSheet
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
