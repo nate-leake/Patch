@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     @EnvironmentObject var monthViewing: CurrentlyViewedMonth

@@ -13,7 +13,7 @@ extension Int: Identifiable {
 }
 
 struct CategoryView: View {
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors:ColorContent
     
     @State var dataController: DataController

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TransactionDetailsView: View {
     @Environment(\.dismiss) var dismissSheet
-    @Environment (\.managedObjectContext) var managedObjContext
+    @Environment(\.managedObjectContext) var managedObjContext
     @EnvironmentObject var colors: ColorContent
     @EnvironmentObject var dataController: DataController
     
@@ -114,7 +114,7 @@ struct TransactionDetailsView: View {
                                 .padding(.horizontal, 20)
                                 .foregroundColor(colors.InputText)
                                 .font(.system(.title2))
-                                .focused($isFocused)
+//                                .focused($isFocused)
                         )
                     )
                     
@@ -183,9 +183,9 @@ struct TransactionDetailsView: View {
             }
             .padding(.horizontal, 20)
         }
-        .onTapGesture {
-            isFocused = false
-        }
+//        .onTapGesture {
+//            isFocused = false
+//        }
         
     }
 }
